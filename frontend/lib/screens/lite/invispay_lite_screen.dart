@@ -605,81 +605,124 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  canvasColor:
-                      const Color(0xFF1E293B), // Slate 800 for dropdown menu
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: ButtonTheme(
-                    alignedDropdown: true,
-                    child: DropdownButton<_SourceAccount>(
-                      value: _selectedSource,
-                      isExpanded: true,
-                      icon: const Padding(
-                        padding: EdgeInsets.only(right: 16),
-                        child: Icon(Icons.keyboard_arrow_down_rounded,
-                            color: Colors.white38),
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                      onChanged: (val) =>
-                          setState(() => _selectedSource = val!),
-                      items: _sources.map((source) {
-                        return DropdownMenuItem<_SourceAccount>(
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    popupMenuTheme: PopupMenuThemeData(
+                      color: const Color(0xFF1E293B), // Slate 800
+                      elevation: 16,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24)),
+                      textStyle: GoogleFonts.inter(color: Colors.white),
+                    ),
+                  ),
+                  child: PopupMenuButton<_SourceAccount>(
+                    offset: const Offset(0, 70), // Forces menu strictly below
+                    constraints: BoxConstraints.tightFor(
+                        width: constraints.maxWidth), // Matches container width
+                    tooltip: '',
+                    itemBuilder: (context) {
+                      return _sources.map((source) {
+                        return PopupMenuItem<_SourceAccount>(
                           value: source,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                          height: 72, // Increased item height for comfort
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6), // Better spacing
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color:
+                                      AppTheme.primary.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Icon(source.icon,
+                                    color: AppTheme.primary, size: 20),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      source.name,
+                                      style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                        height: 4), // Added breathing room
+                                    Text(
+                                      '${source.type} • ${source.maskedNumber}',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.white38,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (_selectedSource == source)
+                                const Icon(Icons.check_circle_rounded,
+                                    color: AppTheme.primary, size: 18),
+                            ],
+                          ),
+                        );
+                      }).toList();
+                    },
+                    onSelected: (val) => setState(() => _selectedSource = val),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          Icon(Icons.keyboard_arrow_down_rounded,
+                              color: Colors.white38),
+                          const SizedBox(width: 16),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppTheme.primary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(_selectedSource.icon,
+                                color: AppTheme.primary, size: 20),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppTheme.primary.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Icon(source.icon,
-                                      color: AppTheme.primary, size: 20),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        source.name,
-                                        style: GoogleFonts.inter(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        '${source.type} • ${source.maskedNumber}',
-                                        style: GoogleFonts.inter(
-                                          color: Colors.white38,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ],
+                                Text(
+                                  _selectedSource.name,
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                if (_selectedSource == source)
-                                  const Icon(Icons.check_circle_rounded,
-                                      color: AppTheme.primary, size: 18),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '${_selectedSource.type} • ${_selectedSource.maskedNumber}',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white38,
+                                    fontSize: 11,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                        );
-                      }).toList(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
 
             const SizedBox(height: 80),

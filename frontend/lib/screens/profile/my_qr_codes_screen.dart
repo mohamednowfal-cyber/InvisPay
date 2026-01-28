@@ -204,53 +204,53 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
           ),
         ],
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          hoverColor: Colors.transparent,
-          splashColor: Colors.white.withValues(alpha: 0.05),
-          highlightColor: Colors.transparent,
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<QrAccount>(
-            value: accounts.any((a) => a.id == current.id)
-                ? accounts.firstWhere((a) => a.id == current.id)
-                : accounts.first,
-            isExpanded: true,
-            dropdownColor: const Color(
-                0xFF1E293B), // Matches trigger color for single-layer effect
-            icon: const Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: Icon(Icons.keyboard_arrow_down_rounded,
-                  color: Colors.white70, size: 28),
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            popupMenuTheme: PopupMenuThemeData(
+              color: const Color(0xFF1E293B), // Matches trigger
+              elevation: 16,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24)),
+              textStyle: GoogleFonts.inter(color: Colors.white),
             ),
-            borderRadius: BorderRadius.circular(24),
-            elevation: 16,
-            menuMaxHeight: 450,
-            padding: EdgeInsets.zero,
-            alignment: Alignment.centerLeft,
-            itemHeight: 76, // Reduced height (72 + 4 margin)
-            selectedItemBuilder: (context) {
+          ),
+          child: PopupMenuButton<QrAccount>(
+            offset: const Offset(0, 90), // Forces menu strictly below
+            constraints: BoxConstraints.tightFor(
+                width: constraints.maxWidth), // Matches container width
+            tooltip: '',
+            itemBuilder: (context) {
               return accounts.map((account) {
-                return _buildSelectorItem(account,
-                    isSelected: false, forDisplay: true);
+                final isSelected = account.id == current.id;
+                return PopupMenuItem<QrAccount>(
+                  value: account,
+                  height: 60, // Reduced base height
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 4), // Reduced padding
+                  child: _buildSelectorItem(account, isSelected: isSelected),
+                );
               }).toList();
             },
-            items: accounts.map((account) {
-              final isSelected = account.id == current.id;
-              return DropdownMenuItem<QrAccount>(
-                value: account,
-                onTap: () => HapticFeedback.lightImpact(),
-                child: _buildSelectorItem(account, isSelected: isSelected),
-              );
-            }).toList(),
-            onChanged: (value) {
-              if (value != null) {
-                ref.read(qrSelectionProvider.notifier).selectAccount(value);
-              }
+            onSelected: (value) {
+              ref.read(qrSelectionProvider.notifier).selectAccount(value);
             },
+            child: Container(
+              padding: const EdgeInsets.only(right: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _buildSelectorItem(current,
+                        isSelected: false, forDisplay: true),
+                  ),
+                  const Icon(Icons.keyboard_arrow_down_rounded,
+                      color: Colors.white70, size: 28),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
