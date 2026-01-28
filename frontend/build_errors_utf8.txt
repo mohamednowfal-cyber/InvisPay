@@ -1,0 +1,524 @@
+﻿Running Gradle task 'assembleRelease'...                        
+flutter : Warning: 
+Flutter support for 
+your project's 
+Kotlin version 
+(2.0.21) will soon 
+be dropped. Please 
+upgrade your Kotlin 
+version to a version 
+of at least 2.1.0 
+soon.
+At line:1 char:16
++ ... tter clean; 
+flutter build apk 
+--release --no-pub > 
+build_final_attemp 
+...
++                 ~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Warning   
+ : Flutte...ast 2    
+.1.0 soon.:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+Alternatively, use 
+the flag "--android-s
+kip-build-dependency-
+validation" to 
+bypass this check.
+
+Potential fix: Your 
+project's KGP 
+version is typically 
+defined in the 
+plugins block of the 
+`settings.gradle` 
+file (D:\Invispay\fro
+ntend\android/setting
+s.gradle), by a 
+plugin with the id 
+of org.jetbrains.kotl
+in.android. 
+If you don't see a 
+plugins block, your 
+project was likely 
+created with an 
+older template 
+version, in which 
+case it is most 
+likely defined in 
+the top-level 
+build.gradle file (D:
+\Invispay\frontend\an
+droid/build.gradle) 
+by the 
+ext.kotlin_version 
+property.
+
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:19: 
+error: package io.flu
+tter.plugins.firebase
+.firestore does not 
+exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.fir
+ebase.firestore.Flutt
+erFirebaseFirestorePl
+ugin());
+                     
+                     
+                     
+               ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:24: 
+error: package com.mr
+.flutter.plugin.filep
+icker does not exist
+      flutterEngine.g
+etPlugins().add(new c
+om.mr.flutter.plugin.
+filepicker.FilePicker
+Plugin());
+                     
+                     
+                     
+          ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:29: 
+error: package io.flu
+tter.plugins.firebase
+.auth does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.fir
+ebase.auth.FlutterFir
+ebaseAuthPlugin());
+                     
+                     
+                     
+          ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:34: 
+error: package io.flu
+tter.plugins.firebase
+.core does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.fir
+ebase.core.FlutterFir
+ebaseCorePlugin());
+                     
+                     
+                     
+          ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:39: 
+error: package io.flu
+tter.plugins.firebase
+.storage does not 
+exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.fir
+ebase.storage.Flutter
+FirebaseStoragePlugin
+());
+                     
+                     
+                     
+             ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:44: 
+error: package io.flu
+tter.plugins.flutter_
+plugin_android_lifecy
+cle does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.flu
+tter_plugin_android_l
+ifecycle.FlutterAndro
+idLifecyclePlugin());
+                     
+                     
+                     
+                     
+      ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:49: 
+error: package io.flu
+tter.plugins.googlesi
+gnin does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.goo
+glesignin.GoogleSignI
+nPlugin());
+                     
+                     
+                     
+         ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:54: 
+error: package vn.hun
+ghd.flutter.plugins.i
+magecropper does not 
+exist
+      flutterEngine.g
+etPlugins().add(new v
+n.hunghd.flutter.plug
+ins.imagecropper.Imag
+eCropperPlugin());
+                     
+                     
+                     
+                ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:59: 
+error: package io.flu
+tter.plugins.imagepic
+ker does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.ima
+gepicker.ImagePickerP
+lugin());
+                     
+                     
+                     
+        ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:64: 
+error: package io.flu
+tter.plugins.pathprov
+ider does not exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.pat
+hprovider.PathProvide
+rPlugin());
+                     
+                     
+                     
+         ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:69: 
+error: package dev.fl
+uttercommunity.plus.s
+hare does not exist
+      flutterEngine.g
+etPlugins().add(new d
+ev.fluttercommunity.p
+lus.share.SharePlusPl
+ugin());
+                     
+                     
+                     
+         ^
+D:\Invispay\frontend\
+android\app\src\main\
+java\io\flutter\plugi
+ns\GeneratedPluginReg
+istrant.java:74: 
+error: package io.flu
+tter.plugins.sharedpr
+eferences does not 
+exist
+      flutterEngine.g
+etPlugins().add(new i
+o.flutter.plugins.sha
+redpreferences.Shared
+PreferencesPlugin());
+                     
+                     
+                     
+              ^
+12 errors
+
+FAILURE: Build 
+failed with an 
+exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:compileRel
+easeJavaWithJavac'.
+> Compilation 
+failed; see the 
+compiler output 
+below.
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:19: 
+error: package io.flu
+tter.plugins.firebase
+.firestore does not 
+exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.f
+irebase.firestore.Flu
+tterFirebaseFirestore
+Plugin());
+                     
+                     
+                     
+                 ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:24: 
+error: package com.mr
+.flutter.plugin.filep
+icker does not exist
+        flutterEngine
+.getPlugins().add(new
+ com.mr.flutter.plugi
+n.filepicker.FilePick
+erPlugin());
+                     
+                     
+                     
+            ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:29: 
+error: package io.flu
+tter.plugins.firebase
+.auth does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.f
+irebase.auth.FlutterF
+irebaseAuthPlugin());
+                     
+                     
+                     
+            ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:34: 
+error: package io.flu
+tter.plugins.firebase
+.core does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.f
+irebase.core.FlutterF
+irebaseCorePlugin());
+                     
+                     
+                     
+            ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:39: 
+error: package io.flu
+tter.plugins.firebase
+.storage does not 
+exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.f
+irebase.storage.Flutt
+erFirebaseStoragePlug
+in());
+                     
+                     
+                     
+               ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:44: 
+error: package io.flu
+tter.plugins.flutter_
+plugin_android_lifecy
+cle does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.f
+lutter_plugin_android
+_lifecycle.FlutterAnd
+roidLifecyclePlugin()
+);
+                     
+                     
+                     
+                     
+      ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:49: 
+error: package io.flu
+tter.plugins.googlesi
+gnin does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.g
+ooglesignin.GoogleSig
+nInPlugin());
+                     
+                     
+                     
+           ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:54: 
+error: package vn.hun
+ghd.flutter.plugins.i
+magecropper does not 
+exist
+        flutterEngine
+.getPlugins().add(new
+ vn.hunghd.flutter.pl
+ugins.imagecropper.Im
+ageCropperPlugin());
+                     
+                     
+                     
+                  ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:59: 
+error: package io.flu
+tter.plugins.imagepic
+ker does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.i
+magepicker.ImagePicke
+rPlugin());
+                     
+                     
+                     
+          ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:64: 
+error: package io.flu
+tter.plugins.pathprov
+ider does not exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.p
+athprovider.PathProvi
+derPlugin());
+                     
+                     
+                     
+           ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:69: 
+error: package dev.fl
+uttercommunity.plus.s
+hare does not exist
+        flutterEngine
+.getPlugins().add(new
+ dev.fluttercommunity
+.plus.share.SharePlus
+Plugin());
+                     
+                     
+                     
+           ^
+  D:\Invispay\fronten
+d\android\app\src\mai
+n\java\io\flutter\plu
+gins\GeneratedPluginR
+egistrant.java:74: 
+error: package io.flu
+tter.plugins.sharedpr
+eferences does not 
+exist
+        flutterEngine
+.getPlugins().add(new
+ io.flutter.plugins.s
+haredpreferences.Shar
+edPreferencesPlugin()
+);
+                     
+                     
+                     
+                ^
+  12 errors
+
+* Try:
+> Check your code 
+and dependencies to 
+fix the compilation 
+error(s)
+> Run with --scan to 
+get full insights.
+
+BUILD FAILED in 1m 5s
+Running Gradle task 'assembleRelease'...                           66.1s
+Gradle task 
+assembleRelease 
+failed with exit 
+code 1

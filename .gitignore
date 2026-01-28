@@ -1,0 +1,25 @@
+# Common Android/Gradle ignores
+**/.gradle/
+**/build/
+**/*.aar
+**/*.apk
+
+# Flutter/Dart ignores
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+
+# IDE ignores
+.idea/
+.vscode/
+*.iml
+
+# OS ignores
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

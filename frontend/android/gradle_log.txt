@@ -1,0 +1,53 @@
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+> Configure project :app
+w: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:19:9: 'jvmTarget: String' is deprecated. Please migrate to the compilerOptions DSL. More details are here: https://kotl.in/u1r8ln
+e: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:37:34: Unresolved reference: util
+e: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:38:33: Unresolved reference: io
+w: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:40:56: No cast needed
+w: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:41:46: No cast needed
+w: file:///D:/Invispay/frontend/mobile_app/android/app/build.gradle.kts:42:52: No cast needed
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file 'D:\Invispay\frontend\mobile_app\android\app\build.gradle.kts' line: 19
+
+* What went wrong:
+Script compilation errors:
+
+  Line 19:         jvmTarget = JavaVersion.VERSION_17.toString()
+                   ^ 'jvmTarget: String' is deprecated. Please migrate to the compilerOptions DSL. More details are here: https://kotl.in/u1r8ln
+
+  Line 37:                 val props = java.util.Properties()
+                                            ^ Unresolved reference: util
+
+  Line 38:                 props.load(java.io.FileInputStream(keyPropsFile))
+                                           ^ Unresolved reference: io
+
+  Line 40:                 storePassword = props["storePassword"] as String
+                                                                  ^ No cast needed
+
+  Line 41:                 keyAlias = props["keyAlias"] as String
+                                                        ^ No cast needed
+
+  Line 42:                 keyPassword = props["keyPassword"] as String
+                                                              ^ No cast needed
+
+6 errors
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 3s
+4 actionable tasks: 4 up-to-date

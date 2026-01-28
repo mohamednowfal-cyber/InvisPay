@@ -1,0 +1,495 @@
+﻿
+> build_final_attempt
+.txt:30:   ErrorId : 
+Native  
+> build_final_attempt
+.txt:31:  
+CommandError
+  build_final_attempt
+.txt:32: 
+  build_final_attempt
+.txt:33:Alternatively
+, use 
+  build_final_attempt
+.txt:34:the flag 
+"--android-s
+  build_final_attempt
+.txt:35:kip-build-dep
+endency-
+  build_final_attempt
+.txt:36:validation" 
+to 
+> build_final_attempt
+.txt:72:error: 
+package io.flu
+  build_final_attempt
+.txt:73:tter.plugins.
+firebase
+  build_final_attempt
+.txt:74:.firestore 
+does not 
+  build_final_attempt
+.txt:75:exist
+  build_final_attempt
+.txt:76:      
+flutterEngine.g
+  build_final_attempt
+.txt:77:etPlugins().a
+dd(new i
+> build_final_attempt
+.txt:91:error: 
+package com.mr
+  build_final_attempt
+.txt:92:.flutter.plug
+in.filep
+  build_final_attempt
+.txt:93:icker does 
+not exist
+  build_final_attempt
+.txt:94:      
+flutterEngine.g
+  build_final_attempt
+.txt:95:etPlugins().a
+dd(new c
+  build_final_attempt
+.txt:96:om.mr.flutter
+.plugin.
+> build_final_attempt
+.txt:108:error: 
+package io.flu
+  build_final_attempt
+.txt:109:tter.plugins
+.firebase
+  build_final_attempt
+.txt:110:.auth does 
+not exist
+  build_final_attempt
+.txt:111:      
+flutterEngine.g
+  build_final_attempt
+.txt:112:etPlugins().
+add(new i
+  build_final_attempt
+.txt:113:o.flutter.pl
+ugins.fir
+> build_final_attempt
+.txt:125:error: 
+package io.flu
+  build_final_attempt
+.txt:126:tter.plugins
+.firebase
+  build_final_attempt
+.txt:127:.core does 
+not exist
+  build_final_attempt
+.txt:128:      
+flutterEngine.g
+  build_final_attempt
+.txt:129:etPlugins().
+add(new i
+  build_final_attempt
+.txt:130:o.flutter.pl
+ugins.fir
+> build_final_attempt
+.txt:142:error: 
+package io.flu
+  build_final_attempt
+.txt:143:tter.plugins
+.firebase
+  build_final_attempt
+.txt:144:.storage 
+does not 
+  build_final_attempt
+.txt:145:exist
+  build_final_attempt
+.txt:146:      
+flutterEngine.g
+  build_final_attempt
+.txt:147:etPlugins().
+add(new i
+> build_final_attempt
+.txt:161:error: 
+package io.flu
+  build_final_attempt
+.txt:162:tter.plugins
+.flutter_
+  build_final_attempt
+.txt:163:plugin_andro
+id_lifecy
+  build_final_attempt
+.txt:164:cle does 
+not exist
+  build_final_attempt
+.txt:165:      
+flutterEngine.g
+  build_final_attempt
+.txt:166:etPlugins().
+add(new i
+> build_final_attempt
+.txt:181:error: 
+package io.flu
+  build_final_attempt
+.txt:182:tter.plugins
+.googlesi
+  build_final_attempt
+.txt:183:gnin does 
+not exist
+  build_final_attempt
+.txt:184:      
+flutterEngine.g
+  build_final_attempt
+.txt:185:etPlugins().
+add(new i
+  build_final_attempt
+.txt:186:o.flutter.pl
+ugins.goo
+> build_final_attempt
+.txt:198:error: 
+package vn.hun
+  build_final_attempt
+.txt:199:ghd.flutter.
+plugins.i
+  build_final_attempt
+.txt:200:magecropper 
+does not 
+  build_final_attempt
+.txt:201:exist
+  build_final_attempt
+.txt:202:      
+flutterEngine.g
+  build_final_attempt
+.txt:203:etPlugins().
+add(new v
+> build_final_attempt
+.txt:216:error: 
+package io.flu
+  build_final_attempt
+.txt:217:tter.plugins
+.imagepic
+  build_final_attempt
+.txt:218:ker does 
+not exist
+  build_final_attempt
+.txt:219:      
+flutterEngine.g
+  build_final_attempt
+.txt:220:etPlugins().
+add(new i
+  build_final_attempt
+.txt:221:o.flutter.pl
+ugins.ima
+> build_final_attempt
+.txt:233:error: 
+package io.flu
+  build_final_attempt
+.txt:234:tter.plugins
+.pathprov
+  build_final_attempt
+.txt:235:ider does 
+not exist
+  build_final_attempt
+.txt:236:      
+flutterEngine.g
+  build_final_attempt
+.txt:237:etPlugins().
+add(new i
+  build_final_attempt
+.txt:238:o.flutter.pl
+ugins.pat
+> build_final_attempt
+.txt:250:error: 
+package dev.fl
+  build_final_attempt
+.txt:251:uttercommuni
+ty.plus.s
+  build_final_attempt
+.txt:252:hare does 
+not exist
+  build_final_attempt
+.txt:253:      
+flutterEngine.g
+  build_final_attempt
+.txt:254:etPlugins().
+add(new d
+  build_final_attempt
+.txt:255:ev.flutterco
+mmunity.p
+> build_final_attempt
+.txt:267:error: 
+package io.flu
+  build_final_attempt
+.txt:268:tter.plugins
+.sharedpr
+  build_final_attempt
+.txt:269:eferences 
+does not 
+  build_final_attempt
+.txt:270:exist
+  build_final_attempt
+.txt:271:      
+flutterEngine.g
+  build_final_attempt
+.txt:272:etPlugins().
+add(new i
+> build_final_attempt
+.txt:280:12 errors
+  build_final_attempt
+.txt:281:
+  build_final_attempt
+.txt:282:FAILURE: 
+Build 
+  build_final_attempt
+.txt:283:failed with 
+an 
+  build_final_attempt
+.txt:284:exception.
+  build_final_attempt
+.txt:285:
+> build_final_attempt
+.txt:299:error: 
+package io.flu
+  build_final_attempt
+.txt:300:tter.plugins
+.firebase
+  build_final_attempt
+.txt:301:.firestore 
+does not 
+  build_final_attempt
+.txt:302:exist
+  build_final_attempt
+.txt:303:        
+flutterEngine
+  build_final_attempt
+.txt:304:.getPlugins(
+).add(new
+> build_final_attempt
+.txt:318:error: 
+package com.mr
+  build_final_attempt
+.txt:319:.flutter.plu
+gin.filep
+  build_final_attempt
+.txt:320:icker does 
+not exist
+  build_final_attempt
+.txt:321:        
+flutterEngine
+  build_final_attempt
+.txt:322:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:323: 
+com.mr.flutter.plugi
+> build_final_attempt
+.txt:335:error: 
+package io.flu
+  build_final_attempt
+.txt:336:tter.plugins
+.firebase
+  build_final_attempt
+.txt:337:.auth does 
+not exist
+  build_final_attempt
+.txt:338:        
+flutterEngine
+  build_final_attempt
+.txt:339:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:340: 
+io.flutter.plugins.f
+> build_final_attempt
+.txt:352:error: 
+package io.flu
+  build_final_attempt
+.txt:353:tter.plugins
+.firebase
+  build_final_attempt
+.txt:354:.core does 
+not exist
+  build_final_attempt
+.txt:355:        
+flutterEngine
+  build_final_attempt
+.txt:356:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:357: 
+io.flutter.plugins.f
+> build_final_attempt
+.txt:369:error: 
+package io.flu
+  build_final_attempt
+.txt:370:tter.plugins
+.firebase
+  build_final_attempt
+.txt:371:.storage 
+does not 
+  build_final_attempt
+.txt:372:exist
+  build_final_attempt
+.txt:373:        
+flutterEngine
+  build_final_attempt
+.txt:374:.getPlugins(
+).add(new
+> build_final_attempt
+.txt:388:error: 
+package io.flu
+  build_final_attempt
+.txt:389:tter.plugins
+.flutter_
+  build_final_attempt
+.txt:390:plugin_andro
+id_lifecy
+  build_final_attempt
+.txt:391:cle does 
+not exist
+  build_final_attempt
+.txt:392:        
+flutterEngine
+  build_final_attempt
+.txt:393:.getPlugins(
+).add(new
+> build_final_attempt
+.txt:409:error: 
+package io.flu
+  build_final_attempt
+.txt:410:tter.plugins
+.googlesi
+  build_final_attempt
+.txt:411:gnin does 
+not exist
+  build_final_attempt
+.txt:412:        
+flutterEngine
+  build_final_attempt
+.txt:413:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:414: 
+io.flutter.plugins.g
+> build_final_attempt
+.txt:426:error: 
+package vn.hun
+  build_final_attempt
+.txt:427:ghd.flutter.
+plugins.i
+  build_final_attempt
+.txt:428:magecropper 
+does not 
+  build_final_attempt
+.txt:429:exist
+  build_final_attempt
+.txt:430:        
+flutterEngine
+  build_final_attempt
+.txt:431:.getPlugins(
+).add(new
+> build_final_attempt
+.txt:444:error: 
+package io.flu
+  build_final_attempt
+.txt:445:tter.plugins
+.imagepic
+  build_final_attempt
+.txt:446:ker does 
+not exist
+  build_final_attempt
+.txt:447:        
+flutterEngine
+  build_final_attempt
+.txt:448:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:449: 
+io.flutter.plugins.i
+> build_final_attempt
+.txt:461:error: 
+package io.flu
+  build_final_attempt
+.txt:462:tter.plugins
+.pathprov
+  build_final_attempt
+.txt:463:ider does 
+not exist
+  build_final_attempt
+.txt:464:        
+flutterEngine
+  build_final_attempt
+.txt:465:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:466: 
+io.flutter.plugins.p
+> build_final_attempt
+.txt:478:error: 
+package dev.fl
+  build_final_attempt
+.txt:479:uttercommuni
+ty.plus.s
+  build_final_attempt
+.txt:480:hare does 
+not exist
+  build_final_attempt
+.txt:481:        
+flutterEngine
+  build_final_attempt
+.txt:482:.getPlugins(
+).add(new
+  build_final_attempt
+.txt:483: 
+dev.fluttercommunity
+> build_final_attempt
+.txt:495:error: 
+package io.flu
+  build_final_attempt
+.txt:496:tter.plugins
+.sharedpr
+  build_final_attempt
+.txt:497:eferences 
+does not 
+  build_final_attempt
+.txt:498:exist
+  build_final_attempt
+.txt:499:        
+flutterEngine
+  build_final_attempt
+.txt:500:.getPlugins(
+).add(new
+> build_final_attempt
+.txt:509:  12 errors
+  build_final_attempt
+.txt:510:
+  build_final_attempt
+.txt:511:* Try:
+  build_final_attempt
+.txt:512:> Check 
+your code 
+  build_final_attempt
+.txt:513:and 
+dependencies to 
+  build_final_attempt
+.txt:514:fix the 
+compilation 
+> build_final_attempt
+.txt:515:error(s)
+  build_final_attempt
+.txt:516:> Run with 
+--scan to 
+  build_final_attempt
+.txt:517:get full 
+insights.
+  build_final_attempt
+.txt:518:
+  build_final_attempt
+.txt:519:BUILD 
+FAILED in 1m 5s
+  build_final_attempt
+.txt:520:Running 
+Gradle task 
+'assembleRelease'... 
+                     
+     66.1s
+
+

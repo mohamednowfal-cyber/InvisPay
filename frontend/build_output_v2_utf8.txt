@@ -1,0 +1,31 @@
+﻿Running Gradle task 'assembleRelease'...                            8.4s
+flutter : Gradle 
+build failed to 
+produce an .apk 
+file. It's likely 
+that this file was 
+generated under D:\In
+vispay\frontend\build
+, but the tool 
+couldn't find it.
+At line:1 char:52
++ ... k-17.0.17+10"; 
+flutter build apk 
+--release > 
+build_output_v2.txt 
+2>&1
++                    
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Gradle    
+ build fa...uldn'    
+t find it.:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 

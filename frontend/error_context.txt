@@ -1,0 +1,3110 @@
+﻿
+  build_log_retry.txt
+:18743:[        ] 
+Transforming lifecycl
+e-process-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-process:2.7.0
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:18744:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18745:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18746:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18747:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:18748:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18749:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with AarResour
+cesCompilerTransform
+  build_log_retry.txt
+:18750:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18751:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:18752:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18753:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with AarResour
+cesCompilerTransform
+  build_log_retry.txt
+:18754:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18755:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18756:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18757:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with AarReso
+urcesCompilerTransfor
+m
+  build_log_retry.txt
+:18758:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18759:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:18760:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18761:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:18762:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18763:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with Aar
+ResourcesCompilerTran
+sform
+  build_log_retry.txt
+:18764:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18765:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18766:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18767:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:18768:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18769:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18770:[        ] 
+Caching disabled for 
+task ':share_plus:ver
+ifyReleaseResources' 
+because:
+  build_log_retry.txt
+:18771:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18772:[        ] 
+Skipping task ':share
+_plus:verifyReleaseRe
+sources' as it is 
+up-to-date.
+  build_log_retry.txt
+:18773:[        ] 
+Resolve mutations 
+for :share_plus:assem
+bleRelease 
+(Thread[Execution 
+worker Thread 
+3,5,main]) started.
+  build_log_retry.txt
+:18774:[        ] :sh
+are_plus:assembleRele
+ase 
+(Thread[Execution 
+worker Thread 
+3,5,main]) started.
+  build_log_retry.txt
+:18775:[        ] > 
+Task :share_plus:asse
+mbleRelease 
+UP-TO-DATE
+  build_log_retry.txt
+:18776:[        ] 
+Skipping task ':share
+_plus:assembleRelease
+' as it has no 
+actions.
+  build_log_retry.txt
+:18777:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:stripRelea
+seDebugSymbols 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18778:[        ] :sh
+ared_preferences_andr
+oid:stripReleaseDebug
+Symbols 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18779:[        ] > 
+Task :shared_preferen
+ces_android:stripRele
+aseDebugSymbols 
+NO-SOURCE
+  build_log_retry.txt
+:18780:[        ] 
+Skipping task ':share
+d_preferences_android
+:stripReleaseDebugSym
+bols' as it has no 
+source files and no 
+previous output 
+files.
+  build_log_retry.txt
+:18781:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:copyReleas
+eJniLibsProjectAndLoc
+alJars 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18782:[        ] :sh
+ared_preferences_andr
+oid:copyReleaseJniLib
+sProjectAndLocalJars 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18783:[        ] > 
+Task :shared_preferen
+ces_android:copyRelea
+seJniLibsProjectAndLo
+calJars UP-TO-DATE
+  build_log_retry.txt
+:18784:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:copyRele
+aseJniLibsProjectAndL
+ocalJars' because:
+  build_log_retry.txt
+:18785:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18786:[        ]   
+Caching has been 
+disabled for the task
+  build_log_retry.txt
+:18787:[        ] 
+Skipping task ':share
+d_preferences_android
+:copyReleaseJniLibsPr
+ojectAndLocalJars' 
+as it is up-to-date.
+  build_log_retry.txt
+:18788:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:extractDee
+pLinksForAarRelease 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18789:[        ] :sh
+ared_preferences_andr
+oid:extractDeepLinksF
+orAarRelease 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18790:[        ] > 
+Task :shared_preferen
+ces_android:extractDe
+epLinksForAarRelease 
+UP-TO-DATE
+  build_log_retry.txt
+:18791:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:extractD
+eepLinksForAarRelease
+' because:
+  build_log_retry.txt
+:18792:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18793:[        ] 
+Skipping task ':share
+d_preferences_android
+:extractDeepLinksForA
+arRelease' as it is 
+up-to-date.
+  build_log_retry.txt
+:18794:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:extractRel
+easeAnnotations 
+(Thread[Execution 
+worker Thread 
+7,5,main]) started.
+  build_log_retry.txt
+:18795:[        ] :sh
+ared_preferences_andr
+oid:extractReleaseAnn
+otations 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18796:[        ] > 
+Task :shared_preferen
+ces_android:extractRe
+leaseAnnotations 
+UP-TO-DATE
+  build_log_retry.txt
+:18797:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:extractR
+eleaseAnnotations' 
+because:
+  build_log_retry.txt
+:18798:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18799:[        ] 
+Skipping task ':share
+d_preferences_android
+:extractReleaseAnnota
+tions' as it is 
+up-to-date.
+  build_log_retry.txt
+:18800:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:mergeRelea
+seGeneratedProguardFi
+les 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18801:[        ] :sh
+ared_preferences_andr
+oid:mergeReleaseGener
+atedProguardFiles 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18802:[        ] > 
+Task :shared_preferen
+ces_android:mergeRele
+aseGeneratedProguardF
+iles UP-TO-DATE
+  build_log_retry.txt
+:18803:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:mergeRel
+easeGeneratedProguard
+Files' because:
+  build_log_retry.txt
+:18804:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18805:[        ]   
+Simple merging task
+  build_log_retry.txt
+:18806:[        ] 
+Skipping task ':share
+d_preferences_android
+:mergeReleaseGenerate
+dProguardFiles' as 
+it is up-to-date.
+  build_log_retry.txt
+:18807:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:mergeRelea
+seConsumerProguardFil
+es (Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18808:[        ] :sh
+ared_preferences_andr
+oid:mergeReleaseConsu
+merProguardFiles 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18809:[        ] > 
+Task :shared_preferen
+ces_android:mergeRele
+aseConsumerProguardFi
+les UP-TO-DATE
+  build_log_retry.txt
+:18810:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:mergeRel
+easeConsumerProguardF
+iles' because:
+  build_log_retry.txt
+:18811:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18812:[        ]   
+Simple merging task
+  build_log_retry.txt
+:18813:[        ] 
+Skipping task ':share
+d_preferences_android
+:mergeReleaseConsumer
+ProguardFiles' as it 
+is up-to-date.
+  build_log_retry.txt
+:18814:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:prepareLin
+tJarForPublish 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18815:[        ] :sh
+ared_preferences_andr
+oid:prepareLintJarFor
+Publish 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18816:[        ] > 
+Task :shared_preferen
+ces_android:prepareLi
+ntJarForPublish 
+UP-TO-DATE
+  build_log_retry.txt
+:18817:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:prepareL
+intJarForPublish' 
+because:
+  build_log_retry.txt
+:18818:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18819:[        ]   
+Caching has been 
+disabled for the task
+  build_log_retry.txt
+:18820:[        ] 
+Skipping task ':share
+d_preferences_android
+:prepareLintJarForPub
+lish' as it is 
+up-to-date.
+  build_log_retry.txt
+:18821:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:mergeRelea
+seJavaResource 
+(Thread[Execution 
+worker,5,main]) 
+started.
+  build_log_retry.txt
+:18822:[        ] :sh
+ared_preferences_andr
+oid:mergeReleaseJavaR
+esource 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18823:[        ] > 
+Task :shared_preferen
+ces_android:mergeRele
+aseJavaResource 
+UP-TO-DATE
+  build_log_retry.txt
+:18824:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:mergeRel
+easeJavaResource' 
+because:
+  build_log_retry.txt
+:18825:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18826:[        ]   
+Caching has been 
+disabled for the task
+  build_log_retry.txt
+:18827:[        ] 
+Skipping task ':share
+d_preferences_android
+:mergeReleaseJavaReso
+urce' as it is 
+up-to-date.
+  build_log_retry.txt
+:18828:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:syncReleas
+eLibJars 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18829:[        ] :sh
+ared_preferences_andr
+oid:syncReleaseLibJar
+s (Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18830:[        ] > 
+Task :shared_preferen
+ces_android:syncRelea
+seLibJars UP-TO-DATE
+  build_log_retry.txt
+:18831:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:syncRele
+aseLibJars' because:
+  build_log_retry.txt
+:18832:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18833:[        ] 
+Skipping task ':share
+d_preferences_android
+:syncReleaseLibJars' 
+as it is up-to-date.
+  build_log_retry.txt
+:18834:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:bundleRele
+aseAar 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18835:[        ] :sh
+ared_preferences_andr
+oid:bundleReleaseAar 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18836:[        ] > 
+Task :shared_preferen
+ces_android:bundleRel
+easeAar UP-TO-DATE
+  build_log_retry.txt
+:18837:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:bundleRe
+leaseAar' because:
+  build_log_retry.txt
+:18838:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18839:[        ]   
+Caching has been 
+disabled for the task
+  build_log_retry.txt
+:18840:[        ] 
+Skipping task ':share
+d_preferences_android
+:bundleReleaseAar' 
+as it is up-to-date.
+  build_log_retry.txt
+:18841:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:mapRelease
+SourceSetPaths 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18842:[        ] :sh
+ared_preferences_andr
+oid:mapReleaseSourceS
+etPaths 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18843:[ +192 ms] > 
+Task :shared_preferen
+ces_android:mapReleas
+eSourceSetPaths 
+UP-TO-DATE
+  build_log_retry.txt
+:18844:[        ] 
+Transforming datastor
+e-preferences-core-re
+lease.aar (androidx.d
+atastore:datastore-pr
+eferences-core-androi
+d:1.1.7) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18845:[        ] 
+Transforming datastor
+e-preferences-core-re
+lease.aar (androidx.d
+atastore:datastore-pr
+eferences-core-androi
+d:1.1.7) with 
+AarTransform
+  build_log_retry.txt
+:18846:[        ] 
+Transforming datastor
+e-core-release.aar (a
+ndroidx.datastore:dat
+astore-core-android:1
+.1.7) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18847:[        ] 
+Transforming datastor
+e-core-release.aar (a
+ndroidx.datastore:dat
+astore-core-android:1
+.1.7) with 
+AarTransform
+  build_log_retry.txt
+:18848:[        ] 
+Transforming datastor
+e-preferences-release
+.aar (androidx.datast
+ore:datastore-prefere
+nces-android:1.1.7) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18849:[        ] 
+Transforming datastor
+e-preferences-release
+.aar (androidx.datast
+ore:datastore-prefere
+nces-android:1.1.7) 
+with AarTransform
+  build_log_retry.txt
+:18850:[        ] 
+Transforming datastor
+e-release.aar (androi
+dx.datastore:datastor
+e-android:1.1.7) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18851:[        ] 
+Transforming datastor
+e-release.aar (androi
+dx.datastore:datastor
+e-android:1.1.7) 
+with AarTransform
+  build_log_retry.txt
+:18852:[        ] 
+Transforming 
+preference-1.2.1.aar 
+(androidx.preference:
+preference:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18853:[        ] 
+Transforming 
+preference-1.2.1.aar 
+(androidx.preference:
+preference:1.2.1) 
+with AarTransform
+  build_log_retry.txt
+:18854:[        ] 
+Transforming 
+appcompat-1.1.0.aar (
+androidx.appcompat:ap
+pcompat:1.1.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18855:[        ] 
+Transforming recycler
+view-1.0.0.aar (andro
+idx.recyclerview:recy
+clerview:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18856:[        ] 
+Transforming recycler
+view-1.0.0.aar (andro
+idx.recyclerview:recy
+clerview:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18857:[        ] 
+Transforming legacy-s
+upport-core-ui-1.0.0.
+aar (androidx.legacy:
+legacy-support-core-u
+i:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18858:[        ] 
+Transforming legacy-s
+upport-core-ui-1.0.0.
+aar (androidx.legacy:
+legacy-support-core-u
+i:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18859:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18860:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18861:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18862:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18863:[        ] 
+Transforming 
+window-1.2.0.aar (and
+roidx.window:window:1
+.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18864:[        ] 
+Transforming 
+window-1.2.0.aar (and
+roidx.window:window:1
+.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18865:[        ] 
+Transforming window-j
+ava-1.2.0.aar (androi
+dx.window:window-java
+:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18866:[        ] 
+Transforming window-j
+ava-1.2.0.aar (androi
+dx.window:window-java
+:1.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18867:[        ] 
+Transforming appcompa
+t-resources-1.1.0.aar
+ (androidx.appcompat:
+appcompat-resources:1
+.1.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18868:[        ] 
+Transforming drawerla
+yout-1.0.0.aar (andro
+idx.drawerlayout:draw
+erlayout:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18869:[        ] 
+Transforming drawerla
+yout-1.0.0.aar (andro
+idx.drawerlayout:draw
+erlayout:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18870:[        ] 
+Transforming fragment
+-ktx-1.7.1.aar (andro
+idx.fragment:fragment
+-ktx:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18871:[        ] 
+Transforming fragment
+-ktx-1.7.1.aar (andro
+idx.fragment:fragment
+-ktx:1.7.1) with 
+AarTransform
+  build_log_retry.txt
+:18872:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18873:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+AarTransform
+  build_log_retry.txt
+:18874:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18875:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+AarTransform
+  build_log_retry.txt
+:18876:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18877:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18878:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18879:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18880:[        ] 
+Transforming coordina
+torlayout-1.0.0.aar (
+androidx.coordinatorl
+ayout:coordinatorlayo
+ut:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18881:[        ] 
+Transforming coordina
+torlayout-1.0.0.aar (
+androidx.coordinatorl
+ayout:coordinatorlayo
+ut:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18882:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18883:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with AarTransform
+  build_log_retry.txt
+:18884:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18885:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with AarTransform
+  build_log_retry.txt
+:18886:[        ] 
+Transforming 
+transition-1.4.1.aar 
+(androidx.transition:
+transition:1.4.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18887:[        ] 
+Transforming 
+transition-1.4.1.aar 
+(androidx.transition:
+transition:1.4.1) 
+with AarTransform
+  build_log_retry.txt
+:18888:[        ] 
+Transforming activity
+-ktx-1.8.1.aar (andro
+idx.activity:activity
+-ktx:1.8.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18889:[        ] 
+Transforming activity
+-ktx-1.8.1.aar (andro
+idx.activity:activity
+-ktx:1.8.1) with 
+AarTransform
+  build_log_retry.txt
+:18890:[        ] 
+Transforming 
+activity-1.8.1.aar (a
+ndroidx.activity:acti
+vity:1.8.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18891:[        ] 
+Transforming 
+activity-1.8.1.aar (a
+ndroidx.activity:acti
+vity:1.8.1) with 
+AarTransform
+  build_log_retry.txt
+:18892:[        ] 
+Transforming legacy-s
+upport-core-utils-1.0
+.0.aar (androidx.lega
+cy:legacy-support-cor
+e-utils:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18893:[        ] 
+Transforming legacy-s
+upport-core-utils-1.0
+.0.aar (androidx.lega
+cy:legacy-support-cor
+e-utils:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18894:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18895:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18896:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18897:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18898:[        ] 
+Transforming lifecycl
+e-runtime-ktx-2.7.0.a
+ar (androidx.lifecycl
+e:lifecycle-runtime-k
+tx:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18899:[        ] 
+Transforming lifecycl
+e-runtime-ktx-2.7.0.a
+ar (androidx.lifecycl
+e:lifecycle-runtime-k
+tx:2.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18900:[        ] 
+Transforming lifecycl
+e-livedata-2.7.0.aar 
+(androidx.lifecycle:l
+ifecycle-livedata:2.7
+.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18901:[        ] 
+Transforming lifecycl
+e-livedata-2.7.0.aar 
+(androidx.lifecycle:l
+ifecycle-livedata:2.7
+.0) with AarTransform
+  build_log_retry.txt
+:18902:[        ] 
+Transforming lifecycl
+e-viewmodel-ktx-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-viewmod
+el-ktx:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18903:[        ] 
+Transforming lifecycl
+e-viewmodel-ktx-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-viewmod
+el-ktx:2.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18904:[        ] 
+Transforming lifecycl
+e-livedata-core-ktx-2
+.7.0.aar (androidx.li
+fecycle:lifecycle-liv
+edata-core-ktx:2.7.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:18905:[        ] 
+Transforming lifecycl
+e-livedata-core-ktx-2
+.7.0.aar (androidx.li
+fecycle:lifecycle-liv
+edata-core-ktx:2.7.0)
+ with AarTransform
+  build_log_retry.txt
+:18906:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18907:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18908:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18909:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18910:[        ] 
+Transforming lifecycl
+e-livedata-core-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-livedat
+a-core:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18911:[        ] 
+Transforming lifecycl
+e-livedata-core-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-livedat
+a-core:2.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18912:[        ] 
+Transforming lifecycl
+e-process-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-process:2.7.0
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18913:[        ] 
+Transforming lifecycl
+e-process-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-process:2.7.0
+) with AarTransform
+  build_log_retry.txt
+:18914:[        ] 
+Transforming savedsta
+te-ktx-1.2.1.aar (and
+roidx.savedstate:save
+dstate-ktx:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18915:[        ] 
+Transforming savedsta
+te-ktx-1.2.1.aar (and
+roidx.savedstate:save
+dstate-ktx:1.2.1) 
+with AarTransform
+  build_log_retry.txt
+:18916:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18917:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with AarTransform
+  build_log_retry.txt
+:18918:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18919:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with AarTransform
+  build_log_retry.txt
+:18920:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18921:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with 
+AarTransform
+  build_log_retry.txt
+:18922:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18923:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with 
+AarTransform
+  build_log_retry.txt
+:18924:[        ] 
+Transforming vectordr
+awable-animated-1.1.0
+.aar (androidx.vector
+drawable:vectordrawab
+le-animated:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18925:[        ] 
+Transforming vectordr
+awable-animated-1.1.0
+.aar (androidx.vector
+drawable:vectordrawab
+le-animated:1.1.0) 
+with AarTransform
+  build_log_retry.txt
+:18926:[        ] 
+Transforming vectordr
+awable-1.1.0.aar (and
+roidx.vectordrawable:
+vectordrawable:1.1.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:18927:[        ] 
+Transforming vectordr
+awable-1.1.0.aar (and
+roidx.vectordrawable:
+vectordrawable:1.1.0)
+ with AarTransform
+  build_log_retry.txt
+:18928:[        ] 
+Transforming swiperef
+reshlayout-1.0.0.aar 
+(androidx.swiperefres
+hlayout:swiperefreshl
+ayout:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18929:[        ] 
+Transforming swiperef
+reshlayout-1.0.0.aar 
+(androidx.swiperefres
+hlayout:swiperefreshl
+ayout:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18930:[        ] 
+Transforming asynclay
+outinflater-1.0.0.aar
+ (androidx.asynclayou
+tinflater:asynclayout
+inflater:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18931:[        ] 
+Transforming asynclay
+outinflater-1.0.0.aar
+ (androidx.asynclayou
+tinflater:asynclayout
+inflater:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18932:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18933:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with AarTransform
+  build_log_retry.txt
+:18934:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18935:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with AarTransform
+  build_log_retry.txt
+:18936:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18937:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with 
+AarTransform
+  build_log_retry.txt
+:18938:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18939:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with AarTransform
+  build_log_retry.txt
+:18940:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18941:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18942:[        ] 
+Transforming cursorad
+apter-1.0.0.aar (andr
+oidx.cursoradapter:cu
+rsoradapter:1.0.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18943:[        ] 
+Transforming cursorad
+apter-1.0.0.aar (andr
+oidx.cursoradapter:cu
+rsoradapter:1.0.0) 
+with AarTransform
+  build_log_retry.txt
+:18944:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18945:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18946:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18947:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18948:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18949:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+AarTransform
+  build_log_retry.txt
+:18950:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18951:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with 
+AarTransform
+  build_log_retry.txt
+:18952:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18953:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with AarTransform
+  build_log_retry.txt
+:18954:[        ] 
+Transforming document
+file-1.0.0.aar (andro
+idx.documentfile:docu
+mentfile:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18955:[        ] 
+Transforming document
+file-1.0.0.aar (andro
+idx.documentfile:docu
+mentfile:1.0.0) with 
+AarTransform
+  build_log_retry.txt
+:18956:[        ] 
+Transforming localbro
+adcastmanager-1.0.0.a
+ar (androidx.localbro
+adcastmanager:localbr
+oadcastmanager:1.0.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:18957:[        ] 
+Transforming localbro
+adcastmanager-1.0.0.a
+ar (androidx.localbro
+adcastmanager:localbr
+oadcastmanager:1.0.0)
+ with AarTransform
+  build_log_retry.txt
+:18958:[        ] 
+Transforming 
+print-1.0.0.aar (andr
+oidx.print:print:1.0.
+0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18959:[        ] 
+Transforming 
+print-1.0.0.aar (andr
+oidx.print:print:1.0.
+0) with AarTransform
+  build_log_retry.txt
+:18960:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18961:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with 
+AarTransform
+  build_log_retry.txt
+:18962:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18963:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with AarTransform
+  build_log_retry.txt
+:18964:[        ] 
+Transforming appcompa
+t-resources-1.1.0.aar
+ (androidx.appcompat:
+appcompat-resources:1
+.1.0) with 
+AarTransform
+  build_log_retry.txt
+:18965:[        ] 
+Transforming 
+appcompat-1.1.0.aar (
+androidx.appcompat:ap
+pcompat:1.1.0) with 
+AarTransform
+  build_log_retry.txt
+:18966:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:mapRelea
+seSourceSetPaths' 
+because:
+  build_log_retry.txt
+:18967:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18968:[        ]   
+Caching has been 
+disabled for the task
+  build_log_retry.txt
+:18969:[        ] 
+Skipping task ':share
+d_preferences_android
+:mapReleaseSourceSetP
+aths' as it is 
+up-to-date.
+  build_log_retry.txt
+:18970:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:mergeRelea
+seResources 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18971:[        ] :sh
+ared_preferences_andr
+oid:mergeReleaseResou
+rces 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18972:[  +87 ms] > 
+Task :shared_preferen
+ces_android:mergeRele
+aseResources 
+UP-TO-DATE
+  build_log_retry.txt
+:18973:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:mergeRel
+easeResources' 
+because:
+  build_log_retry.txt
+:18974:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:18975:[        ] 
+Skipping task ':share
+d_preferences_android
+:mergeReleaseResource
+s' as it is 
+up-to-date.
+  build_log_retry.txt
+:18976:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:verifyRele
+aseResources 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18977:[        ] :sh
+ared_preferences_andr
+oid:verifyReleaseReso
+urces 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:18978:[ +108 ms] > 
+Task :shared_preferen
+ces_android:verifyRel
+easeResources 
+UP-TO-DATE
+  build_log_retry.txt
+:18979:[        ] 
+Transforming aapt2-8.
+9.1-12782657-windows.
+jar (com.android.tool
+s.build:aapt2:8.9.1-1
+2782657) with 
+Aapt2Extractor
+  build_log_retry.txt
+:18980:[        ] 
+Transforming datastor
+e-preferences-core-re
+lease.aar (androidx.d
+atastore:datastore-pr
+eferences-core-androi
+d:1.1.7) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18981:[        ] 
+Transforming datastor
+e-preferences-core-re
+lease.aar (androidx.d
+atastore:datastore-pr
+eferences-core-androi
+d:1.1.7) with AarReso
+urcesCompilerTransfor
+m
+  build_log_retry.txt
+:18982:[        ] 
+Transforming datastor
+e-core-release.aar (a
+ndroidx.datastore:dat
+astore-core-android:1
+.1.7) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18983:[        ] 
+Transforming datastor
+e-core-release.aar (a
+ndroidx.datastore:dat
+astore-core-android:1
+.1.7) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:18984:[        ] 
+Transforming datastor
+e-preferences-release
+.aar (androidx.datast
+ore:datastore-prefere
+nces-android:1.1.7) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18985:[        ] 
+Transforming datastor
+e-preferences-release
+.aar (androidx.datast
+ore:datastore-prefere
+nces-android:1.1.7) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18986:[        ] 
+Transforming datastor
+e-release.aar (androi
+dx.datastore:datastor
+e-android:1.1.7) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18987:[        ] 
+Transforming datastor
+e-release.aar (androi
+dx.datastore:datastor
+e-android:1.1.7) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18988:[        ] 
+Transforming 
+preference-1.2.1.aar 
+(androidx.preference:
+preference:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:18989:[        ] 
+Transforming 
+preference-1.2.1.aar 
+(androidx.preference:
+preference:1.2.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:18990:[        ] 
+Transforming 
+appcompat-1.1.0.aar (
+androidx.appcompat:ap
+pcompat:1.1.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18991:[        ] 
+Transforming 
+appcompat-1.1.0.aar (
+androidx.appcompat:ap
+pcompat:1.1.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:18992:[        ] 
+Transforming recycler
+view-1.0.0.aar (andro
+idx.recyclerview:recy
+clerview:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18993:[        ] 
+Transforming recycler
+view-1.0.0.aar (andro
+idx.recyclerview:recy
+clerview:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:18994:[        ] 
+Transforming legacy-s
+upport-core-ui-1.0.0.
+aar (androidx.legacy:
+legacy-support-core-u
+i:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18995:[        ] 
+Transforming legacy-s
+upport-core-ui-1.0.0.
+aar (androidx.legacy:
+legacy-support-core-u
+i:1.0.0) with AarReso
+urcesCompilerTransfor
+m
+  build_log_retry.txt
+:18996:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18997:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:18998:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:18999:[        ] 
+Transforming slidingp
+anelayout-1.2.0.aar (
+androidx.slidingpanel
+ayout:slidingpanelayo
+ut:1.2.0) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:19000:[        ] 
+Transforming 
+window-1.2.0.aar (and
+roidx.window:window:1
+.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19001:[        ] 
+Transforming 
+window-1.2.0.aar (and
+roidx.window:window:1
+.2.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19002:[        ] 
+Transforming window-j
+ava-1.2.0.aar (androi
+dx.window:window-java
+:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19003:[        ] 
+Transforming window-j
+ava-1.2.0.aar (androi
+dx.window:window-java
+:1.2.0) with AarResou
+rcesCompilerTransform
+  build_log_retry.txt
+:19004:[        ] 
+Transforming appcompa
+t-resources-1.1.0.aar
+ (androidx.appcompat:
+appcompat-resources:1
+.1.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19005:[        ] 
+Transforming appcompa
+t-resources-1.1.0.aar
+ (androidx.appcompat:
+appcompat-resources:1
+.1.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19006:[        ] 
+Transforming drawerla
+yout-1.0.0.aar (andro
+idx.drawerlayout:draw
+erlayout:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19007:[        ] 
+Transforming drawerla
+yout-1.0.0.aar (andro
+idx.drawerlayout:draw
+erlayout:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19008:[        ] 
+Transforming fragment
+-ktx-1.7.1.aar (andro
+idx.fragment:fragment
+-ktx:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19009:[        ] 
+Transforming fragment
+-ktx-1.7.1.aar (andro
+idx.fragment:fragment
+-ktx:1.7.1) with AarR
+esourcesCompilerTrans
+form
+  build_log_retry.txt
+:19010:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19011:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with AarR
+esourcesCompilerTrans
+form
+  build_log_retry.txt
+:19012:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19013:[        ] 
+Transforming 
+fragment-1.7.1.aar (a
+ndroidx.fragment:frag
+ment:1.7.1) with AarR
+esourcesCompilerTrans
+form
+  build_log_retry.txt
+:19014:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19015:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:19016:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19017:[        ] 
+Transforming 
+viewpager-1.0.0.aar (
+androidx.viewpager:vi
+ewpager:1.0.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:19018:[        ] 
+Transforming coordina
+torlayout-1.0.0.aar (
+androidx.coordinatorl
+ayout:coordinatorlayo
+ut:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19019:[        ] 
+Transforming coordina
+torlayout-1.0.0.aar (
+androidx.coordinatorl
+ayout:coordinatorlayo
+ut:1.0.0) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:19020:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19021:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19022:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19023:[        ] 
+Transforming 
+customview-1.1.0.aar 
+(androidx.customview:
+customview:1.1.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19024:[        ] 
+Transforming 
+transition-1.4.1.aar 
+(androidx.transition:
+transition:1.4.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19025:[        ] 
+Transforming 
+transition-1.4.1.aar 
+(androidx.transition:
+transition:1.4.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19026:[        ] 
+Transforming activity
+-ktx-1.8.1.aar (andro
+idx.activity:activity
+-ktx:1.8.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19027:[        ] 
+Transforming activity
+-ktx-1.8.1.aar (andro
+idx.activity:activity
+-ktx:1.8.1) with AarR
+esourcesCompilerTrans
+form
+  build_log_retry.txt
+:19028:[        ] 
+Transforming 
+activity-1.8.1.aar (a
+ndroidx.activity:acti
+vity:1.8.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19029:[        ] 
+Transforming 
+activity-1.8.1.aar (a
+ndroidx.activity:acti
+vity:1.8.1) with AarR
+esourcesCompilerTrans
+form
+  build_log_retry.txt
+:19030:[        ] 
+Transforming legacy-s
+upport-core-utils-1.0
+.0.aar (androidx.lega
+cy:legacy-support-cor
+e-utils:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19031:[        ] 
+Transforming legacy-s
+upport-core-utils-1.0
+.0.aar (androidx.lega
+cy:legacy-support-cor
+e-utils:1.0.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:19032:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19033:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19034:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19035:[        ] 
+Transforming 
+loader-1.0.0.aar (and
+roidx.loader:loader:1
+.0.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19036:[        ] 
+Transforming lifecycl
+e-runtime-ktx-2.7.0.a
+ar (androidx.lifecycl
+e:lifecycle-runtime-k
+tx:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19037:[        ] 
+Transforming lifecycl
+e-runtime-ktx-2.7.0.a
+ar (androidx.lifecycl
+e:lifecycle-runtime-k
+tx:2.7.0) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:19038:[        ] 
+Transforming lifecycl
+e-livedata-2.7.0.aar 
+(androidx.lifecycle:l
+ifecycle-livedata:2.7
+.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19039:[        ] 
+Transforming lifecycl
+e-livedata-2.7.0.aar 
+(androidx.lifecycle:l
+ifecycle-livedata:2.7
+.0) with AarResources
+CompilerTransform
+  build_log_retry.txt
+:19040:[        ] 
+Transforming lifecycl
+e-viewmodel-ktx-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-viewmod
+el-ktx:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19041:[        ] 
+Transforming lifecycl
+e-viewmodel-ktx-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-viewmod
+el-ktx:2.7.0) with Aa
+rResourcesCompilerTra
+nsform
+  build_log_retry.txt
+:19042:[        ] 
+Transforming lifecycl
+e-livedata-core-ktx-2
+.7.0.aar (androidx.li
+fecycle:lifecycle-liv
+edata-core-ktx:2.7.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:19043:[        ] 
+Transforming lifecycl
+e-livedata-core-ktx-2
+.7.0.aar (androidx.li
+fecycle:lifecycle-liv
+edata-core-ktx:2.7.0)
+ with AarResourcesCom
+pilerTransform
+  build_log_retry.txt
+:19044:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19045:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19046:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19047:[        ] 
+Transforming lifecycl
+e-viewmodel-2.7.0.aar
+ (androidx.lifecycle:
+lifecycle-viewmodel:2
+.7.0) with AarResourc
+esCompilerTransform
+  build_log_retry.txt
+:19048:[        ] 
+Transforming lifecycl
+e-livedata-core-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-livedat
+a-core:2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19049:[        ] 
+Transforming lifecycl
+e-livedata-core-2.7.0
+.aar (androidx.lifecy
+cle:lifecycle-livedat
+a-core:2.7.0) with Aa
+rResourcesCompilerTra
+nsform
+  build_log_retry.txt
+:19050:[        ] 
+Transforming lifecycl
+e-process-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-process:2.7.0
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19051:[        ] 
+Transforming lifecycl
+e-process-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-process:2.7.0
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:19052:[        ] 
+Transforming savedsta
+te-ktx-1.2.1.aar (and
+roidx.savedstate:save
+dstate-ktx:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19053:[        ] 
+Transforming savedsta
+te-ktx-1.2.1.aar (and
+roidx.savedstate:save
+dstate-ktx:1.2.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19054:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19055:[        ] 
+Transforming 
+savedstate-1.2.1.aar 
+(androidx.savedstate:
+savedstate:1.2.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19056:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19057:[        ] 
+Transforming lifecycl
+e-runtime-2.7.0.aar (
+androidx.lifecycle:li
+fecycle-runtime:2.7.0
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:19058:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19059:[        ] 
+Transforming lifecycl
+e-viewmodel-savedstat
+e-2.7.0.aar (androidx
+.lifecycle:lifecycle-
+viewmodel-savedstate:
+2.7.0) with AarResour
+cesCompilerTransform
+  build_log_retry.txt
+:19060:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19061:[        ] 
+Transforming 
+core-ktx-1.13.1.aar (
+androidx.core:core-kt
+x:1.13.1) with AarRes
+ourcesCompilerTransfo
+rm
+  build_log_retry.txt
+:19062:[        ] 
+Transforming vectordr
+awable-animated-1.1.0
+.aar (androidx.vector
+drawable:vectordrawab
+le-animated:1.1.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19063:[        ] 
+Transforming vectordr
+awable-animated-1.1.0
+.aar (androidx.vector
+drawable:vectordrawab
+le-animated:1.1.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19064:[        ] 
+Transforming vectordr
+awable-1.1.0.aar (and
+roidx.vectordrawable:
+vectordrawable:1.1.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:19065:[        ] 
+Transforming vectordr
+awable-1.1.0.aar (and
+roidx.vectordrawable:
+vectordrawable:1.1.0)
+ with AarResourcesCom
+pilerTransform
+  build_log_retry.txt
+:19066:[        ] 
+Transforming swiperef
+reshlayout-1.0.0.aar 
+(androidx.swiperefres
+hlayout:swiperefreshl
+ayout:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19067:[        ] 
+Transforming swiperef
+reshlayout-1.0.0.aar 
+(androidx.swiperefres
+hlayout:swiperefreshl
+ayout:1.0.0) with Aar
+ResourcesCompilerTran
+sform
+  build_log_retry.txt
+:19068:[        ] 
+Transforming asynclay
+outinflater-1.0.0.aar
+ (androidx.asynclayou
+tinflater:asynclayout
+inflater:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19069:[        ] 
+Transforming asynclay
+outinflater-1.0.0.aar
+ (androidx.asynclayou
+tinflater:asynclayout
+inflater:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19070:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19071:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:19072:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19073:[        ] 
+Transforming 
+core-1.13.1.aar (andr
+oidx.core:core:1.13.1
+) with AarResourcesCo
+mpilerTransform
+  build_log_retry.txt
+:19074:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19075:[        ] 
+Transforming profilei
+nstaller-1.3.1.aar (a
+ndroidx.profileinstal
+ler:profileinstaller:
+1.3.1) with AarResour
+cesCompilerTransform
+  build_log_retry.txt
+:19076:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19077:[        ] 
+Transforming startup-
+runtime-1.1.1.aar (an
+droidx.startup:startu
+p-runtime:1.1.1) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19078:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19079:[        ] 
+Transforming 
+tracing-1.2.0.aar (an
+droidx.tracing:tracin
+g:1.2.0) with AarReso
+urcesCompilerTransfor
+m
+  build_log_retry.txt
+:19080:[        ] 
+Transforming cursorad
+apter-1.0.0.aar (andr
+oidx.cursoradapter:cu
+rsoradapter:1.0.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19081:[        ] 
+Transforming cursorad
+apter-1.0.0.aar (andr
+oidx.cursoradapter:cu
+rsoradapter:1.0.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19082:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19083:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19084:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19085:[        ] 
+Transforming interpol
+ator-1.0.0.aar (andro
+idx.interpolator:inte
+rpolator:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19086:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19087:[        ] 
+Transforming versione
+dparcelable-1.1.1.aar
+ (androidx.versionedp
+arcelable:versionedpa
+rcelable:1.1.1) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19088:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19089:[        ] 
+Transforming core-run
+time-2.2.0.aar (andro
+idx.arch.core:core-ru
+ntime:2.2.0) with Aar
+ResourcesCompilerTran
+sform
+  build_log_retry.txt
+:19090:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19091:[        ] 
+Transforming 
+core-1.0.0.aar (andro
+idx.window.extensions
+.core:core:1.0.0) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19092:[        ] 
+Transforming document
+file-1.0.0.aar (andro
+idx.documentfile:docu
+mentfile:1.0.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19093:[        ] 
+Transforming document
+file-1.0.0.aar (andro
+idx.documentfile:docu
+mentfile:1.0.0) with 
+AarResourcesCompilerT
+ransform
+  build_log_retry.txt
+:19094:[        ] 
+Transforming localbro
+adcastmanager-1.0.0.a
+ar (androidx.localbro
+adcastmanager:localbr
+oadcastmanager:1.0.0)
+ with 
+ExtractAarTransform
+  build_log_retry.txt
+:19095:[        ] 
+Transforming localbro
+adcastmanager-1.0.0.a
+ar (androidx.localbro
+adcastmanager:localbr
+oadcastmanager:1.0.0)
+ with AarResourcesCom
+pilerTransform
+  build_log_retry.txt
+:19096:[        ] 
+Transforming 
+print-1.0.0.aar (andr
+oidx.print:print:1.0.
+0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19097:[        ] 
+Transforming 
+print-1.0.0.aar (andr
+oidx.print:print:1.0.
+0) with AarResourcesC
+ompilerTransform
+  build_log_retry.txt
+:19098:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with 
+ExtractAarTransform
+  build_log_retry.txt
+:19099:[        ] 
+Transforming annotati
+on-experimental-1.4.0
+.aar (androidx.annota
+tion:annotation-exper
+imental:1.4.0) with A
+arResourcesCompilerTr
+ansform
+  build_log_retry.txt
+:19100:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with 
+ExtractAarTransform
+  build_log_retry.txt
+:19101:[        ] 
+Transforming 
+relinker-1.4.5.aar (c
+om.getkeepsafe.relink
+er:relinker:1.4.5) 
+with AarResourcesComp
+ilerTransform
+  build_log_retry.txt
+:19102:[        ] 
+Caching disabled for 
+task ':shared_prefere
+nces_android:verifyRe
+leaseResources' 
+because:
+  build_log_retry.txt
+:19103:[        ]   
+Build cache is 
+disabled
+  build_log_retry.txt
+:19104:[        ] 
+Skipping task ':share
+d_preferences_android
+:verifyReleaseResourc
+es' as it is 
+up-to-date.
+  build_log_retry.txt
+:19105:[        ] 
+Resolve mutations 
+for :shared_preferenc
+es_android:assembleRe
+lease 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:19106:[        ] :sh
+ared_preferences_andr
+oid:assembleRelease 
+(Thread[Execution 
+worker Thread 
+8,5,main]) started.
+  build_log_retry.txt
+:19107:[        ] > 
+Task :shared_preferen
+ces_android:assembleR
+elease UP-TO-DATE
+  build_log_retry.txt
+:19108:[        ] 
+Skipping task ':share
+d_preferences_android
+:assembleRelease' as 
+it has no actions.
+  build_log_retry.txt
+:19109:[  +87 ms] 
+BUILD SUCCESSFUL in 
+50s
+  build_log_retry.txt
+:19110:[        ] 
+446 actionable 
+tasks: 11 executed, 
+435 up-to-date
+  build_log_retry.txt
+:19111:[  +96 ms] 
+Watched directory 
+hierarchies: [D:\flut
+ter\src\flutter\packa
+ges\flutter_tools\gra
+dle, D:\Invispay\fron
+tend\android]
+  build_log_retry.txt
+:19112:[ +288 ms] 
+Running Gradle task 
+'assembleRelease'... 
+(completed in 51.5s)
+  build_log_retry.txt
+:19113:[  +35 ms] 
+LocalFile: 'D:\Invisp
+ay\frontend\android\b
+uild.gradle.kts' 
+doesn't provide an 
+AGP version. 
+Checking settings.
+  build_log_retry.txt
+:19114:[   +2 ms] 
+LocalFile: 'D:\Invisp
+ay\frontend\android\s
+ettings.gradle.kts' 
+provides AGP 
+version: 8.9.1
+  build_log_retry.txt
+:19115:[  +69 ms] 
+"flutter apk" took 
+53,424ms.
+  build_log_retry.txt
+:19116:[ +121 ms] 
+Gradle 
+  build_log_retry.txt
+:19117:build failed 
+to 
+  build_log_retry.txt
+:19118:produce an 
+.apk 
+  build_log_retry.txt
+:19119:file. It's 
+likely 
+  build_log_retry.txt
+:19120:that this 
+file was 
+  build_log_retry.txt
+:19121:generated 
+under D:\In
+  build_log_retry.txt
+:19122:vispay\fronten
+d\build
+  build_log_retry.txt
+:19123:, but the 
+tool 
+  build_log_retry.txt
+:19124:couldn't find 
+it.
+  build_log_retry.txt
+:19125:[        ] 
+  build_log_retry.txt
+:19126:           #0 
+     
+  build_log_retry.txt
+:19127:throwToolExit 
+(packag
+  build_log_retry.txt
+:19128:e:flutter_tool
+s/src/b
+  build_log_retry.txt
+:19129:ase/common.dar
+t:34:3)
+  build_log_retry.txt
+:19130:           #1 
+     _e
+  build_log_retry.txt
+:19131:xitWithExpecte
+dFileNo
+  build_log_retry.txt
+:19132:tFound 
+(package:flutt
+  build_log_retry.txt
+:19133:er_tools/src/a
+ndroid/
+  build_log_retry.txt
+:19134:gradle.dart:12
+35:3)
+  build_log_retry.txt
+:19135:           #2 
+     An
+  build_log_retry.txt
+:19136:droidGradleBui
+lder.bu
+  build_log_retry.txt
+:19137:ildGradleApp 
+(package
+  build_log_retry.txt
+:19138::flutter_tools
+/src/an
+  build_log_retry.txt
+:19139:droid/gradle.d
+art:634
+  build_log_retry.txt
+:19140::9)
+  build_log_retry.txt
+:19141:           
+  build_log_retry.txt
+:19142:<asynchronous 
+  build_log_retry.txt
+:19143:suspension>
+  build_log_retry.txt
+:19144:           #3 
+     An
+  build_log_retry.txt
+:19145:droidGradleBui
+lder.bu
+  build_log_retry.txt
+:19146:ildApk 
+(package:flutt
+  build_log_retry.txt
+:19147:er_tools/src/a
+ndroid/
+  build_log_retry.txt
+:19148:gradle.dart:23
+4:5)
+  build_log_retry.txt
+:19149:           
+  build_log_retry.txt
+:19150:<asynchronous 
+  build_log_retry.txt
+:19151:suspension>
+  build_log_retry.txt
+:19152:           #4 
+     Bu
+  build_log_retry.txt
+:19153:ildApkCommand.
+runComm
+  build_log_retry.txt
+:19154:and 
+(package:flutter_
+  build_log_retry.txt
+:19155:tools/src/comm
+ands/bu
+  build_log_retry.txt
+:19156:ild_apk.dart:1
+31:5)
+  build_log_retry.txt
+:19157:           
+  build_log_retry.txt
+:19158:<asynchronous 
+  build_log_retry.txt
+:19159:suspension>
+  build_log_retry.txt
+:19160:           #5 
+     Fl
+  build_log_retry.txt
+:19161:utterCommand.r
+un.<ano
+  build_log_retry.txt
+:19162:nymous 
+closure> (pack
+  build_log_retry.txt
+:19163:age:flutter_to
+ols/src
+  build_log_retry.txt
+:19164:/runner/flutte
+r_comma
+  build_log_retry.txt
+:19165:nd.dart:1559:2
+7)
+  build_log_retry.txt
+:19166:           
+  build_log_retry.txt
+:19167:<asynchronous 
+  build_log_retry.txt
+:19168:suspension>
+  build_log_retry.txt
+:19169:           #6 
+     Ap
+  build_log_retry.txt
+:19170:pContext.run.<
+anonymo
+  build_log_retry.txt
+:19171:us closure> 
+(package:
+  build_log_retry.txt
+:19172:flutter_tools/
+src/bas
+  build_log_retry.txt
+:19173:e/context.dart
+:154:19
+  build_log_retry.txt
+:19174:)
+  build_log_retry.txt
+:19175:           
+  build_log_retry.txt
+:19176:<asynchronous 
+  build_log_retry.txt
+:19177:suspension>
+  build_log_retry.txt
+:19178:           #7 
+     Co
+  build_log_retry.txt
+:19179:mmandRunner.ru
+nComman
+  build_log_retry.txt
+:19180:d 
+(package:args/comma
+  build_log_retry.txt
+:19181:nd_runner.dart
+:212:13
+  build_log_retry.txt
+:19182:)
+  build_log_retry.txt
+:19183:           
+  build_log_retry.txt
+:19184:<asynchronous 
+  build_log_retry.txt
+:19185:suspension>
+  build_log_retry.txt
+:19186:           #8 
+     Fl
+  build_log_retry.txt
+:19187:utterCommandRu
+nner.ru
+  build_log_retry.txt
+:19188:nCommand.<anon
+ymous 
+  build_log_retry.txt
+:19189:closure> 
+(package:flu
+  build_log_retry.txt
+:19190:tter_tools/src
+/runner
+  build_log_retry.txt
+:19191:/flutter_comma
+nd_runn
+  build_log_retry.txt
+:19192:er.dart:487:9)
+  build_log_retry.txt
+:19193:           
+  build_log_retry.txt
+:19194:<asynchronous 
+  build_log_retry.txt
+:19195:suspension>
+  build_log_retry.txt
+:19196:           #9 
+     Ap
+  build_log_retry.txt
+:19197:pContext.run.<
+anonymo
+  build_log_retry.txt
+:19198:us closure> 
+(package:
+  build_log_retry.txt
+:19199:flutter_tools/
+src/bas
+  build_log_retry.txt
+:19200:e/context.dart
+:154:19
+  build_log_retry.txt
+:19201:)
+  build_log_retry.txt
+:19202:           
+  build_log_retry.txt
+:19203:<asynchronous 
+  build_log_retry.txt
+:19204:suspension>
+  build_log_retry.txt
+:19205:           
+#10     Fl
+  build_log_retry.txt
+:19206:utterCommandRu
+nner.ru
+  build_log_retry.txt
+:19207:nCommand 
+(package:flu
+  build_log_retry.txt
+:19208:tter_tools/src
+/runner
+  build_log_retry.txt
+:19209:/flutter_comma
+nd_runn
+  build_log_retry.txt
+:19210:er.dart:422:5)
+  build_log_retry.txt
+:19211:           
+  build_log_retry.txt
+:19212:<asynchronous 
+  build_log_retry.txt
+:19213:suspension>
+  build_log_retry.txt
+:19214:           
+#11     
+  build_log_retry.txt
+:19215:run.<anonymous
+ 
+  build_log_retry.txt
+:19216:closure>.<anon
+ymous 
+  build_log_retry.txt
+:19217:closure> 
+(package:flu
+  build_log_retry.txt
+:19218:tter_tools/run
+ner.dar
+  build_log_retry.txt
+:19219:t:101:11)
+  build_log_retry.txt
+:19220:           
+  build_log_retry.txt
+:19221:<asynchronous 
+  build_log_retry.txt
+:19222:suspension>
+  build_log_retry.txt
+:19223:           
+#12     Ap
+  build_log_retry.txt
+:19224:pContext.run.<
+anonymo
+  build_log_retry.txt
+:19225:us closure> 
+(package:
+  build_log_retry.txt
+:19226:flutter_tools/
+src/bas
+  build_log_retry.txt
+:19227:e/context.dart
+:154:19
+  build_log_retry.txt
+:19228:)
+  build_log_retry.txt
+:19229:           
+  build_log_retry.txt
+:19230:<asynchronous 
+  build_log_retry.txt
+:19231:suspension>
+  build_log_retry.txt
+:19232:           
+#13     
+  build_log_retry.txt
+:19233:main 
+(package:flutter
+  build_log_retry.txt
+:19234:_tools/executa
+ble.dar
+  build_log_retry.txt
+:19235:t:103:3)
+  build_log_retry.txt
+:19236:           
+  build_log_retry.txt
+:19237:<asynchronous 
+  build_log_retry.txt
+:19238:suspension>
+  build_log_retry.txt
+:19239:
+  build_log_retry.txt
+:19240:
+  build_log_retry.txt
+:19241:[        ] 
+Running 1 shutdown 
+hook
+  build_log_retry.txt
+:19242:[   +2 ms] 
+Shutdown hooks 
+complete
+> build_log_retry.txt
+:19243:[ +149 ms] 
+exiting with code 1
+
+

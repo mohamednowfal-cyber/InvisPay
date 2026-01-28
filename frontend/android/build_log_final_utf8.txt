@@ -1,0 +1,50 @@
+﻿Skipping task ':shared_preferences_android:mapReleaseSourceSetPaths' as it is up-to-date.
+Resolve mutations for :shared_preferences_android:mergeReleaseResources (Thread[Execution worker Thread 8,5,main]) started.
+:shared_preferences_android:mergeReleaseResources (Thread[Execution worker Thread 8,5,main]) started.
+
+> Task :shared_preferences_android:mergeReleaseResources UP-TO-DATE
+Caching disabled for task ':shared_preferences_android:mergeReleaseResources' because:
+  Build cache is disabled
+  Gradle does not know how file 'build\intermediates\incremental\release\mergeReleaseResources\stripped.dir' was created (output property 'incrementalFolder'). Task output caching requires exclusive access to output paths to guarantee correctness (i.e. multiple tasks are not allowed to produce output in the same location).
+Skipping task ':shared_preferences_android:mergeReleaseResources' as it is up-to-date.
+Resolve mutations for :shared_preferences_android:verifyReleaseResources (Thread[Execution worker Thread 8,5,main]) started.
+:shared_preferences_android:verifyReleaseResources (Thread[Execution worker Thread 8,5,main]) started.
+
+> Task :shared_preferences_android:verifyReleaseResources UP-TO-DATE
+Caching disabled for task ':shared_preferences_android:verifyReleaseResources' because:
+  Build cache is disabled
+Skipping task ':shared_preferences_android:verifyReleaseResources' as it is up-to-date.
+Resolve mutations for :shared_preferences_android:assembleRelease (Thread[Execution worker Thread 8,5,main]) started.
+:shared_preferences_android:assembleRelease (Thread[Execution worker Thread 8,5,main]) started.
+
+> Task :shared_preferences_android:assembleRelease UP-TO-DATE
+Skipping task ':shared_preferences_android:assembleRelease' as it has no actions.
+Resolve mutations for :app:createReleaseApkListingFileRedirect (Thread[Execution worker Thread 6,5,main]) started.
+:app:createReleaseApkListingFileRedirect (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:createReleaseApkListingFileRedirect UP-TO-DATE
+Caching disabled for task ':app:createReleaseApkListingFileRedirect' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:createReleaseApkListingFileRedirect' as it is up-to-date.
+Resolve mutations for :app:assembleRelease (Thread[Execution worker Thread 6,5,main]) started.
+:app:assembleRelease (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:assembleRelease
+Caching disabled for task ':app:assembleRelease' because:
+  Build cache is disabled
+Task ':app:assembleRelease' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Build 223a9fc1-4ffb-4b82-8fdd-ad960ce1750a is closed
+
+[Incubating] Problems report is available at: file:///D:/Invispay/frontend/android/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 48s
+414 actionable tasks: 14 executed, 400 up-to-date
+Watched directory hierarchies: [D:\flutter\src\flutter\packages\flutter_tools\gradle, D:\Invispay\frontend\android]
