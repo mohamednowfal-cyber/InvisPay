@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/core/theme/app_theme.dart';
+import 'package:invispay/providers/payment_provider.dart';
 
 class InvispayLiteScreen extends ConsumerStatefulWidget {
   const InvispayLiteScreen({super.key});
@@ -257,6 +258,12 @@ class _InvispayLiteScreenState extends ConsumerState<InvispayLiteScreen> {
           isEnabled: hasBalance,
           onTap: () {
             HapticFeedback.mediumImpact();
+            ref.read(selectedPaymentAccountProvider.notifier).setAccount({
+              'type': 'Lite Wallet',
+              'bankName': 'InvisPay Lite',
+              'number': 'LITE_WALLET',
+              'balance': _dummyBalance,
+            });
             context.push(AppRoutes.makeTransaction);
           },
         ),
@@ -529,7 +536,7 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.03),
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
@@ -571,6 +578,7 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
                         border: InputBorder.none,
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
+                        filled: false,
                       ),
                     ),
                   ),
@@ -591,6 +599,7 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
             ),
             const SizedBox(height: 16),
             Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.03),
                 borderRadius: BorderRadius.circular(24),
@@ -621,6 +630,7 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(10),

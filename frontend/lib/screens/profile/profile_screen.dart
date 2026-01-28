@@ -1,8 +1,14 @@
 ﻿import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:invispay/core/theme/app_theme.dart';
 import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
@@ -11,11 +17,17 @@ import 'package:invispay/widgets/common/animated_localize.dart';
 import 'package:invispay/providers/qr_provider.dart';
 import 'package:invispay/providers/lite_provider.dart';
 
-class ProfileScreen extends ConsumerWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final ref = this.ref;
     final auth = AuthService();
     final db = DatabaseService();
     final user = auth.currentUser;
@@ -78,14 +90,6 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: 8),
 
               // 4. Menu List
-              _buildMenuItem(
-                context: context,
-                icon: Icons.credit_card_outlined,
-                title: (loc) => loc.translate('pay_cards'),
-                subtitle: (loc) => loc.translate('pay_cards_sub'),
-                trailing: (loc) => loc.translate('add'),
-                onTap: () => context.push(AppRoutes.creditCards),
-              ),
 
               _buildMenuItem(
                 context: context,
@@ -93,15 +97,8 @@ class ProfileScreen extends ConsumerWidget {
                 title: (loc) =>
                     'KYC Status', // Localize if possible, else hardcode for now
                 subtitle: (loc) => 'Check verification details',
-                onTap: () => context.push(AppRoutes.kyc),
-              ),
-
-              _buildMenuItem(
-                context: context,
-                icon: Icons.qr_code_2_rounded,
-                title: (loc) => loc.translate('your_qr'),
-                subtitle: (loc) => loc.translate('your_qr_sub'),
-                onTap: () => context.push(AppRoutes.myQrCodes),
+                onTap: () =>
+                    context.push(AppRoutes.kyc, extra: {'fromProfile': true}),
               ),
 
               _buildMenuItem(
@@ -136,35 +133,11 @@ class ProfileScreen extends ConsumerWidget {
 
               const SizedBox(height: 32),
 
-              // Logout button
+              // 5. Logout Section
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Container(
-                  width: double.infinity,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFDC2626).withValues(
-                        alpha:
-                            0.15), // Deeper Red 600 + slightly higher opacity
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                        color: const Color(0xFFDC2626).withValues(alpha: 0.2)),
-                  ),
-                  child: TextButton.icon(
-                    onPressed: () =>
-                        _showLogoutConfirmation(context, auth, isDemo),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          const Color(0xFFDC2626), // Deeper Red 600
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                    ),
-                    icon: const Icon(Icons.logout_rounded, size: 20),
-                    label: AnimatedLocalize(
-                      text: (loc) => loc.logout,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                child: _PremiumLogoutButton(
+                  onTap: () => _showLogoutConfirmation(context, auth, isDemo),
                 ),
               ),
 
@@ -282,40 +255,8 @@ class ProfileScreen extends ConsumerWidget {
           ),
           Column(
             children: [
-              Consumer(builder: (context, ref, _) {
-                final selectedAccount = ref.watch(qrSelectionProvider);
-                final hasAccount = selectedAccount != null;
-
-                return GestureDetector(
-                  onTap: () => context.push(AppRoutes.myQrCodes),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 4),
-                          )
-                        ]),
-                    child: Icon(
-                        hasAccount && selectedAccount.type == 'Wallet'
-                            ? Icons.wallet_rounded
-                            : hasAccount && selectedAccount.type == 'Card'
-                                ? Icons.credit_card_rounded
-                                : Icons.qr_code_2_rounded,
-                        color: const Color(0xFF0F172A),
-                        size: 32),
-                  ),
-                );
-              }),
-              const SizedBox(height: 12),
               GestureDetector(
-                onTap: isDemo
-                    ? null
-                    : () => context.push(AppRoutes.profileDetails),
+                onTap: () => _showProfilePhotoOptions(context, photoURL, name),
                 child: Hero(
                   tag: 'profile_photo',
                   child: Container(
@@ -350,6 +291,36 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
+              Consumer(builder: (context, ref, _) {
+                final selectedAccount = ref.watch(qrSelectionProvider);
+                final hasAccount = selectedAccount != null;
+
+                return GestureDetector(
+                  onTap: () => context.push(AppRoutes.myQrCodes),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          )
+                        ]),
+                    child: Icon(
+                        hasAccount && selectedAccount.type == 'Wallet'
+                            ? Icons.wallet_rounded
+                            : hasAccount && selectedAccount.type == 'Card'
+                                ? Icons.credit_card_rounded
+                                : Icons.qr_code_2_rounded,
+                        color: const Color(0xFF0F172A),
+                        size: 32),
+                  ),
+                );
+              }),
             ],
           ),
         ],
@@ -613,6 +584,392 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // --- Profile Photo Interactions ---
+
+  void _showProfilePhotoOptions(
+      BuildContext context, String? photoURL, String name) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0A0F1E),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          border: Border.all(color: Colors.white.withAlpha(25)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(25),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            _buildOptionTile(
+              icon: Icons.visibility_rounded,
+              label: 'View Profile Photo',
+              onTap: () {
+                Navigator.pop(context);
+                _viewProfilePhoto(context, photoURL, name);
+              },
+            ),
+            _buildOptionTile(
+              icon: Icons.edit_rounded,
+              label: 'Edit Profile Photo',
+              onTap: () {
+                Navigator.pop(context);
+                _showEditOptions(context);
+              },
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _viewProfilePhoto(BuildContext context, String? photoURL, String name) {
+    showDialog(
+      context: context,
+      useSafeArea: false,
+      builder: (context) => Stack(
+        children: [
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(color: Colors.black.withAlpha(200)),
+            ),
+          ),
+          Center(
+            child: Hero(
+              tag: 'profile_photo',
+              child: photoURL != null
+                  ? Image.network(
+                      photoURL,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppTheme.primary,
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
+                      width: 240,
+                      height: 240,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF0D9488),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          name.isNotEmpty ? name[0].toUpperCase() : 'U',
+                          style: const TextStyle(
+                            fontSize: 100,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            right: 24,
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: Colors.black26,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEditOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0A0F1E),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          border: Border.all(color: Colors.white.withAlpha(25)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(25),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            _buildOptionTile(
+              icon: Icons.photo_library_rounded,
+              label: 'Choose from Gallery',
+              onTap: () {
+                Navigator.pop(context);
+                _pickAndCropImage(context, ImageSource.gallery);
+              },
+            ),
+            _buildOptionTile(
+              icon: Icons.camera_alt_rounded,
+              label: 'Take Photo',
+              onTap: () {
+                Navigator.pop(context);
+                _pickAndCropImage(context, ImageSource.camera);
+              },
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickAndCropImage(
+      BuildContext context, ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: source,
+      maxWidth: 1000,
+      maxHeight: 1000,
+      imageQuality: 85,
+    );
+
+    if (pickedFile == null) return;
+
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Photo',
+          toolbarColor: const Color(0xFF0A0F1E),
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
+          backgroundColor: const Color(0xFF0A0F1E),
+          activeControlsWidgetColor: AppTheme.primary,
+          showCropGrid: false,
+        ),
+        IOSUiSettings(
+          title: 'Crop Photo',
+          aspectRatioLockEnabled: true,
+          resetAspectRatioEnabled: false,
+        ),
+      ],
+    );
+
+    if (croppedFile != null) {
+      if (context.mounted) {
+        _previewAndSavePhoto(context, File(croppedFile.path));
+      }
+    }
+  }
+
+  void _previewAndSavePhoto(BuildContext context, File image) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: const Color(0xFF0A0F1E),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Preview Photo',
+                style: GoogleFonts.outfit(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(image),
+                    fit: BoxFit.cover,
+                  ),
+                  border: Border.all(color: AppTheme.primary, width: 3),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        'Cancel',
+                        style: GoogleFonts.inter(color: Colors.white70),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await _uploadPhoto(image);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.primary,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: const Text('Save',
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _uploadPhoto(File image) async {
+    final auth = AuthService();
+    final db = DatabaseService();
+    final user = auth.currentUser;
+
+    if (user != null) {
+      final url = await db.uploadProfilePhoto(user.uid, image);
+      if (url != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile photo updated successfully'),
+              backgroundColor: AppTheme.primary,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  Widget _buildOptionTile({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFF3B82F6), size: 24),
+      title: Text(
+        label,
+        style: GoogleFonts.inter(
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: onTap,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+    );
+  }
+}
+
+class _PremiumLogoutButton extends StatefulWidget {
+  final VoidCallback onTap;
+  const _PremiumLogoutButton({required this.onTap});
+
+  @override
+  State<_PremiumLogoutButton> createState() => _PremiumLogoutButtonState();
+}
+
+class _PremiumLogoutButtonState extends State<_PremiumLogoutButton> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapCancel: () => setState(() => _isPressed = false),
+      onTap: () {
+        HapticFeedback.mediumImpact();
+        widget.onTap();
+      },
+      child: AnimatedScale(
+        scale: _isPressed ? 0.96 : 1.0,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOutCubic,
+        child: Container(
+          width: double.infinity,
+          height: 60,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFEF4444), // Red 500
+                Color(0xFFF43F5E), // Rose 500 (Deep Coral)
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFFEF4444).withValues(alpha: 0.35),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.logout_rounded, color: Colors.white, size: 22),
+              const SizedBox(width: 12),
+              AnimatedLocalize(
+                text: (loc) => loc.logout,
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

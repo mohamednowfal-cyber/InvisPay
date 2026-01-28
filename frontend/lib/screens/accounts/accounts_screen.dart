@@ -46,11 +46,9 @@ class AccountsScreen extends StatelessWidget {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color(0xFF0F172A), // Deep Navy Slate
-          Color(0xFF0F172A), // Mid Transition (Smoother)
-          Color(0xFF020617), // Near Black Navy
+          Color(0xFF0F172A), // Slate 900
+          Color(0xFF020617), // Slate 950
         ],
-        stops: [0.0, 0.4, 1.0],
       ),
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -69,44 +67,45 @@ class AccountsScreen extends StatelessWidget {
           final id = data['number'] ?? 'Unknown';
           final bankName = data['bankName'] ?? 'InvisPay Bank';
 
-          // Define Card Gradient based on Bank Name
+          // Define Card Gradient and Shadow based on Bank Name
           LinearGradient gradient = const LinearGradient(
             colors: [Color(0xFF1E293B), Color(0xFF0F172A)],
           );
+          Color shadowColor = Colors.black.withValues(alpha: 0.4);
 
           if (bankName.contains('State Bank')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF2563EB), // Brighter Royal Blue
-                Color(0xFF1E40AF), // Rich Blue Depth
-                Color(0xFF172554), // Deep Navy Finish
+                Color(0xFF172554), // Blue 950
+                Color(0xFF1E40AF), // Blue 800
+                Color(0xFF3B82F6), // Blue 500
               ],
-              stops: [0.0, 0.6, 1.0],
             );
+            shadowColor = const Color(0xFF2563EB).withValues(alpha: 0.2);
           } else if (bankName.contains('InvisPay')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF14B8A6), // Vibrant Teal
-                Color(0xFF0F766E), // Deep Teal
-                Color(0xFF064E3B), // Dark Emerald
+                Color(0xFF115E59), // Teal 800
+                Color(0xFF0F766E), // Teal 700
+                Color(0xFF14B8A6), // Teal 500
               ],
-              stops: [0.0, 0.5, 1.0],
             );
+            shadowColor = const Color(0xFF0D9488).withValues(alpha: 0.2);
           } else if (bankName.contains('HDFC')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF334155), // Sophisticated Slate
-                Color(0xFF1E293B), // Darker Slate
-                Color(0xFF0F172A), // Deep Blue undertone
+                Color(0xFF020617), // Slate 950
+                Color(0xFF1E293B), // Slate 800
+                Color(0xFF475569), // Slate 600
               ],
-              stops: [0.0, 0.5, 1.0],
             );
+            shadowColor = const Color(0xFF334155).withValues(alpha: 0.15);
           }
 
           return Padding(
@@ -117,6 +116,7 @@ class AccountsScreen extends StatelessWidget {
               id,
               bankName,
               gradient: gradient,
+              shadowColor: shadowColor,
               onTap: () => context.push('${AppRoutes.accountDetails}/$id'),
             ),
           );
@@ -131,6 +131,7 @@ class AccountsScreen extends StatelessWidget {
     String id,
     String bankName, {
     required LinearGradient gradient,
+    required Color shadowColor,
     required VoidCallback onTap,
   }) {
     return Material(
@@ -147,20 +148,20 @@ class AccountsScreen extends StatelessWidget {
             gradient: gradient,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.08),
+              color: Colors.white.withValues(alpha: 0.1),
               width: 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.4),
+                color: shadowColor,
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
               // Premium Top Highlight (Inner Glow)
               BoxShadow(
                 color: Colors.white.withValues(alpha: 0.08),
-                blurRadius: 12,
-                spreadRadius: -6,
+                blurRadius: 15,
+                spreadRadius: -5,
                 offset: const Offset(0, 2),
               ),
             ],

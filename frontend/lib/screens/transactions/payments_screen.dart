@@ -455,13 +455,21 @@ class _PaymentsScreenState extends ConsumerState<PaymentsScreen> {
               if (selectedAccount['isCard'] == true) {
                 return '${selectedAccount['bankName']} Card';
               }
+              if (selectedAccount['type'] == 'Lite Wallet') {
+                return 'InvisPay Lite';
+              }
               return selectedAccount['type'] == 'Digital Wallet'
                   ? 'Digital Wallet'
                   : loc.savingsAccount;
             },
             accountNumber: selectedAccount['isCard'] == true
                 ? '**** ${(selectedAccount['number'] as String).substring((selectedAccount['number'] as String).length - 4)}'
-                : '**** ${(selectedAccount['number'] as String).split('_').last}',
+                : selectedAccount['type'] == 'Lite Wallet'
+                    ? 'UPI Lite Wallet'
+                    : '**** ${(selectedAccount['number'] as String).split('_').last}',
+            icon: selectedAccount['type'] == 'Lite Wallet'
+                ? Icons.bolt_rounded
+                : null,
             onTap: _showAccountSelectionSheet,
           ),
           const SizedBox(height: 40),

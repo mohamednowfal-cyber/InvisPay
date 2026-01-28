@@ -172,8 +172,16 @@ class AppRoutes {
       GoRoute(
         path: kyc,
         parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            _buildPageWithTransition(context, state, const KycStatusScreen()),
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>? ?? {};
+          return _buildPageWithTransition(
+            context,
+            state,
+            KycStatusScreen(
+              fromProfile: extra['fromProfile'] ?? false,
+            ),
+          );
+        },
       ),
       GoRoute(
         path: kycDetails,

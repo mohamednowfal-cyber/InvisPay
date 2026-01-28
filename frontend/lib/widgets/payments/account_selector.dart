@@ -7,6 +7,7 @@ class AccountSelector extends StatelessWidget {
   final String Function(AppLocalizations)? label;
   final String Function(AppLocalizations) accountType;
   final String accountNumber;
+  final IconData? icon;
   final VoidCallback onTap;
 
   const AccountSelector({
@@ -14,6 +15,7 @@ class AccountSelector extends StatelessWidget {
     this.label,
     required this.accountType,
     required this.accountNumber,
+    this.icon,
     required this.onTap,
   });
 
@@ -61,7 +63,7 @@ class AccountSelector extends StatelessWidget {
                     color: AppTheme.primary.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.account_balance_rounded,
+                  child: Icon(icon ?? Icons.account_balance_rounded,
                       color: AppTheme.primary, size: 24),
                 ),
                 const SizedBox(width: 16),

@@ -7,7 +7,6 @@ import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
 import 'package:invispay/providers/settings_provider.dart';
-import 'package:invispay/providers/cards_provider.dart';
 import 'package:invispay/providers/qr_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
@@ -37,7 +36,6 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
     final db = DatabaseService();
     final user = auth.currentUser;
     final uid = user?.uid ?? 'demo';
-    final cards = ref.watch(cardsProvider);
     final selectedAccount = ref.watch(qrSelectionProvider);
 
     return BaseScreen(
@@ -134,18 +132,6 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
                   }
                 }
 
-                // 2. Credit Cards
-                for (var card in cards) {
-                  accounts.add(QrAccount(
-                    id: card.id,
-                    name: '${card.type.name.toUpperCase()} Card',
-                    number:
-                        card.cardNumber.substring(card.cardNumber.length - 4),
-                    type: 'Card',
-                    vpa: card.cardNumber,
-                  ));
-                }
-
                 if (accounts.isEmpty) {
                   _isDataLoaded = true;
                   return _buildNoAccountsState(context, l10n);
@@ -201,19 +187,20 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
   Widget _buildAccountSelector(
       BuildContext context, List<QrAccount> accounts, QrAccount current) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      height: 84, // Slightly increased height for touch comfort
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B), // Premium Slate
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24), // Premium radius
         border: Border.all(
           color: Colors.white.withValues(alpha: 0.1),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -229,16 +216,19 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
                 ? accounts.firstWhere((a) => a.id == current.id)
                 : accounts.first,
             isExpanded: true,
-            dropdownColor: const Color(0xFF0F172A),
+            dropdownColor: const Color(
+                0xFF1E293B), // Matches trigger color for single-layer effect
             icon: const Padding(
               padding: EdgeInsets.only(right: 16),
               child: Icon(Icons.keyboard_arrow_down_rounded,
-                  color: Colors.white54, size: 24),
+                  color: Colors.white70, size: 28),
             ),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
             elevation: 16,
-            menuMaxHeight: 400,
+            menuMaxHeight: 450,
             padding: EdgeInsets.zero,
+            alignment: Alignment.centerLeft,
+            itemHeight: 76, // Reduced height (72 + 4 margin)
             selectedItemBuilder: (context) {
               return accounts.map((account) {
                 return _buildSelectorItem(account,
@@ -267,21 +257,27 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
   Widget _buildSelectorItem(QrAccount account,
       {required bool isSelected, bool forDisplay = false}) {
     return Container(
-      height: 72,
-      padding: EdgeInsets.symmetric(horizontal: forDisplay ? 16 : 16),
+      height: forDisplay ? 84 : 72,
+      margin: forDisplay
+          ? EdgeInsets.zero
+          : const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 16), // Standardized padding
       decoration: BoxDecoration(
         color: isSelected && !forDisplay
-            ? AppTheme.primary.withValues(alpha: 0.05)
+            ? AppTheme.primary.withValues(alpha: 0.1)
             : Colors.transparent,
+        borderRadius: BorderRadius.circular(16), // rounded selection in list
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 44,
-            height: 44,
+            width: 48,
+            height: 48,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.white.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.05),
               ),
@@ -289,13 +285,13 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
             child: Center(
               child: Icon(
                 _getIconForType(account.type),
-                size: 22,
+                size: 24,
                 color:
                     isSelected && !forDisplay ? AppTheme.primary : Colors.white,
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,29 +300,35 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
                 Text(
                   account.name,
                   style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold, // Bold bank name
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
-                  _getSubtitle(account),
+                  _getSubtitle(account), // Account type + masked number
                   style: GoogleFonts.inter(
-                    color: Colors.white38,
-                    fontSize: 12,
+                    color: Colors.white.withValues(alpha: 0.4),
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          if (isSelected && !forDisplay)
-            const Icon(
-              Icons.check_circle_rounded,
-              color: AppTheme.primary,
-              size: 20,
+          if (!forDisplay)
+            Visibility(
+              visible: isSelected,
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              child: const Icon(
+                Icons.check_circle_rounded, // Active selection indicator
+                color: AppTheme.primary,
+                size: 22,
+              ),
             ),
         ],
       ),
@@ -340,8 +342,7 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
 
   IconData _getIconForType(String type) {
     if (type == 'Wallet') return Icons.account_balance_wallet_rounded;
-    if (type == 'Card') return Icons.credit_card_rounded;
-    return Icons.account_balance_rounded;
+    return Icons.account_balance_rounded; // Only Bank and Wallet types remain
   }
 
   Widget _buildQrCard(BuildContext context, String uid, QrAccount account) {

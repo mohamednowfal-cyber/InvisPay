@@ -28,6 +28,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
   final _holderNameController = TextEditingController();
   bool _isDefault = false;
   bool _isValid = false;
+  bool _isCreditCard = true; // Internal state for card type
 
   @override
   void initState() {
@@ -112,6 +113,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         'number': newCard.cardNumber,
         'isCard': true,
         'cardId': newCard.id,
+        'isCredit': _isCreditCard,
       });
 
       // Show success and move to payment flow
@@ -143,140 +145,198 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      appBar: AppBar(
-        title: AnimatedLocalize(
-          text: (loc) => loc.translate('add_new_card'),
-          style: GoogleFonts.outfit(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+    return DefaultTabController(
+      length: 2,
+      child: BaseScreen(
+        appBar: AppBar(
+          title: AnimatedLocalize(
+            text: (loc) => loc.translate('add_new_card'),
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(64),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TabBar(
+                indicator: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFF0D9488), // Teal 600
+                      Color(0xFF059669), // Green 600
+                    ],
+                    begin: AlignmentDirectional.topStart,
+                    end: AlignmentDirectional.bottomEnd,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF0D9488).withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white30,
+                labelStyle: GoogleFonts.outfit(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  letterSpacing: 0.5,
+                ),
+                unselectedLabelStyle: GoogleFonts.outfit(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+                dividerColor: Colors.transparent,
+                tabs: const [
+                  Tab(text: 'CREDIT CARD'),
+                  Tab(text: 'DEBIT CARD'),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _isCreditCard = index == 0;
+                  });
+                  HapticFeedback.selectionClick();
+                },
+              ),
+            ),
           ),
         ),
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildLabel('CARD NUMBER'),
-              _buildTextField(
-                controller: _cardNumberController,
-                hint: '0000 0000 0000 0000',
-                keyboardType: TextInputType.number,
-                maxLength: 16,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                validator: (v) => (v?.length ?? 0) != 16
-                    ? 'Card number must be exactly 16 digits'
-                    : null,
-              ),
-              const SizedBox(height: 24),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildLabel('EXPIRY DATE'),
-                        _buildTextField(
-                          controller: _expiryController,
-                          hint: 'MM/YY',
-                          keyboardType: TextInputType.number,
-                          maxLength: 5,
-                          validator: (v) => !_isExpiryValid(v ?? '')
-                              ? 'Enter a valid expiry date (MM/YY)'
-                              : null,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildLabel('CVV'),
-                        _buildTextField(
-                          controller: _cvvController,
-                          hint: '123',
-                          obscureText: true,
-                          keyboardType: TextInputType.number,
-                          maxLength: 3,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          validator: (v) =>
-                              (v?.length ?? 0) != 3 ? 'Exactly 3 digits' : null,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              _buildLabel('CARD HOLDER NAME'),
-              _buildTextField(
-                controller: _holderNameController,
-                hint: 'JONATHAN DOE',
-                textCapitalization: TextCapitalization.characters,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
-                ],
-                validator: (v) => (v?.trim().isEmpty ?? true)
-                    ? 'Enter card holder name'
-                    : null,
-              ),
-              const SizedBox(height: 32),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  'Set as Default Card',
-                  style: GoogleFonts.outfit(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildLabel('CARD NUMBER'),
+                _buildTextField(
+                  controller: _cardNumberController,
+                  hint: '0000 0000 0000 0000',
+                  keyboardType: TextInputType.number,
+                  maxLength: 16,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  validator: (v) => (v?.length ?? 0) != 16
+                      ? 'Card number must be exactly 16 digits'
+                      : null,
                 ),
-                value: _isDefault,
-                onChanged: (v) => setState(() => _isDefault = v),
-                activeThumbColor: AppTheme.primary,
-              ),
-              const SizedBox(height: 40),
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: _isValid ? 1.0 : 0.5,
-                  child: ElevatedButton(
-                    onPressed: _isValid ? _onSave : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary,
-                      foregroundColor: Colors.white,
-                      disabledBackgroundColor:
-                          AppTheme.primary.withValues(alpha: 0.5),
-                      disabledForegroundColor:
-                          Colors.white.withValues(alpha: 0.5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                const SizedBox(height: 24),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildLabel('EXPIRY DATE'),
+                          _buildTextField(
+                            controller: _expiryController,
+                            hint: 'MM/YY',
+                            keyboardType: TextInputType.number,
+                            maxLength: 5,
+                            validator: (v) => !_isExpiryValid(v ?? '')
+                                ? 'Enter a valid expiry date (MM/YY)'
+                                : null,
+                          ),
+                        ],
                       ),
-                      elevation: _isValid ? 4 : 0,
                     ),
-                    child: Text(
-                      'Save Card',
-                      style: GoogleFonts.outfit(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildLabel('CVV'),
+                          _buildTextField(
+                            controller: _cvvController,
+                            hint: '123',
+                            obscureText: true,
+                            keyboardType: TextInputType.number,
+                            maxLength: 3,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            validator: (v) => (v?.length ?? 0) != 3
+                                ? 'Exactly 3 digits'
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                _buildLabel('CARD HOLDER NAME'),
+                _buildTextField(
+                  controller: _holderNameController,
+                  hint: 'JONATHAN DOE',
+                  textCapitalization: TextCapitalization.characters,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                  ],
+                  validator: (v) => (v?.trim().isEmpty ?? true)
+                      ? 'Enter card holder name'
+                      : null,
+                ),
+                const SizedBox(height: 32),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    'Set as Default Card',
+                    style: GoogleFonts.outfit(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  value: _isDefault,
+                  onChanged: (v) => setState(() => _isDefault = v),
+                  activeThumbColor: AppTheme.primary,
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: _isValid ? 1.0 : 0.5,
+                    child: ElevatedButton(
+                      onPressed: _isValid ? _onSave : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.primary,
+                        foregroundColor: Colors.white,
+                        disabledBackgroundColor:
+                            AppTheme.primary.withValues(alpha: 0.5),
+                        disabledForegroundColor:
+                            Colors.white.withValues(alpha: 0.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: _isValid ? 4 : 0,
+                      ),
+                      child: Text(
+                        'Save Card',
+                        style: GoogleFonts.outfit(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -309,14 +369,20 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
     List<TextInputFormatter>? inputFormatters,
   }) {
     return Container(
+      height: 64, // Consistent premium height for world-class touch targets
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.03),
+        color: Colors.transparent, // Clean, single-layer surface
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.12),
+          width: 1.5,
+        ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      alignment: Alignment.center,
       child: TextFormField(
         controller: controller,
+        textAlignVertical: TextAlignVertical.center,
         style: GoogleFonts.outfit(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
         keyboardType: keyboardType,
@@ -331,7 +397,11 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
           hintText: hint,
           hintStyle: GoogleFonts.outfit(color: Colors.white24, fontSize: 15),
           counterText: '',
+          isDense: true,
+          contentPadding: EdgeInsets.zero,
           errorStyle: const TextStyle(height: 0.8, fontSize: 10),
+          filled: false,
+          fillColor: Colors.transparent,
         ),
       ),
     );

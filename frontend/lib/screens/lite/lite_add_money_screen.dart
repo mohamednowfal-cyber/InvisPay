@@ -407,20 +407,8 @@ class _LiteAddMoneyScreenState extends ConsumerState<LiteAddMoneyScreen> {
         Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 52, horizontal: 28),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E293B),
-            borderRadius: BorderRadius.circular(32),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.08),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.15),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-            ],
+          decoration: const BoxDecoration(
+            color: Colors.transparent,
           ),
           child: Center(
             child: Row(
@@ -530,13 +518,13 @@ class _LiteAddMoneyScreenState extends ConsumerState<LiteAddMoneyScreen> {
         GestureDetector(
           onTap: _showSourceSelectionSheet,
           child: Container(
-            height: 72,
+            height: 96, // Increased height for premium touch accessibility
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: const Color(0xFF1E293B),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.08),
+                color: Colors.white.withValues(alpha: 0.1),
                 width: 1.5,
               ),
             ),
@@ -589,6 +577,15 @@ class _LiteAddMoneyScreenState extends ConsumerState<LiteAddMoneyScreen> {
                           ),
                         ),
                 ),
+                if (_selectedSource != null)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Icon(
+                      Icons.check_circle_rounded,
+                      color: const Color(0xFF10B981),
+                      size: 20,
+                    ),
+                  ),
                 Icon(
                   Icons.chevron_right_rounded,
                   color: Colors.white.withValues(alpha: 0.3),

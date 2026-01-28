@@ -11,7 +11,8 @@ import 'package:invispay/widgets/common/primary_button.dart';
 import 'package:intl/intl.dart';
 
 class KycStatusScreen extends StatefulWidget {
-  const KycStatusScreen({super.key});
+  final bool fromProfile;
+  const KycStatusScreen({super.key, this.fromProfile = false});
 
   @override
   State<KycStatusScreen> createState() => _KycStatusScreenState();
@@ -38,12 +39,14 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
 
         final data = snapshot.data?.data() as Map<String, dynamic>?;
         final status = data?['kycStatus'] ?? 'not_started';
+        final kycData = data?['kycData'] as Map<String, dynamic>?;
 
         // Extract details for display
-        final submittedAt = data?['submittedAt'] as Timestamp?;
-        final idType = data?['idType'] ?? 'ID Card';
-        final idNumber = data?['idNumber'] ?? '****';
-        final maskedId = _maskIdNumber(idNumber);
+        final submittedAt = kycData?['submittedAt'] as Timestamp?;
+        final idType = kycData?['idType'] ?? 'ID Card';
+        final idNumber = kycData?['idNumber'] ?? '****';
+        final documentUrl = kycData?['documentUrl'] as String?;
+        final maskedId = _maskIdNumber(idNumber, idType);
 
         return BaseScreen(
           appBar: AppBar(
@@ -57,7 +60,13 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_rounded),
-              onPressed: () => context.go(AppRoutes.home),
+              onPressed: () {
+                if (widget.fromProfile) {
+                  context.pop();
+                } else {
+                  context.go(AppRoutes.home);
+                }
+              },
             ),
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -153,7 +162,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildDocumentItem(idType),
+                  _buildDocumentItem(idType, documentUrl),
                 ],
 
                 // 4. Action Buttons (Retry / Start)
@@ -161,7 +170,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                   const SizedBox(height: 40),
                   PrimaryButton(
                     text: status == 'failed'
-                        ? 'Retry Verification'
+                        ? 'Resubmit KYC'
                         : 'Start Verification',
                     onPressed: () => context.push(AppRoutes.kycDetails),
                   ),
@@ -174,6 +183,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                         style: GoogleFonts.inter(
                           color: AppTheme.error,
                           fontSize: 13,
+                          fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -189,17 +199,21 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     );
   }
 
-  String _maskIdNumber(String id) {
+  String _maskIdNumber(String id, String type) {
     if (id.length <= 4) return id;
-    // Keep last 4 visible
     final visible = id.substring(id.length - 4);
-    final maskedLength = id.length - 4;
-    // Group masks for readability (e.g. AAAA BBBB 1234)
-    if (id.length > 10) {
-      // Like Aadhaar
-      return 'XXXX XXXX $visible';
+    final typeLower = type.toLowerCase();
+
+    if (typeLower.contains('aadhaar')) {
+      return '********$visible';
+    } else if (typeLower.contains('pan')) {
+      return '*****${id.length > 5 ? id[id.length - 5] : 'X'}$visible';
+    } else if (typeLower.contains('passport')) {
+      return '******$visible';
     }
-    return '${'*' * maskedLength}$visible';
+
+    // Default masking
+    return '${'*' * (id.length - 4)}$visible';
   }
 
   String _formatTimestamp(Timestamp? timestamp) {
@@ -220,22 +234,21 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
         color = const Color(0xFF10B981); // Emerald 500
         icon = Icons.check_circle_rounded;
         title = 'Verified';
-        desc =
-            'Your identity has been successfully verified. You have full access.';
+        desc = 'Your KYC has been successfully verified. You have full access.';
         break;
       case 'pending':
         color = const Color(0xFFF59E0B); // Amber 500
         icon = Icons.hourglass_top_rounded;
         title = 'Under Review';
         desc =
-            'We are currently reviewing your documents. This usually takes 24 hours.';
+            'Your documents are under review. This usually takes 24–48 hours.';
         break;
       case 'failed':
         color = const Color(0xFFEF4444); // Red 500
         icon = Icons.error_rounded;
         title = 'Verification Failed';
         desc =
-            'We could not verify your identity. Please review the reason below and retry.';
+            'We could not verify your identity. Please review the reason below and resubmit.';
         break;
       default:
         color = AppTheme.primary;
@@ -328,7 +341,14 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     );
   }
 
-  Widget _buildDocumentItem(String idType) {
+  Widget _buildDocumentItem(String idType, String? documentUrl) {
+    if (documentUrl == null) return const SizedBox.shrink();
+
+    final isPdf = documentUrl.toLowerCase().contains('.pdf') ||
+        documentUrl.toLowerCase().contains('alt=media');
+    // Note: Firebase Storage URLs often end with token and don't clearly show extension,
+    // but we can try to infer or just provide a generic view button.
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -345,42 +365,116 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            width: 48,
+            height: 48,
             decoration: BoxDecoration(
               color: AppTheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child:
-                const Icon(Icons.file_present_rounded, color: AppTheme.primary),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: !isPdf && documentUrl.startsWith('http')
+                  ? Image.network(
+                      documentUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const Icon(
+                          Icons.file_present_rounded,
+                          color: AppTheme.primary),
+                    )
+                  : const Icon(Icons.picture_as_pdf_rounded,
+                      color: AppTheme.primary),
+            ),
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Identity Proof',
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black87,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Identity Proof',
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                'Scanned copy of $idType',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: AppTheme.textSecondary,
+                const SizedBox(height: 2),
+                Text(
+                  isPdf ? 'PDF Document' : 'Scanned copy of $idType',
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    color: AppTheme.textSecondary,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const Spacer(),
-          const Icon(Icons.check_circle, color: Color(0xFF10B981), size: 20),
+          TextButton(
+            onPressed: () => _viewDocument(documentUrl, isPdf),
+            child: Text(
+              'View',
+              style: GoogleFonts.inter(
+                color: AppTheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  void _viewDocument(String url, bool isPdf) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Document Viewer',
+      pageBuilder: (context, anim1, anim2) {
+        return Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            leading: IconButton(
+              icon: const Icon(Icons.close_rounded, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
+            title: const Text('View Document',
+                style: TextStyle(color: Colors.white)),
+          ),
+          body: Center(
+            child: isPdf
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.picture_as_pdf_rounded,
+                          color: Colors.white, size: 84),
+                      const SizedBox(height: 20),
+                      Text(
+                        'PDF Viewer is not available in demo mode.',
+                        style: GoogleFonts.inter(color: Colors.white70),
+                      ),
+                    ],
+                  )
+                : InteractiveViewer(
+                    child: Image.network(
+                      url,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const CircularProgressIndicator(
+                            color: Colors.white);
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Text('Could not load image',
+                            style: TextStyle(color: Colors.white));
+                      },
+                    ),
+                  ),
+          ),
+        );
+      },
     );
   }
 }

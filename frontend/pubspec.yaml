@@ -62,12 +62,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  fonts:
-    - family: CupertinoIcons
-      fonts:
-        - asset: assets/fonts/CupertinoIcons.ttf
 
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/fonts/
+
+
+
