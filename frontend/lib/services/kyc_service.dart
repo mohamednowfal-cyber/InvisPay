@@ -28,6 +28,8 @@ class KycService {
     required String idNumber,
     required File documentFile,
     required String fileExtension,
+    File? userPhoto,
+    String? photoExtension,
   }) async {
     final uid = _uid;
     if (uid == null) throw Exception('User not authenticated');
@@ -46,6 +48,15 @@ class KycService {
     final uploadTask = await storageRef.putFile(documentFile);
     final downloadUrl = await uploadTask.ref.getDownloadURL();
 
+    String? photoUrl;
+    if (userPhoto != null && photoExtension != null) {
+      final photoPath =
+          'kyc_photos/$uid/user_photo_${DateTime.now().millisecondsSinceEpoch}.$photoExtension';
+      final photoRef = _storage.ref().child(photoPath);
+      final photoTask = await photoRef.putFile(userPhoto);
+      photoUrl = await photoTask.ref.getDownloadURL();
+    }
+
     // 2. Update Firestore profile and status
     await _db.collection('users').doc(uid).update({
       'fullName': fullName,
@@ -54,6 +65,7 @@ class KycService {
         'idType': idType,
         'idNumber': idNumber,
         'documentUrl': downloadUrl,
+        'photoUrl': photoUrl,
         'submittedAt': FieldValue.serverTimestamp(),
       },
     });

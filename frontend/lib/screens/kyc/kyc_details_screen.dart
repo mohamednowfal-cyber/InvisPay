@@ -31,7 +31,7 @@ class _KycDetailsScreenState extends State<KycDetailsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => context
-              .go(AppRoutes.home), // Redirect to dashboard, not back loop
+              .pop(), // Fix: Return to previous screen (Status), don't force Home
         ),
       ),
       child: SingleChildScrollView(
@@ -66,30 +66,63 @@ class _KycDetailsScreenState extends State<KycDetailsScreen> {
                   // ID Type
                   _buildLabel('Select ID Type'),
                   const SizedBox(height: 8),
-                  FormBuilderDropdown<String>(
+                  FormBuilderField<String>(
                     name: 'id_type',
                     initialValue: 'Aadhaar',
-                    onChanged: (val) {
-                      setState(() {
-                        _selectedIdType = val ?? 'Aadhaar';
-                        // Clear ID Number field when type changes to prevent validation overlap
-                        _formKey.currentState?.fields['id_number']
-                            ?.didChange('');
-                      });
-                    },
-                    decoration: _inputDecoration(
-                      prefixIcon: Icons.badge_outlined,
-                      hint: 'Select ID Type',
-                    ),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                     ]),
-                    items: ['Aadhaar', 'PAN', 'Passport']
-                        .map((type) => DropdownMenuItem(
-                              value: type,
-                              child: Text(type),
-                            ))
-                        .toList(),
+                    builder: (FormFieldState<String> field) {
+                      return LayoutBuilder(
+                        builder: (context, constraints) {
+                          return PopupMenuButton<String>(
+                            // 🔒 Strict Positioning: 60px offset ensures it opens strictly below the field
+                            offset: const Offset(0, 60),
+                            constraints: BoxConstraints.tightFor(
+                              width: constraints.maxWidth,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            color: const Color(0xFF1E293B), // Match app surface
+                            elevation: 8,
+                            tooltip: '',
+                            initialValue: field.value,
+                            onSelected: (val) {
+                              field.didChange(val);
+                              setState(() {
+                                _selectedIdType = val;
+                                // Clear ID Number field when type changes
+                                _formKey.currentState?.fields['id_number']
+                                    ?.didChange('');
+                              });
+                            },
+                            itemBuilder: (context) => [
+                              _buildPopupItem(
+                                  'Aadhaar', Icons.fingerprint_rounded),
+                              _buildPopupItem('PAN', Icons.credit_card_rounded),
+                              _buildPopupItem('Passport', Icons.public_rounded),
+                            ],
+                            child: InputDecorator(
+                              decoration: _inputDecoration(
+                                prefixIcon: Icons.badge_outlined,
+                                hint: 'Select ID Type',
+                              ).copyWith(
+                                errorText: field.errorText,
+                                suffixIcon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: AppTheme.textSecondary,
+                                ),
+                              ),
+                              child: Text(
+                                field.value ?? 'Select ID Type',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                   const SizedBox(height: 24),
 
@@ -255,6 +288,28 @@ class _KycDetailsScreenState extends State<KycDetailsScreen> {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: const BorderSide(color: AppTheme.error),
+      ),
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupItem(String text, IconData icon) {
+    return PopupMenuItem<String>(
+      value: text,
+      height: 56, // Premium touch target
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      child: Row(
+        children: [
+          Icon(icon, color: AppTheme.textSecondary, size: 20),
+          const SizedBox(width: 12),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

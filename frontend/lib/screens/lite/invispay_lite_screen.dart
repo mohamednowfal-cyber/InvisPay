@@ -608,6 +608,10 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
               child: LayoutBuilder(builder: (context, constraints) {
                 return Theme(
                   data: Theme.of(context).copyWith(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashFactory: NoSplash.splashFactory,
                     popupMenuTheme: PopupMenuThemeData(
                       color: const Color(0xFF1E293B), // Slate 800
                       elevation: 16,
@@ -617,9 +621,12 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
                     ),
                   ),
                   child: PopupMenuButton<_SourceAccount>(
-                    offset: const Offset(0, 70), // Forces menu strictly below
+                    clipBehavior: Clip.hardEdge,
+                    // Offset adjusted (-10) to center the wider container (+20)
+                    offset: const Offset(-10, 70),
+                    // Width expanded (+20) to cover parent borders completely
                     constraints: BoxConstraints.tightFor(
-                        width: constraints.maxWidth), // Matches container width
+                        width: constraints.maxWidth + 20),
                     tooltip: '',
                     itemBuilder: (context) {
                       return _sources.map((source) {
@@ -627,7 +634,7 @@ class _DummyAddMoneyScreenState extends State<_DummyAddMoneyScreen> {
                           value: source,
                           height: 72, // Increased item height for comfort
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 6), // Better spacing
+                              horizontal: 24, vertical: 6), // Better spacing
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [

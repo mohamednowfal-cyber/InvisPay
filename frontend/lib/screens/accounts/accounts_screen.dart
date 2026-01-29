@@ -42,14 +42,8 @@ class AccountsScreen extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      gradient: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color(0xFF0F172A), // Slate 900
-          Color(0xFF020617), // Slate 950
-        ],
-      ),
+      // Removed local gradient override to match app-wide background
+      gradient: null,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         physics: const BouncingScrollPhysics(),
@@ -78,21 +72,23 @@ class AccountsScreen extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF172554), // Blue 950
-                Color(0xFF1E40AF), // Blue 800
-                Color(0xFF3B82F6), // Blue 500
+                Color(0xFF1E3A8A), // Blue 900 (Brighter start)
+                Color(0xFF2563EB), // Blue 600
+                Color(0xFF60A5FA), // Blue 400 (Vibrant finish)
               ],
+              stops: [0.0, 0.4, 1.0],
             );
-            shadowColor = const Color(0xFF2563EB).withValues(alpha: 0.2);
+            shadowColor = const Color(0xFF2563EB).withValues(alpha: 0.25);
           } else if (bankName.contains('InvisPay')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF115E59), // Teal 800
-                Color(0xFF0F766E), // Teal 700
+                Color(0xFF115E59), // Teal 800 (Richer start)
                 Color(0xFF14B8A6), // Teal 500
+                Color(0xFF5EEAD4), // Teal 300 (Vibrant finish)
               ],
+              stops: [0.0, 0.4, 1.0],
             );
             shadowColor = const Color(0xFF0D9488).withValues(alpha: 0.2);
           } else if (bankName.contains('HDFC')) {
@@ -100,12 +96,13 @@ class AccountsScreen extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF020617), // Slate 950
-                Color(0xFF1E293B), // Slate 800
-                Color(0xFF475569), // Slate 600
+                Color(0xFF1E293B), // Slate 800 (Lighter start)
+                Color(0xFF334155), // Slate 700
+                Color(0xFF475569), // Slate 600 (Visible finish)
               ],
+              stops: [0.0, 0.4, 1.0],
             );
-            shadowColor = const Color(0xFF334155).withValues(alpha: 0.15);
+            shadowColor = const Color(0xFF0F172A).withValues(alpha: 0.3);
           }
 
           return Padding(

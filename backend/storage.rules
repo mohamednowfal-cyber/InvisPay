@@ -1,0 +1,37 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // KYC documents storage
+    match /kyc_documents/{userId}/{fileName} {
+      // Allow read only for the document owner
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Allow upload only for the document owner
+      allow write: if isAuthenticated() 
+        && request.auth.uid == userId
+        // Restrict file size to 5MB
+        && request.resource.size < 5 * 1024 * 1024
+        // Allow only images and PDFs
+        && (request.resource.contentType.matches('image/.*') 
+            || request.resource.contentType == 'application/pdf');
+      
+      // Prevent deletion (documents are immutable)
+      allow delete: if false;
+    }
+    
+    // User profile images
+    match /profile_images/{userId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() 
+        && request.auth.uid == userId
+        && request.resource.size < 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}

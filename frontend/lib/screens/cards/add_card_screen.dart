@@ -20,23 +20,40 @@ class AddCardScreen extends ConsumerStatefulWidget {
   ConsumerState<AddCardScreen> createState() => _AddCardScreenState();
 }
 
-class _AddCardScreenState extends ConsumerState<AddCardScreen> {
+class _AddCardScreenState extends ConsumerState<AddCardScreen>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
+  late TabController _tabController;
   final _cardNumberController = TextEditingController();
   final _expiryController = TextEditingController();
   final _cvvController = TextEditingController();
   final _holderNameController = TextEditingController();
   bool _isDefault = false;
   bool _isValid = false;
-  bool _isCreditCard = true; // Internal state for card type
+  bool _isCreditCard = true;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+
     _cardNumberController.addListener(_validateForm);
     _expiryController.addListener(_handleExpiryInput);
     _cvvController.addListener(_validateForm);
     _holderNameController.addListener(_validateForm);
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) return;
+
+    final isCredit = _tabController.index == 0;
+    if (_isCreditCard != isCredit) {
+      setState(() {
+        _isCreditCard = isCredit;
+      });
+      _resetForm();
+    }
   }
 
   void _validateForm() {
@@ -85,11 +102,25 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
 
   @override
   void dispose() {
+    _tabController.dispose();
     _cardNumberController.dispose();
     _expiryController.dispose();
     _cvvController.dispose();
     _holderNameController.dispose();
     super.dispose();
+  }
+
+  void _resetForm() {
+    _cardNumberController.clear();
+    _expiryController.clear();
+    _cvvController.clear();
+    _holderNameController.clear();
+    _isDefault = false;
+    setState(() {
+      _isValid = false;
+    });
+    // Ensure validation errors are cleared visually
+    _formKey.currentState?.reset();
   }
 
   void _onSave() {
@@ -106,7 +137,6 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
 
       ref.read(cardsProvider.notifier).addCard(newCard);
 
-      // Pre-select this new card for payment
       ref.read(selectedPaymentAccountProvider.notifier).setAccount({
         'type': 'Card',
         'bankName': newCard.type == CardType.visa ? 'Visa' : 'Mastercard',
@@ -116,7 +146,6 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         'isCredit': _isCreditCard,
       });
 
-      // Show success and move to payment flow
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
@@ -126,7 +155,6 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         ),
       );
 
-      // Navigate to payment screen directly
       context.pushReplacement(AppRoutes.makeTransaction);
     }
   }
@@ -138,205 +166,199 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
   }
 
   Color _determineCardColor(String number) {
-    if (number.startsWith('4')) return const Color(0xFF1A1F71); // Visa Blue
-    if (number.startsWith('5')) return const Color(0xFFEB001B); // Master Red
-    return const Color(0xFF1E293B); // Default Slate
+    if (number.startsWith('4')) return const Color(0xFF1A1F71);
+    if (number.startsWith('5')) return const Color(0xFFEB001B);
+    return const Color(0xFF1E293B);
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: BaseScreen(
-        appBar: AppBar(
-          title: AnimatedLocalize(
-            text: (loc) => loc.translate('add_new_card'),
-            style: GoogleFonts.outfit(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+    return BaseScreen(
+      appBar: AppBar(
+        title: AnimatedLocalize(
+          text: (loc) => loc.translate('add_new_card'),
+          style: GoogleFonts.outfit(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
-          centerTitle: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(64),
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: TabBar(
-                indicator: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF0D9488), // Teal 600
-                      Color(0xFF059669), // Green 600
-                    ],
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF0D9488).withValues(alpha: 0.3),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
+        ),
+        centerTitle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(64),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: TabBar(
+              controller: _tabController,
+              indicator: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF0D9488),
+                    Color(0xFF059669),
                   ],
+                  begin: AlignmentDirectional.topStart,
+                  end: AlignmentDirectional.bottomEnd,
                 ),
-                indicatorSize: TabBarIndicatorSize.tab,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white30,
-                labelStyle: GoogleFonts.outfit(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  letterSpacing: 0.5,
-                ),
-                unselectedLabelStyle: GoogleFonts.outfit(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                ),
-                dividerColor: Colors.transparent,
-                tabs: const [
-                  Tab(text: 'CREDIT CARD'),
-                  Tab(text: 'DEBIT CARD'),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF0D9488).withValues(alpha: 0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
                 ],
-                onTap: (index) {
-                  setState(() {
-                    _isCreditCard = index == 0;
-                  });
-                  HapticFeedback.selectionClick();
-                },
               ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white30,
+              labelStyle: GoogleFonts.outfit(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                letterSpacing: 0.5,
+              ),
+              unselectedLabelStyle: GoogleFonts.outfit(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+              dividerColor: Colors.transparent,
+              onTap: (index) {
+                HapticFeedback.selectionClick();
+              },
+              tabs: const [
+                Tab(text: 'CREDIT CARD'),
+                Tab(text: 'DEBIT CARD'),
+              ],
             ),
           ),
         ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildLabel('CARD NUMBER'),
-                _buildTextField(
-                  controller: _cardNumberController,
-                  hint: '0000 0000 0000 0000',
-                  keyboardType: TextInputType.number,
-                  maxLength: 16,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  validator: (v) => (v?.length ?? 0) != 16
-                      ? 'Card number must be exactly 16 digits'
-                      : null,
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildLabel('EXPIRY DATE'),
-                          _buildTextField(
-                            controller: _expiryController,
-                            hint: 'MM/YY',
-                            keyboardType: TextInputType.number,
-                            maxLength: 5,
-                            validator: (v) => !_isExpiryValid(v ?? '')
-                                ? 'Enter a valid expiry date (MM/YY)'
-                                : null,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildLabel('CVV'),
-                          _buildTextField(
-                            controller: _cvvController,
-                            hint: '123',
-                            obscureText: true,
-                            keyboardType: TextInputType.number,
-                            maxLength: 3,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: (v) => (v?.length ?? 0) != 3
-                                ? 'Exactly 3 digits'
-                                : null,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                _buildLabel('CARD HOLDER NAME'),
-                _buildTextField(
-                  controller: _holderNameController,
-                  hint: 'JONATHAN DOE',
-                  textCapitalization: TextCapitalization.characters,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
-                  ],
-                  validator: (v) => (v?.trim().isEmpty ?? true)
-                      ? 'Enter card holder name'
-                      : null,
-                ),
-                const SizedBox(height: 32),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    'Set as Default Card',
-                    style: GoogleFonts.outfit(
-                      color: Colors.white,
-                      fontSize: 16,
+      ),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildLabel('CARD NUMBER'),
+              _buildStaticTextField(
+                controller: _cardNumberController,
+                hint: '0000 0000 0000 0000',
+                keyboardType: TextInputType.number,
+                maxLength: 16,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (v) => (v?.length ?? 0) != 16
+                    ? 'Card number must be exactly 16 digits'
+                    : null,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('EXPIRY DATE'),
+                        _buildStaticTextField(
+                          controller: _expiryController,
+                          hint: 'MM/YY',
+                          keyboardType: TextInputType.number,
+                          maxLength: 5,
+                          validator: (v) => !_isExpiryValid(v ?? '')
+                              ? 'Enter a valid expiry date (MM/YY)'
+                              : null,
+                        ),
+                      ],
                     ),
                   ),
-                  value: _isDefault,
-                  onChanged: (v) => setState(() => _isDefault = v),
-                  activeThumbColor: AppTheme.primary,
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('CVV'),
+                        _buildStaticTextField(
+                          controller: _cvvController,
+                          hint: '123',
+                          obscureText: true,
+                          keyboardType: TextInputType.number,
+                          maxLength: 3,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          validator: (v) =>
+                              (v?.length ?? 0) != 3 ? 'Exactly 3 digits' : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildLabel('CARD HOLDER NAME'),
+              _buildStaticTextField(
+                controller: _holderNameController,
+                hint: 'JONATHAN DOE',
+                textCapitalization: TextCapitalization.characters,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                ],
+                validator: (v) => (v?.trim().isEmpty ?? true)
+                    ? 'Enter card holder name'
+                    : null,
+              ),
+              const SizedBox(height: 32),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  'Set as Default Card',
+                  style: GoogleFonts.outfit(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
-                const SizedBox(height: 40),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 300),
-                    opacity: _isValid ? 1.0 : 0.5,
-                    child: ElevatedButton(
-                      onPressed: _isValid ? _onSave : null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primary,
-                        foregroundColor: Colors.white,
-                        disabledBackgroundColor:
-                            AppTheme.primary.withValues(alpha: 0.5),
-                        disabledForegroundColor:
-                            Colors.white.withValues(alpha: 0.5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: _isValid ? 4 : 0,
+                value: _isDefault,
+                onChanged: (v) => setState(() => _isDefault = v),
+                activeThumbColor: AppTheme.primary,
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  opacity: _isValid ? 1.0 : 0.5,
+                  child: ElevatedButton(
+                    onPressed: _isValid ? _onSave : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.primary,
+                      foregroundColor: Colors.white,
+                      disabledBackgroundColor:
+                          AppTheme.primary.withValues(alpha: 0.5),
+                      disabledForegroundColor:
+                          Colors.white.withValues(alpha: 0.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Text(
-                        'Save Card',
-                        style: GoogleFonts.outfit(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      elevation: _isValid ? 4 : 0,
+                    ),
+                    child: Text(
+                      'Save Card',
+                      style: GoogleFonts.outfit(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -358,7 +380,8 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
     );
   }
 
-  Widget _buildTextField({
+  // Renamed and refactored for static style
+  Widget _buildStaticTextField({
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
@@ -369,14 +392,15 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
     List<TextInputFormatter>? inputFormatters,
   }) {
     return Container(
-      height: 64, // Consistent premium height for world-class touch targets
+      height: 64,
       decoration: BoxDecoration(
-        color: Colors.transparent, // Clean, single-layer surface
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12),
+          color: Colors.white.withValues(alpha: 0.12), // CONSTANT COLOR
           width: 1.5,
         ),
+        // NO BOX SHADOW
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       alignment: Alignment.center,

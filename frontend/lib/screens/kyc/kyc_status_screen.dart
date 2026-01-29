@@ -46,6 +46,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
         final idType = kycData?['idType'] ?? 'ID Card';
         final idNumber = kycData?['idNumber'] ?? '****';
         final documentUrl = kycData?['documentUrl'] as String?;
+        final photoUrl = kycData?['photoUrl'] as String?; // Extract photo URL
         final maskedId = _maskIdNumber(idNumber, idType);
 
         return BaseScreen(
@@ -144,6 +145,18 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                           value: maskedId,
                           isMono: true,
                         ),
+                        if (photoUrl != null) ...[
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: Divider(height: 1, thickness: 0.5),
+                          ),
+                          _buildDetailRow(
+                            icon: Icons.camera_front_rounded,
+                            label: 'Photo Status',
+                            value: 'Live photo captured',
+                            previewUrl: photoUrl,
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -170,7 +183,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                   const SizedBox(height: 40),
                   PrimaryButton(
                     text: status == 'failed'
-                        ? 'Resubmit KYC'
+                        ? 'Try Again Verification'
                         : 'Start Verification',
                     onPressed: () => context.push(AppRoutes.kycDetails),
                   ),
@@ -304,6 +317,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     required IconData icon,
     required String label,
     required String value,
+    String? previewUrl,
     bool isMono = false,
   }) {
     return Row(
@@ -319,6 +333,20 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
           ),
         ),
         const Spacer(),
+        if (previewUrl != null) ...[
+          GestureDetector(
+            onTap: () => _showPreview(previewUrl, false),
+            child: Text(
+              'View',
+              style: GoogleFonts.inter(
+                color: AppTheme.primary,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+        ],
         Text(
           value,
           style: isMono
@@ -412,7 +440,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
             ),
           ),
           TextButton(
-            onPressed: () => _viewDocument(documentUrl, isPdf),
+            onPressed: () => _showPreview(documentUrl, isPdf),
             child: Text(
               'View',
               style: GoogleFonts.inter(
@@ -426,11 +454,11 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     );
   }
 
-  void _viewDocument(String url, bool isPdf) {
+  void _showPreview(String url, bool isPdf) {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
-      barrierLabel: 'Document Viewer',
+      barrierLabel: 'Preview',
       pageBuilder: (context, anim1, anim2) {
         return Scaffold(
           backgroundColor: Colors.black,
@@ -440,8 +468,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
               icon: const Icon(Icons.close_rounded, color: Colors.white),
               onPressed: () => Navigator.pop(context),
             ),
-            title: const Text('View Document',
-                style: TextStyle(color: Colors.white)),
+            title: const Text('Preview', style: TextStyle(color: Colors.white)),
           ),
           body: Center(
             child: isPdf

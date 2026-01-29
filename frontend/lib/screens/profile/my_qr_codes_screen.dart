@@ -188,7 +188,7 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
       BuildContext context, List<QrAccount> accounts, QrAccount current) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-      height: 84, // Slightly increased height for touch comfort
+      height: 76, // Reduced height for tighter, more premium feel
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B), // Premium Slate
         borderRadius: BorderRadius.circular(24), // Premium radius
@@ -216,7 +216,7 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
             ),
           ),
           child: PopupMenuButton<QrAccount>(
-            offset: const Offset(0, 90), // Forces menu strictly below
+            offset: const Offset(0, 88), // Increased gap to 12px (76 + 12)
             constraints: BoxConstraints.tightFor(
                 width: constraints.maxWidth), // Matches container width
             tooltip: '',
@@ -225,9 +225,9 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
                 final isSelected = account.id == current.id;
                 return PopupMenuItem<QrAccount>(
                   value: account,
-                  height: 60, // Reduced base height
+                  height: 64, // Reduced base height
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4), // Reduced padding
+                      horizontal: 16, vertical: 4), // Reduced padding
                   child: _buildSelectorItem(account, isSelected: isSelected),
                 );
               }).toList();
@@ -257,12 +257,14 @@ class _MyQrCodesScreenState extends ConsumerState<MyQrCodesScreen> {
   Widget _buildSelectorItem(QrAccount account,
       {required bool isSelected, bool forDisplay = false}) {
     return Container(
-      height: forDisplay ? 84 : 72,
+      // Remove fixed height for list items, keep 84 for main display
+      height: forDisplay ? 84 : null,
+      constraints: forDisplay ? null : const BoxConstraints(minHeight: 60),
       margin: forDisplay
           ? EdgeInsets.zero
-          : const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      padding:
-          const EdgeInsets.symmetric(horizontal: 16), // Standardized padding
+          : const EdgeInsets.symmetric(vertical: 2), // Minimal margin
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16, vertical: 8), // Vertical padding for list items
       decoration: BoxDecoration(
         color: isSelected && !forDisplay
             ? AppTheme.primary.withValues(alpha: 0.1)

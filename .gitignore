@@ -3,6 +3,7 @@
 **/build/
 **/*.aar
 **/*.apk
+.gradle_home/
 
 # Flutter/Dart ignores
 **/.dart_tool/
@@ -10,6 +11,7 @@
 **/.flutter-plugins-dependencies
 **/.packages
 **/.pub-cache/
+**/.pub_cache/
 **/.pub/
 
 # IDE ignores
@@ -17,9 +19,14 @@
 .vscode/
 *.iml
 
-# OS ignores
+# OS and System ignores
 .DS_Store
 Thumbs.db
+AppData/
+LocalAppData/
+UserProfile/
+tools/
+**/node_modules/
 
 # Logs
 *.log
