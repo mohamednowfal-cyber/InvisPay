@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:invispay/services/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class KycService {
   final AuthService _auth = AuthService();
@@ -35,7 +37,13 @@ class KycService {
     if (uid == null) throw Exception('User not authenticated');
 
     if (!_isConfigured) {
-      // Mock Submission
+      // Mock Submission: Save locally for persistence in demo mode
+      await _saveLocalKycData(
+        fullName: fullName,
+        idType: idType,
+        idNumber: idNumber,
+        status: 'pending',
+      );
       await Future.delayed(const Duration(seconds: 1));
       return;
     }
@@ -58,35 +66,46 @@ class KycService {
     }
 
     // 2. Update Firestore profile and status
+    final kycData = {
+      'idType': idType,
+      'idNumber': idNumber,
+      'documentUrl': downloadUrl,
+      'photoUrl': photoUrl,
+      'submittedAt': FieldValue.serverTimestamp(),
+    };
+
     await _db.collection('users').doc(uid).update({
       'fullName': fullName,
       'kycStatus': 'pending',
-      'kycData': {
-        'idType': idType,
-        'idNumber': idNumber,
-        'documentUrl': downloadUrl,
-        'photoUrl': photoUrl,
-        'submittedAt': FieldValue.serverTimestamp(),
-      },
+      'kycData': kycData,
     });
+
+    // 3. Update local cache
+    await _saveLocalKycData(
+      fullName: fullName,
+      idType: idType,
+      idNumber: idNumber,
+      status: 'pending',
+      documentUrl: downloadUrl,
+      photoUrl: photoUrl,
+    );
   }
 
   /// Get current user's KYC status stream
-  Stream<DocumentSnapshot?> get kycStatusStream {
+  Stream<Map<String, dynamic>?> get kycStatusStream {
     final uid = _uid;
     if (uid == null) return Stream.empty();
 
     if (!_isConfigured) {
-      // Return a simulated stream implying 'pending' or 'not_started' for demo
-      // Since DocumentSnapshot is hard to mock perfectly without firestore_mocks,
-      // we just return Stream.empty() and handle it in UI, or throw.
-      // Better: Return Stream.empty() and let UI show loader or default.
-      // Actually, returning null/empty causes infinite loading.
-      // Best approach for demo: The UI should check 'isConfigured' or handle empty.
-      return Stream.empty();
+      // Return a simulated stream using local data for demo persistence
+      return _getLocalDataStream();
     }
 
-    return _db.collection('users').doc(uid).snapshots();
+    return _db
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((doc) => doc.data());
   }
 
   /// Manually check KYC status
@@ -100,6 +119,57 @@ class KycService {
     if (!doc.exists) return 'pending';
 
     final data = doc.data();
-    return data?['kycStatus'] ?? 'pending';
+    final status = data?['kycStatus'] ?? 'pending';
+
+    // Update local cache with latest status from server
+    if (data != null) {
+      await _saveLocalKycData(
+        fullName: data['fullName'] ?? '',
+        idType: (data['kycData'] as Map?)?['idType'] ?? '',
+        idNumber: (data['kycData'] as Map?)?['idNumber'] ?? '',
+        status: status,
+      );
+    }
+    return status;
+  }
+
+  // --- Local Persistence Helpers ---
+
+  Future<void> _saveLocalKycData({
+    required String fullName,
+    required String idType,
+    required String idNumber,
+    required String status,
+    String? documentUrl,
+    String? photoUrl,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = {
+      'fullName': fullName,
+      'kycStatus': status,
+      'kycData': {
+        'idType': idType,
+        'idNumber': idNumber,
+        'documentUrl': documentUrl,
+        'photoUrl': photoUrl,
+        'submittedAt': DateTime.now().toIso8601String(),
+      }
+    };
+    await prefs.setString('local_kyc_data', jsonEncode(data));
+  }
+
+  Stream<Map<String, dynamic>?> _getLocalDataStream() async* {
+    final prefs = await SharedPreferences.getInstance();
+    while (true) {
+      final json = prefs.getString('local_kyc_data');
+      if (json != null) {
+        final data = jsonDecode(json) as Map<String, dynamic>?;
+        yield data;
+      } else {
+        yield null;
+      }
+      await Future.delayed(
+          const Duration(seconds: 5)); // Poll for changes in demo
+    }
   }
 }

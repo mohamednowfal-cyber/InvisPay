@@ -29,7 +29,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    return StreamBuilder<DocumentSnapshot?>(
+    return StreamBuilder<Map<String, dynamic>?>(
       stream: _kycService.kycStatusStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -37,17 +37,17 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
               body: Center(child: CircularProgressIndicator()));
         }
 
-        final data = snapshot.data?.data() as Map<String, dynamic>?;
+        final data = snapshot.data;
         final status = data?['kycStatus'] ?? 'not_started';
         final kycData = data?['kycData'] as Map<String, dynamic>?;
 
         // Extract details for display
-        final submittedAt = kycData?['submittedAt'] as Timestamp?;
+        final rawSubmittedAt = kycData?['submittedAt'];
         final idType = kycData?['idType'] ?? 'ID Card';
         final idNumber = kycData?['idNumber'] ?? '****';
         final documentUrl = kycData?['documentUrl'] as String?;
         final photoUrl = kycData?['photoUrl'] as String?; // Extract photo URL
-        final maskedId = _maskIdNumber(idNumber, idType);
+        final maskedId = _maskIdNumber(idNumber);
 
         return BaseScreen(
           appBar: AppBar(
@@ -79,15 +79,27 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
               children: [
                 const SizedBox(height: 16),
 
+                // 0. KYC Summary Section (At the Top, only if submitted)
+                if (kycData != null) ...[
+                  _buildSummarySection(
+                    context: context,
+                    idType: idType,
+                    idNumber: maskedId,
+                    submittedAt: rawSubmittedAt,
+                    status: status,
+                  ),
+                  const SizedBox(height: 24),
+                ],
+
                 // 1. Status Card (Hero Section)
                 _buildStatusCard(status),
 
                 const SizedBox(height: 32),
 
-                // 2. Submission Details (Only if data exists)
-                if (kycData != null) ...[
+                // 2. Submission Details (Details and Documents)
+                if (kycData != null && status != 'verified') ...[
                   Text(
-                    'Submission Details',
+                    'Full Breakdown',
                     style: GoogleFonts.outfit(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -111,20 +123,13 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                             ? Colors.white.withValues(alpha: 0.1)
                             : Colors.grey.shade200,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
                     ),
                     child: Column(
                       children: [
                         _buildDetailRow(
                           icon: Icons.calendar_today_rounded,
                           label: 'Submitted on',
-                          value: _formatTimestamp(submittedAt),
+                          value: _formatTimestamp(rawSubmittedAt),
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 12),
@@ -153,7 +158,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                           _buildDetailRow(
                             icon: Icons.camera_front_rounded,
                             label: 'Photo Status',
-                            value: 'Live photo captured',
+                            value: 'Captured via camera',
                             previewUrl: photoUrl,
                           ),
                         ],
@@ -213,28 +218,132 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     );
   }
 
-  String _maskIdNumber(String id, String type) {
+  String _maskIdNumber(String id) {
     if (id.length <= 4) return id;
     final visible = id.substring(id.length - 4);
-    final typeLower = type.toLowerCase();
-
-    if (typeLower.contains('aadhaar')) {
-      return '********$visible';
-    } else if (typeLower.contains('pan')) {
-      return '*****${id.length > 5 ? id[id.length - 5] : 'X'}$visible';
-    } else if (typeLower.contains('passport')) {
-      return '******$visible';
-    }
-
-    // Default masking
-    return '${'*' * (id.length - 4)}$visible';
+    return '**** $visible';
   }
 
-  String _formatTimestamp(Timestamp? timestamp) {
+  String _formatTimestamp(dynamic timestamp) {
     if (timestamp == null) return 'N/A';
-    final date = timestamp.toDate();
-    // Example: 14 Feb 2026, 10:42 AM
+    DateTime date;
+
+    if (timestamp is Timestamp) {
+      date = timestamp.toDate();
+    } else if (timestamp is String) {
+      date = DateTime.parse(timestamp);
+    } else if (timestamp is DateTime) {
+      date = timestamp;
+    } else {
+      return 'N/A';
+    }
+
     return DateFormat('dd MMM yyyy, hh:mm a').format(date);
+  }
+
+  Widget _buildSummarySection({
+    required BuildContext context,
+    required String idType,
+    required String idNumber,
+    required dynamic submittedAt,
+    required String status,
+  }) {
+    final displayStatus = status.replaceAll('_', ' ').toUpperCase();
+    final statusColor = _getStatusColor(status);
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white.withValues(alpha: 0.05)
+            : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.grey.shade200,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'KYC SUMMARY',
+                style: GoogleFonts.outfit(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                  color: AppTheme.primary,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  displayStatus,
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: statusColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          _buildSummaryRow('ID Type', idType),
+          const SizedBox(height: 12),
+          _buildSummaryRow('ID Number', idNumber),
+          const SizedBox(height: 12),
+          _buildSummaryRow('Submitted', _formatTimestamp(submittedAt)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: GoogleFonts.inter(
+            color: AppTheme.textSecondary,
+            fontSize: 14,
+          ),
+        ),
+        Text(
+          value,
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black87,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'verified':
+        return const Color(0xFF10B981);
+      case 'pending':
+        return const Color(0xFFF59E0B);
+      case 'failed':
+        return const Color(0xFFEF4444);
+      default:
+        return AppTheme.primary;
+    }
   }
 
   Widget _buildStatusCard(String status) {
