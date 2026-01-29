@@ -40,9 +40,10 @@ class CreditCardsScreen extends ConsumerWidget {
       ),
       child: cards.isEmpty
           ? _buildEmptyState(context, l10n)
-          : ListView.builder(
+          : ListView.separated(
               padding: const EdgeInsets.all(24),
               itemCount: cards.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 20),
               itemBuilder: (context, index) {
                 final card = cards[index];
                 return _buildCardItem(context, ref, card);
@@ -94,7 +95,6 @@ class CreditCardsScreen extends ConsumerWidget {
         );
       },
       background: Container(
-        margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
           color: Colors.redAccent.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(24),

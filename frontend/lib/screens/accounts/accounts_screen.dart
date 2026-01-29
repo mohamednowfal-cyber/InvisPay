@@ -72,37 +72,31 @@ class AccountsScreen extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF1E3A8A), // Blue 900 (Brighter start)
-                Color(0xFF2563EB), // Blue 600
-                Color(0xFF60A5FA), // Blue 400 (Vibrant finish)
+                Color(0xFF1E3A8A), // Deep Blue
+                Color(0xFF1D4ED8), // Royal Blue
               ],
-              stops: [0.0, 0.4, 1.0],
             );
-            shadowColor = const Color(0xFF2563EB).withValues(alpha: 0.25);
+            shadowColor = const Color(0xFF1E3A8A).withValues(alpha: 0.15);
           } else if (bankName.contains('InvisPay')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF115E59), // Teal 800 (Richer start)
-                Color(0xFF14B8A6), // Teal 500
-                Color(0xFF5EEAD4), // Teal 300 (Vibrant finish)
+                Color(0xFF0F766E), // Dark Teal
+                Color(0xFF0D9488), // Primary Teal
               ],
-              stops: [0.0, 0.4, 1.0],
             );
-            shadowColor = const Color(0xFF0D9488).withValues(alpha: 0.2);
+            shadowColor = const Color(0xFF0D9488).withValues(alpha: 0.12);
           } else if (bankName.contains('HDFC')) {
             gradient = const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF1E293B), // Slate 800 (Lighter start)
-                Color(0xFF334155), // Slate 700
-                Color(0xFF475569), // Slate 600 (Visible finish)
+                Color(0xFF1E293B), // Slate Slate
+                Color(0xFF334155), // Graphite Slate
               ],
-              stops: [0.0, 0.4, 1.0],
             );
-            shadowColor = const Color(0xFF0F172A).withValues(alpha: 0.3);
+            shadowColor = Colors.black.withValues(alpha: 0.2);
           }
 
           return Padding(
@@ -151,14 +145,14 @@ class AccountsScreen extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: shadowColor,
-                blurRadius: 20,
-                offset: const Offset(0, 10),
+                blurRadius: 30,
+                offset: const Offset(0, 12),
               ),
               // Premium Top Highlight (Inner Glow)
               BoxShadow(
-                color: Colors.white.withValues(alpha: 0.08),
-                blurRadius: 15,
-                spreadRadius: -5,
+                color: Colors.white.withValues(alpha: 0.12),
+                blurRadius: 20,
+                spreadRadius: -8,
                 offset: const Offset(0, 2),
               ),
             ],
@@ -190,7 +184,7 @@ class AccountsScreen extends StatelessWidget {
                     Text(
                       type.toUpperCase(),
                       style: GoogleFonts.outfit(
-                        color: Colors.white.withValues(alpha: 0.5),
+                        color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.2,
@@ -209,7 +203,7 @@ class AccountsScreen extends StatelessWidget {
                     Text(
                       '**** ${id.split('_').last}',
                       style: GoogleFonts.inter(
-                        color: Colors.white.withValues(alpha: 0.4),
+                        color: Colors.white.withValues(alpha: 0.65),
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -219,7 +213,7 @@ class AccountsScreen extends StatelessWidget {
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: Colors.white.withValues(alpha: 0.3),
+                color: Colors.white.withValues(alpha: 0.5),
                 size: 24,
               ),
             ],

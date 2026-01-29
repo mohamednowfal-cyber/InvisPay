@@ -84,8 +84,8 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
 
                 const SizedBox(height: 32),
 
-                // 2. Submission Details (Only if submitted/verified/failed)
-                if (status != 'not_started') ...[
+                // 2. Submission Details (Only if data exists)
+                if (kycData != null) ...[
                   Text(
                     'Submission Details',
                     style: GoogleFonts.outfit(
@@ -179,7 +179,8 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                 ],
 
                 // 4. Action Buttons (Retry / Start)
-                if (status == 'not_started' || status == 'failed') ...[
+                if ((status == 'not_started' && kycData == null) ||
+                    status == 'failed') ...[
                   const SizedBox(height: 40),
                   PrimaryButton(
                     text: status == 'failed'

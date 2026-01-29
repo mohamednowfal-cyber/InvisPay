@@ -30,7 +30,6 @@ class KycDocumentUploadScreen extends StatefulWidget {
 class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
   PlatformFile? _pickedFile;
   File? _pickedPhoto;
-  bool _isUploading = false;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickFile() async {
@@ -104,27 +103,30 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
       return;
     }
 
-    setState(() => _isUploading = true);
-
     try {
       final kycService = KycService();
       final file = File(_pickedFile!.path!); // Ensure path is valid on mobile
 
-      await kycService.submitKyc(
+      // 1. Navigate instantly to Status Screen (Silent submission)
+      context.go(AppRoutes.kyc);
+
+      // 2. Trigger background upload (do NOT await here for UI purposes)
+      kycService
+          .submitKyc(
         fullName: widget.fullName,
         idType: widget.idType,
         idNumber: widget.idNumber,
         documentFile: file,
         fileExtension: _pickedFile!.extension ?? 'jpg',
         userPhoto: _pickedPhoto,
-        photoExtension: 'jpg', // Camera captures are usually jpg
-      );
+        photoExtension: 'jpg',
+      )
+          .catchError((e) {
+        debugPrint('KYC background upload failed: $e');
+      });
 
+      // Show success snackbar immediately
       if (mounted) {
-        setState(() => _isUploading = false);
-        // Show success, then redirect to Status Screen
-        context.go(AppRoutes.kyc); // This routes to KycStatusScreen
-
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content:
@@ -136,10 +138,9 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
       }
     } catch (e) {
       if (mounted) {
-        setState(() => _isUploading = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Upload failed: $e'),
+            content: Text('Submission failed: $e'),
             backgroundColor: AppTheme.error,
           ),
         );
@@ -184,7 +185,7 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
                     Stack(
                       children: [
                         GestureDetector(
-                          onTap: _isUploading ? null : _pickFile,
+                          onTap: _pickFile,
                           child: Container(
                             height: 220,
                             width: double.infinity,
@@ -253,7 +254,7 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
                             ),
                           ),
                         ),
-                        if (_pickedFile != null && !_isUploading)
+                        if (_pickedFile != null)
                           Positioned(
                             top: 12,
                             right: 12,
@@ -289,7 +290,7 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
                     ),
                     const SizedBox(height: 16),
                     GestureDetector(
-                      onTap: _isUploading ? null : _capturePhoto,
+                      onTap: _capturePhoto,
                       child: Container(
                         height: 220,
                         width: double.infinity,
@@ -379,7 +380,6 @@ class _KycDocumentUploadScreenState extends State<KycDocumentUploadScreen> {
             PrimaryButton(
               text: 'Submit KYC',
               onPressed: _submitKyc,
-              isLoading: _isUploading,
             ),
             const SizedBox(height: 24),
           ],

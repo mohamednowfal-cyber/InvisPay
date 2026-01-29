@@ -8,7 +8,6 @@ import 'package:invispay/core/theme/app_theme.dart';
 import 'package:invispay/models/card_model.dart';
 import 'package:invispay/providers/cards_provider.dart';
 import 'package:invispay/providers/payment_provider.dart';
-import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
 
 import 'package:uuid/uuid.dart';
@@ -24,10 +23,29 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   late TabController _tabController;
-  final _cardNumberController = TextEditingController();
-  final _expiryController = TextEditingController();
-  final _cvvController = TextEditingController();
-  final _holderNameController = TextEditingController();
+
+  // Credit Card Controllers & FocusNodes
+  final _creditNumber = TextEditingController();
+  final _creditExpiry = TextEditingController();
+  final _creditCvv = TextEditingController();
+  final _creditName = TextEditingController();
+
+  final _fCreditNumber = FocusNode();
+  final _fCreditExpiry = FocusNode();
+  final _fCreditCvv = FocusNode();
+  final _fCreditName = FocusNode();
+
+  // Debit Card Controllers & FocusNodes
+  final _debitNumber = TextEditingController();
+  final _debitExpiry = TextEditingController();
+  final _debitCvv = TextEditingController();
+  final _debitName = TextEditingController();
+
+  final _fDebitNumber = FocusNode();
+  final _fDebitExpiry = FocusNode();
+  final _fDebitCvv = FocusNode();
+  final _fDebitName = FocusNode();
+
   bool _isDefault = false;
   bool _isValid = false;
   bool _isCreditCard = true;
@@ -38,31 +56,55 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
 
-    _cardNumberController.addListener(_validateForm);
-    _expiryController.addListener(_handleExpiryInput);
-    _cvvController.addListener(_validateForm);
-    _holderNameController.addListener(_validateForm);
+    // Listeners for Credit
+    _creditNumber.addListener(_validateForm);
+    _creditExpiry.addListener(() => _handleExpiryInput(_creditExpiry));
+    _creditCvv.addListener(_validateForm);
+    _creditName.addListener(_validateForm);
+
+    _fCreditNumber.addListener(() => setState(() {}));
+    _fCreditExpiry.addListener(() => setState(() {}));
+    _fCreditCvv.addListener(() => setState(() {}));
+    _fCreditName.addListener(() => setState(() {}));
+
+    // Listeners for Debit
+    _debitNumber.addListener(_validateForm);
+    _debitExpiry.addListener(() => _handleExpiryInput(_debitExpiry));
+    _debitCvv.addListener(_validateForm);
+    _debitName.addListener(_validateForm);
+
+    _fDebitNumber.addListener(() => setState(() {}));
+    _fDebitExpiry.addListener(() => setState(() {}));
+    _fDebitCvv.addListener(() => setState(() {}));
+    _fDebitName.addListener(() => setState(() {}));
   }
 
   void _handleTabSelection() {
-    if (_tabController.indexIsChanging) return;
-
     final isCredit = _tabController.index == 0;
+
+    // Check if the actual index has changed vs our local state
+    // We remove the indexIsChanging check to trigger resets INSTANTLY on tap
     if (_isCreditCard != isCredit) {
+      // Always reset form states on tab switch for strict isolation
+      _resetForm();
+
       setState(() {
         _isCreditCard = isCredit;
       });
-      _resetForm();
     }
   }
 
   void _validateForm() {
-    final cardValid = _cardNumberController.text.length == 16;
-    final expiryValid = _isExpiryValid(_expiryController.text);
-    final cvvValid = _cvvController.text.length == 3;
-    final nameValid = _holderNameController.text.trim().isNotEmpty &&
-        !RegExp(r'[0-9!@#\$%^&*(),.?":{}|<>]')
-            .hasMatch(_holderNameController.text);
+    final cardController = _isCreditCard ? _creditNumber : _debitNumber;
+    final expiryController = _isCreditCard ? _creditExpiry : _debitExpiry;
+    final cvvController = _isCreditCard ? _creditCvv : _debitCvv;
+    final nameController = _isCreditCard ? _creditName : _debitName;
+
+    final cardValid = cardController.text.length == 16;
+    final expiryValid = _isExpiryValid(expiryController.text);
+    final cvvValid = cvvController.text.length == 3;
+    final nameValid = nameController.text.trim().isNotEmpty &&
+        !RegExp(r'[0-9!@#\$%^&*(),.?":{}|<>]').hasMatch(nameController.text);
 
     setState(() {
       _isValid = cardValid && expiryValid && cvvValid && nameValid;
@@ -90,12 +132,12 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
     return true;
   }
 
-  void _handleExpiryInput() {
-    String text = _expiryController.text;
-    if (text.length == 2 && !_expiryController.text.contains('/')) {
-      _expiryController.text = '$text/';
-      _expiryController.selection = TextSelection.fromPosition(
-          TextPosition(offset: _expiryController.text.length));
+  void _handleExpiryInput(TextEditingController controller) {
+    String text = controller.text;
+    if (text.length == 2 && !text.contains('/')) {
+      controller.text = '$text/';
+      controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller.text.length));
     }
     _validateForm();
   }
@@ -103,18 +145,41 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _cardNumberController.dispose();
-    _expiryController.dispose();
-    _cvvController.dispose();
-    _holderNameController.dispose();
+    _creditNumber.dispose();
+    _creditExpiry.dispose();
+    _creditCvv.dispose();
+    _creditName.dispose();
+    _fCreditNumber.dispose();
+    _fCreditExpiry.dispose();
+    _fCreditCvv.dispose();
+    _fCreditName.dispose();
+
+    _debitNumber.dispose();
+    _debitExpiry.dispose();
+    _debitCvv.dispose();
+    _debitName.dispose();
+    _fDebitNumber.dispose();
+    _fDebitExpiry.dispose();
+    _fDebitCvv.dispose();
+    _fDebitName.dispose();
     super.dispose();
   }
 
   void _resetForm() {
-    _cardNumberController.clear();
-    _expiryController.clear();
-    _cvvController.clear();
-    _holderNameController.clear();
+    // Clear ALL controllers to ensure strict isolation
+    _creditNumber.clear();
+    _creditExpiry.clear();
+    _creditCvv.clear();
+    _creditName.clear();
+
+    _debitNumber.clear();
+    _debitExpiry.clear();
+    _debitCvv.clear();
+    _debitName.clear();
+
+    // Unfocus all fields
+    FocusManager.instance.primaryFocus?.unfocus();
+
     _isDefault = false;
     setState(() {
       _isValid = false;
@@ -125,13 +190,17 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
 
   void _onSave() {
     if (_isValid) {
+      final cardController = _isCreditCard ? _creditNumber : _debitNumber;
+      final expiryController = _isCreditCard ? _creditExpiry : _debitExpiry;
+      final nameController = _isCreditCard ? _creditName : _debitName;
+
       final newCard = CreditCard(
         id: const Uuid().v4(),
-        cardNumber: _cardNumberController.text.replaceAll(' ', ''),
-        holderName: _holderNameController.text,
-        expiryDate: _expiryController.text,
-        type: _determineCardType(_cardNumberController.text),
-        color: _determineCardColor(_cardNumberController.text),
+        cardNumber: cardController.text.replaceAll(' ', ''),
+        holderName: nameController.text,
+        expiryDate: expiryController.text,
+        type: _determineCardType(cardController.text),
+        color: _determineCardColor(cardController.text),
         isDefault: _isDefault,
       );
 
@@ -155,7 +224,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
         ),
       );
 
-      context.pushReplacement(AppRoutes.makeTransaction);
+      context.pop();
     }
   }
 
@@ -247,7 +316,8 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
             children: [
               _buildLabel('CARD NUMBER'),
               _buildStaticTextField(
-                controller: _cardNumberController,
+                controller: _isCreditCard ? _creditNumber : _debitNumber,
+                focusNode: _isCreditCard ? _fCreditNumber : _fDebitNumber,
                 hint: '0000 0000 0000 0000',
                 keyboardType: TextInputType.number,
                 maxLength: 16,
@@ -266,7 +336,10 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
                       children: [
                         _buildLabel('EXPIRY DATE'),
                         _buildStaticTextField(
-                          controller: _expiryController,
+                          controller:
+                              _isCreditCard ? _creditExpiry : _debitExpiry,
+                          focusNode:
+                              _isCreditCard ? _fCreditExpiry : _fDebitExpiry,
                           hint: 'MM/YY',
                           keyboardType: TextInputType.number,
                           maxLength: 5,
@@ -284,7 +357,8 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
                       children: [
                         _buildLabel('CVV'),
                         _buildStaticTextField(
-                          controller: _cvvController,
+                          controller: _isCreditCard ? _creditCvv : _debitCvv,
+                          focusNode: _isCreditCard ? _fCreditCvv : _fDebitCvv,
                           hint: '123',
                           obscureText: true,
                           keyboardType: TextInputType.number,
@@ -303,7 +377,8 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
               const SizedBox(height: 24),
               _buildLabel('CARD HOLDER NAME'),
               _buildStaticTextField(
-                controller: _holderNameController,
+                controller: _isCreditCard ? _creditName : _debitName,
+                focusNode: _isCreditCard ? _fCreditName : _fDebitName,
                 hint: 'JONATHAN DOE',
                 textCapitalization: TextCapitalization.characters,
                 inputFormatters: [
@@ -380,10 +455,10 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
     );
   }
 
-  // Renamed and refactored for static style
   Widget _buildStaticTextField({
     required TextEditingController controller,
     required String hint,
+    FocusNode? focusNode,
     TextInputType? keyboardType,
     bool obscureText = false,
     int? maxLength,
@@ -391,41 +466,59 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen>
     String? Function(String?)? validator,
     List<TextInputFormatter>? inputFormatters,
   }) {
+    final isFocused = focusNode?.hasFocus ?? false;
+
     return Container(
       height: 64,
       decoration: BoxDecoration(
-        color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12), // CONSTANT COLOR
-          width: 1.5,
-        ),
-        // NO BOX SHADOW
+        border: !isFocused
+            ? Border.all(
+                color: Colors.white.withValues(alpha: 0.12), width: 1.5)
+            : null,
+        gradient: isFocused
+            ? const LinearGradient(
+                colors: [
+                  Color(0xFF0D9488),
+                  Color(0xFF059669),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : null,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      alignment: Alignment.center,
-      child: TextFormField(
-        controller: controller,
-        textAlignVertical: TextAlignVertical.center,
-        style: GoogleFonts.outfit(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        maxLength: maxLength,
-        textCapitalization: textCapitalization,
-        validator: validator,
-        inputFormatters: inputFormatters,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
-          hintStyle: GoogleFonts.outfit(color: Colors.white24, fontSize: 15),
-          counterText: '',
-          isDense: true,
-          contentPadding: EdgeInsets.zero,
-          errorStyle: const TextStyle(height: 0.8, fontSize: 10),
-          filled: false,
-          fillColor: Colors.transparent,
+      padding: const EdgeInsets.all(1.5), // The Border Width
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A), // Matches background depth
+          borderRadius: BorderRadius.circular(14.5), // Inner radius
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        alignment: Alignment.center,
+        child: TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          textAlignVertical: TextAlignVertical.center,
+          style: GoogleFonts.outfit(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          maxLength: maxLength,
+          textCapitalization: textCapitalization,
+          validator: validator,
+          inputFormatters: inputFormatters,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hint,
+            hintStyle: GoogleFonts.outfit(color: Colors.white24, fontSize: 15),
+            counterText: '',
+            isDense: true,
+            contentPadding: EdgeInsets.zero,
+            errorStyle: const TextStyle(height: 0.8, fontSize: 10),
+            filled: false,
+            fillColor: Colors.transparent,
+          ),
         ),
       ),
     );
