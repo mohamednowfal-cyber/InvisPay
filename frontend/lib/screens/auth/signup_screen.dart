@@ -96,11 +96,11 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       child: SingleChildScrollView(
         // Premium Fintech Padding: Consistent margins, generous bottom space
-        padding: const EdgeInsets.fromLTRB(20, 48, 20, 80),
+        padding: const EdgeInsets.fromLTRB(20, 36, 20, 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 64),
+            const SizedBox(height: 40),
             // Premium Logo Container
             Center(
               child: Hero(
@@ -130,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 36),
             // Welcome Text
             AnimatedLocalize(
               text: (loc) => loc.joinInvispay,
@@ -143,6 +143,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 1.0,
                 letterSpacing: -1.5,
               ),
+              maxLines: 1,
             ),
             const SizedBox(height: 20),
             AnimatedLocalize(

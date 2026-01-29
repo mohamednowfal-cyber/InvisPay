@@ -12,6 +12,7 @@ import 'package:invispay/core/theme/app_theme.dart';
 import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
+import 'package:invispay/services/kyc_service.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
 import 'package:invispay/widgets/common/animated_localize.dart';
 import 'package:invispay/providers/qr_provider.dart';
@@ -56,7 +57,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           String name = isDemo ? l10n.translate('demo_user') : 'InvisPay User';
           String mobile = '7904459738';
           String email = 'demo@invispay.com';
-          String kycStatus = 'verified';
+          String kycStatus = 'not_started';
 
           if (snapshot.hasData && snapshot.data!.exists) {
             final data = snapshot.data!.data() as Map<String, dynamic>;
@@ -66,87 +67,107 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             kycStatus = data['kycStatus'] ?? kycStatus;
           }
 
-          final isVerified = kycStatus.toLowerCase() ==
-              l10n.translate('verified').toLowerCase();
           final invispayId =
               '${name.toLowerCase().replaceAll(' ', '')}@invispay';
-          final photoURL = snapshot.hasData && snapshot.data!.exists
-              ? (snapshot.data!.data() as Map<String, dynamic>)['photoURL']
-                  as String?
-              : null;
 
-          return ListView(
-            padding: const EdgeInsets.all(0),
-            children: [
-              // 1. Profile Header Card
-              _buildProfileHeader(context, name, invispayId, mobile, isVerified,
-                  photoURL, uid, isDemo),
+          return StreamBuilder<Map<String, dynamic>?>(
+            stream: KycService().kycStatusStream,
+            builder: (context, kycSnapshot) {
+              final kycData = kycSnapshot.data;
+              final currentKycStatus = kycData?['kycStatus'] ?? kycStatus;
+              final isVerified = currentKycStatus.toLowerCase() == 'verified';
 
-              // 2. Payment Methods Section (Promoted)
+              // Get latest photoURL from main snapshot
+              final photoURL = snapshot.hasData && snapshot.data!.exists
+                  ? (snapshot.data!.data() as Map<String, dynamic>)['photoURL']
+                      as String?
+                  : null;
 
-              // 3. Payment Methods Section
-              _buildPaymentMethodsSection(context, ref),
+              return ListView(
+                padding: const EdgeInsets.all(0),
+                children: [
+                  // 1. Profile Header Card
+                  _buildProfileHeader(context, name, invispayId, mobile,
+                      isVerified, photoURL, uid, isDemo),
 
-              const SizedBox(height: 8),
+                  // 2. Payment Methods Section
+                  _buildPaymentMethodsSection(context, ref),
 
-              // 4. Menu List
+                  const SizedBox(height: 8),
 
-              _buildMenuItem(
-                context: context,
-                icon: Icons.shield_outlined,
-                title: (loc) =>
-                    'KYC Status', // Localize if possible, else hardcode for now
-                subtitle: (loc) => 'Check verification details',
-                onTap: () =>
-                    context.push(AppRoutes.kyc, extra: {'fromProfile': true}),
-              ),
+                  // 3. Menu List
+                  _buildMenuItem(
+                    context: context,
+                    icon: Icons.shield_outlined,
+                    title: (loc) => 'KYC Status',
+                    subtitle: (loc) => _getKycStatusSubtitle(currentKycStatus),
+                    onTap: () => context
+                        .push(AppRoutes.kyc, extra: {'fromProfile': true}),
+                  ),
 
-              _buildMenuItem(
-                context: context,
-                icon: Icons.autorenew_rounded,
-                title: (loc) => loc.translate('autopay'),
-                subtitle: (loc) => loc.translate('no_pending'),
-                onTap: () => context.push(AppRoutes.autopay),
-              ),
+                  _buildMenuItem(
+                    context: context,
+                    icon: Icons.autorenew_rounded,
+                    title: (loc) => loc.translate('autopay'),
+                    subtitle: (loc) => loc.translate('no_pending'),
+                    onTap: () => context.push(AppRoutes.autopay),
+                  ),
 
-              _buildMenuItem(
-                context: context,
-                icon: Icons.language_rounded,
-                title: (loc) => loc.language,
-                subtitle: (loc) => loc.languageSub,
-                onTap: () => context.push(AppRoutes.language),
-              ),
+                  _buildMenuItem(
+                    context: context,
+                    icon: Icons.language_rounded,
+                    title: (loc) => loc.language,
+                    subtitle: (loc) => loc.languageSub,
+                    onTap: () => context.push(AppRoutes.language),
+                  ),
 
-              _buildMenuItem(
-                context: context,
-                icon: Icons.settings_outlined,
-                title: (loc) => loc.settings,
-                onTap: () => context.push('/profile/settings'),
-              ),
+                  _buildMenuItem(
+                    context: context,
+                    icon: Icons.settings_outlined,
+                    title: (loc) => loc.settings,
+                    onTap: () => context.push('/profile/settings'),
+                  ),
 
-              _buildMenuItem(
-                context: context,
-                icon: Icons.help_outline_rounded,
-                title: (loc) => loc.translate('get_help'),
-                onTap: () {},
-              ),
+                  _buildMenuItem(
+                    context: context,
+                    icon: Icons.help_outline_rounded,
+                    title: (loc) => loc.translate('get_help'),
+                    onTap: () {},
+                  ),
 
-              const SizedBox(height: 32),
+                  const SizedBox(height: 32),
 
-              // 5. Logout Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: _PremiumLogoutButton(
-                  onTap: () => _showLogoutConfirmation(context, auth, isDemo),
-                ),
-              ),
+                  // 4. Logout Section
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _PremiumLogoutButton(
+                      onTap: () =>
+                          _showLogoutConfirmation(context, auth, isDemo),
+                    ),
+                  ),
 
-              const SizedBox(height: 32),
-            ],
+                  const SizedBox(height: 32),
+                ],
+              );
+            },
           );
         },
       ),
     );
+  }
+
+  String _getKycStatusSubtitle(String status) {
+    switch (status.toLowerCase()) {
+      case 'verified':
+        return 'KYC Verified';
+      case 'pending':
+        return 'KYC Pending';
+      case 'failed':
+        return 'KYC Verification Failed';
+      case 'not_started':
+      default:
+        return 'KYC Not Started';
+    }
   }
 
   Widget _buildProfileHeader(

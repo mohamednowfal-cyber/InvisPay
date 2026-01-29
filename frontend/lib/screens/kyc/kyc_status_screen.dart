@@ -1,4 +1,5 @@
-﻿import 'package:cloud_firestore/cloud_firestore.dart';
+﻿import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -180,7 +181,12 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildDocumentItem(idType, documentUrl),
+                  _buildDocumentItem('$idType Document', documentUrl),
+                  if (photoUrl != null) ...[
+                    const SizedBox(height: 12),
+                    _buildDocumentItem('Captured Photo', photoUrl,
+                        isPhoto: true),
+                  ],
                 ],
 
                 // 4. Action Buttons (Retry / Start)
@@ -298,6 +304,8 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
             ],
           ),
           const SizedBox(height: 20),
+          _buildSummaryRow('Progress', _getProgressText(status)),
+          const SizedBox(height: 12),
           _buildSummaryRow('ID Type', idType),
           const SizedBox(height: 12),
           _buildSummaryRow('ID Number', idNumber),
@@ -306,6 +314,17 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
         ],
       ),
     );
+  }
+
+  String _getProgressText(String status) {
+    switch (status.toLowerCase()) {
+      case 'verified':
+        return 'Completed';
+      case 'pending':
+        return 'In Progress';
+      default:
+        return '0%';
+    }
   }
 
   Widget _buildSummaryRow(String label, String value) {
@@ -356,28 +375,30 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
       case 'verified':
         color = const Color(0xFF10B981); // Emerald 500
         icon = Icons.check_circle_rounded;
-        title = 'Verified';
-        desc = 'Your KYC has been successfully verified. You have full access.';
+        title = 'KYC Verified';
+        desc =
+            'Your identity has been successfully verified. You now have full access to all bank-grade features.';
         break;
       case 'pending':
         color = const Color(0xFFF59E0B); // Amber 500
         icon = Icons.hourglass_top_rounded;
-        title = 'Under Review';
+        title = 'KYC Pending';
         desc =
-            'Your documents are under review. This usually takes 24–48 hours.';
+            'Your documents are currently under review by our compliance team. This typically takes 24–48 hours.';
         break;
       case 'failed':
         color = const Color(0xFFEF4444); // Red 500
         icon = Icons.error_rounded;
         title = 'Verification Failed';
         desc =
-            'We could not verify your identity. Please review the reason below and resubmit.';
+            'We could not verify your identity. Please review the failure reason and try again with clear documents.';
         break;
       default:
         color = AppTheme.primary;
         icon = Icons.shield_outlined;
-        title = 'Not Verified';
-        desc = 'Complete verification to unlock all InvisPay features.';
+        title = 'KYC Not Started';
+        desc =
+            'Verification has not begun. Start your KYC submission now to unlock secure, high-limit transactions.';
     }
 
     return Container(
@@ -479,13 +500,12 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
     );
   }
 
-  Widget _buildDocumentItem(String idType, String? documentUrl) {
-    if (documentUrl == null) return const SizedBox.shrink();
+  Widget _buildDocumentItem(String label, String? url, {bool isPhoto = false}) {
+    if (url == null) return const SizedBox.shrink();
 
-    final isPdf = documentUrl.toLowerCase().contains('.pdf') ||
-        documentUrl.toLowerCase().contains('alt=media');
-    // Note: Firebase Storage URLs often end with token and don't clearly show extension,
-    // but we can try to infer or just provide a generic view button.
+    final isPdf = !isPhoto &&
+        (url.toLowerCase().contains('.pdf') ||
+            url.toLowerCase().contains('alt=media'));
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -511,16 +531,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: !isPdf && documentUrl.startsWith('http')
-                  ? Image.network(
-                      documentUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => const Icon(
-                          Icons.file_present_rounded,
-                          color: AppTheme.primary),
-                    )
-                  : const Icon(Icons.picture_as_pdf_rounded,
-                      color: AppTheme.primary),
+              child: _buildThumbnail(url, isPdf),
             ),
           ),
           const SizedBox(width: 16),
@@ -529,7 +540,7 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Identity Proof',
+                  label,
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -539,25 +550,46 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  isPdf ? 'PDF Document' : 'Scanned copy of $idType',
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    color: AppTheme.textSecondary,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      isPdf ? 'PDF' : 'Image',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        color: AppTheme.textSecondary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      width: 4,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: AppTheme.textSecondary.withValues(alpha: 0.5),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Uploaded successfully',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        color: const Color(0xFF10B981),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          TextButton(
-            onPressed: () => _showPreview(documentUrl, isPdf),
-            child: Text(
-              'View',
-              style: GoogleFonts.inter(
-                color: AppTheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
+          IconButton(
+            onPressed: () => _showPreview(url, isPdf),
+            icon: const Icon(
+              Icons.visibility_outlined,
+              color: AppTheme.primary,
             ),
+            tooltip: 'Preview',
           ),
         ],
       ),
@@ -595,23 +627,60 @@ class _KycStatusScreenState extends State<KycStatusScreen> {
                     ],
                   )
                 : InteractiveViewer(
-                    child: Image.network(
-                      url,
-                      fit: BoxFit.contain,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const CircularProgressIndicator(
-                            color: Colors.white);
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Text('Could not load image',
-                            style: TextStyle(color: Colors.white));
-                      },
-                    ),
+                    child: _isRemoteUrl(url)
+                        ? Image.network(
+                            url,
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const CircularProgressIndicator(
+                                  color: Colors.white);
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Text('Could not load image',
+                                  style: TextStyle(color: Colors.white));
+                            },
+                          )
+                        : Image.file(
+                            File(url),
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Text('Local file not found',
+                                  style: TextStyle(color: Colors.white));
+                            },
+                          ),
                   ),
           ),
         );
       },
     );
+  }
+
+  bool _isRemoteUrl(String url) => url.startsWith('http');
+
+  Widget _buildThumbnail(String url, bool isPdf) {
+    if (isPdf) {
+      return const Icon(Icons.picture_as_pdf_rounded, color: AppTheme.primary);
+    }
+
+    if (_isRemoteUrl(url)) {
+      return Image.network(
+        url,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) =>
+            const Icon(Icons.file_present_rounded, color: AppTheme.primary),
+      );
+    } else {
+      final file = File(url);
+      if (file.existsSync()) {
+        return Image.file(
+          file,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) =>
+              const Icon(Icons.broken_image_rounded, color: AppTheme.primary),
+        );
+      }
+      return const Icon(Icons.camera_front_rounded, color: AppTheme.primary);
+    }
   }
 }

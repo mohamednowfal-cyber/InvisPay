@@ -43,6 +43,8 @@ class KycService {
         idType: idType,
         idNumber: idNumber,
         status: 'pending',
+        documentUrl: documentFile.path,
+        photoUrl: userPhoto?.path,
       );
       await Future.delayed(const Duration(seconds: 1));
       return;
@@ -144,15 +146,25 @@ class KycService {
     String? photoUrl,
   }) async {
     final prefs = await SharedPreferences.getInstance();
+
+    // Merge with existing data to preserve URLs if not provided
+    final existingJson = prefs.getString('local_kyc_data');
+    Map<String, dynamic>? kycDataMap;
+    if (existingJson != null) {
+      final existingData = jsonDecode(existingJson) as Map<String, dynamic>;
+      kycDataMap = existingData['kycData'] as Map<String, dynamic>?;
+    }
+
     final data = {
       'fullName': fullName,
       'kycStatus': status,
       'kycData': {
         'idType': idType,
         'idNumber': idNumber,
-        'documentUrl': documentUrl,
-        'photoUrl': photoUrl,
-        'submittedAt': DateTime.now().toIso8601String(),
+        'documentUrl': documentUrl ?? kycDataMap?['documentUrl'],
+        'photoUrl': photoUrl ?? kycDataMap?['photoUrl'],
+        'submittedAt':
+            kycDataMap?['submittedAt'] ?? DateTime.now().toIso8601String(),
       }
     };
     await prefs.setString('local_kyc_data', jsonEncode(data));

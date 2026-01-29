@@ -150,12 +150,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SingleChildScrollView(
           // Premium Fintech Padding: Consistent margins, generous bottom space
-          padding: const EdgeInsets.fromLTRB(20, 48, 20, 80),
+          padding: const EdgeInsets.fromLTRB(20, 36, 20, 80),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                  height: 64), // Increased Top Spacing for Statuesque Placement
+                  height: 40), // Shifted upward for better spatial balance
 
               // Premium Logo Container
               Center(
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 48), // Adjusted for tighter title grouping
+              const SizedBox(height: 36), // Balanced spacing above heading
 
               // Welcome Text
               AnimatedLocalize(
@@ -201,6 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 1.0,
                   letterSpacing: -1.5,
                 ),
+                maxLines: 1,
               ),
               const SizedBox(height: 20),
               AnimatedLocalize(

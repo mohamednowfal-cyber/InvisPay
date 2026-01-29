@@ -9,6 +9,7 @@ import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
 import 'package:invispay/widgets/common/animated_localize.dart';
+import 'package:invispay/services/kyc_service.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -377,7 +378,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Column(
@@ -388,14 +389,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 4),
-                      Text(name ?? 'InvisPay User',
-                          style: Theme.of(context).textTheme.headlineMedium),
+                      Text(
+                        name ?? 'InvisPay User',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
-                _buildKycStatusChip(
-                    context, userData?['kycStatus'] ?? 'pending'),
+                StreamBuilder<Map<String, dynamic>?>(
+                  stream: KycService().kycStatusStream,
+                  builder: (context, kycSnapshot) {
+                    final kycData = kycSnapshot.data;
+                    final status = kycData?['kycStatus'] ?? 'not_started';
+                    return _buildKycStatusChip(context, status);
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -517,7 +528,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
@@ -531,12 +542,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   AnimatedLocalize(
                     text: (loc) => loc.translate('demo_user'),
                     style: Theme.of(context).textTheme.headlineMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 12),
-            _buildKycStatusChip(context, 'not_started'),
+            StreamBuilder<Map<String, dynamic>?>(
+              stream: KycService().kycStatusStream,
+              builder: (context, kycSnapshot) {
+                final kycData = kycSnapshot.data;
+                final status = kycData?['kycStatus'] ?? 'not_started';
+                return _buildKycStatusChip(context, status);
+              },
+            ),
           ],
         ),
         const SizedBox(height: 20),
