@@ -10,6 +10,7 @@ import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
 import 'package:invispay/widgets/auth/country_code_selector.dart';
+import 'package:invispay/widgets/auth/logo_container.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
 import 'package:invispay/widgets/common/animated_localize.dart';
 
@@ -149,289 +150,278 @@ class _LoginScreenState extends State<LoginScreen> {
           stops: const [0.0, 0.4, 1.0],
         ),
         child: SingleChildScrollView(
-          // Premium Fintech Padding: Consistent margins, generous bottom space
-          padding: const EdgeInsets.fromLTRB(20, 36, 20, 80),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                  height: 40), // Shifted upward for better spatial balance
-
-              // Premium Logo Container
-              Center(
-                child: Hero(
-                  tag: 'logo',
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.1),
-                        width: 1.5,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          blurRadius: 30,
-                          offset: const Offset(0, 15),
-                        ),
-                      ],
-                    ),
-                    child: Image.asset(
-                      'assets/images/invispay_logo.png',
-                      height: 52,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
+              // 1. Premium Full-Width Logo Background
+              const LogoContainer(
+                logoAsset: 'assets/icons/Logo.png',
+                size: 200, // Slightly larger for premium presence
+                isFullWidth: true,
               ),
 
-              const SizedBox(height: 36), // Balanced spacing above heading
-
-              // Welcome Text
-              AnimatedLocalize(
-                text: (loc) => loc.welcomeBack,
-                style: GoogleFonts.outfit(
-                  fontSize: 42,
-                  fontWeight: FontWeight.w800,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppTheme.authTitle
-                      : AppTheme.authTitleLight,
-                  height: 1.0,
-                  letterSpacing: -1.5,
-                ),
-                maxLines: 1,
-              ),
-              const SizedBox(height: 20),
-              AnimatedLocalize(
-                text: (loc) => loc.invisibleWalletSub,
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppTheme.authBody
-                      : AppTheme.authBodyLight,
-                  letterSpacing: 0.2,
-                ),
-              ),
-
-              const SizedBox(height: 48),
-
-              // Premium Auth Card Container
-              Container(
-                // Inner Padding: Breathing space (40) top/bottom, Balanced (24) horizontal
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white.withValues(alpha: 0.03)
-                      : Colors.white.withValues(alpha: 0.8),
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withValues(alpha: 0.08)
-                        : Colors.white,
-                    width: 1.5,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
+              // 2. Rest of the content with consistent padding
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 80),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FormBuilder(
-                      key: _formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      onChanged: () {
-                        _formKey.currentState?.save();
-                        _validateForm();
-                      },
-                      child: Column(
-                        children: [
-                          _buildMobileInput(),
-                          const SizedBox(height: 24),
-                          _buildInputField(
-                            name: 'email',
-                            label: (loc) => loc.emailLabel.toUpperCase(),
-                            hint: (loc) => loc.enterEmail,
-                            icon: Icons.email_outlined,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return AppLocalizations.of(context)
-                                    .requiredField;
-                              }
-                              if (!value.contains('@') ||
-                                  !value.contains('.')) {
-                                return AppLocalizations.of(context)
-                                    .invalidEmail;
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 24),
-                          _buildInputField(
-                            name: 'password',
-                            label: (loc) => loc.password.toUpperCase(),
-                            hint: (loc) => loc.enterPassword,
-                            icon: Icons.lock_outline_rounded,
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return AppLocalizations.of(context)
-                                    .requiredField;
-                              }
-                              if (value.length < 6) {
-                                return AppLocalizations.of(context)
-                                    .minPasswordLength;
-                              }
-                              return null;
-                            },
+                    const SizedBox(height: 20), // rhythmic spacing below wave
+
+                    // Welcome Text
+                    AnimatedLocalize(
+                      text: (loc) => loc.welcomeBack,
+                      useFittedBox: true,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.outfit(
+                        fontSize: 42,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppTheme.authTitle
+                            : AppTheme.authTitleLight,
+                        height: 1.0,
+                        letterSpacing: -1.5,
+                      ),
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: 20),
+                    AnimatedLocalize(
+                      text: (loc) => loc.invisibleWalletSub,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppTheme.authBody
+                            : AppTheme.authBodyLight,
+                        letterSpacing: 0.2,
+                      ),
+                    ),
+
+                    const SizedBox(height: 48),
+
+                    // Premium Auth Card Container
+                    Container(
+                      // Inner Padding: Breathing space (40) top/bottom, Balanced (24) horizontal
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 40),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white.withValues(alpha: 0.03)
+                            : Colors.white.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(32),
+                        border: Border.all(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : Colors.white,
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
                           ),
                         ],
                       ),
-                    ),
-
-                    // Inline Error Display
-                    if (_errorMessage != null) ...[
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEF4444).withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.error_outline_rounded,
-                                color: Color(0xFFEF4444), size: 20),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                _errorMessage!,
-                                style: GoogleFonts.inter(
-                                  color: const Color(0xFFEF4444),
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
+                      child: Column(
+                        children: [
+                          FormBuilder(
+                            key: _formKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            onChanged: () {
+                              _formKey.currentState?.save();
+                              _validateForm();
+                            },
+                            child: Column(
+                              children: [
+                                _buildMobileInput(),
+                                const SizedBox(height: 24),
+                                _buildInputField(
+                                  name: 'email',
+                                  label: (loc) => loc.emailLabel.toUpperCase(),
+                                  hint: (loc) => loc.enterEmail,
+                                  icon: Icons.email_outlined,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppLocalizations.of(context)
+                                          .requiredField;
+                                    }
+                                    if (!value.contains('@') ||
+                                        !value.contains('.')) {
+                                      return AppLocalizations.of(context)
+                                          .invalidEmail;
+                                    }
+                                    return null;
+                                  },
                                 ),
+                                const SizedBox(height: 24),
+                                _buildInputField(
+                                  name: 'password',
+                                  label: (loc) => loc.password.toUpperCase(),
+                                  hint: (loc) => loc.enterPassword,
+                                  icon: Icons.lock_outline_rounded,
+                                  obscureText: true,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppLocalizations.of(context)
+                                          .requiredField;
+                                    }
+                                    if (value.length < 6) {
+                                      return AppLocalizations.of(context)
+                                          .minPasswordLength;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Inline Error Display
+                          if (_errorMessage != null) ...[
+                            const SizedBox(height: 16),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEF4444)
+                                    .withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.error_outline_rounded,
+                                      color: Color(0xFFEF4444), size: 20),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      _errorMessage!,
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xFFEF4444),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                    ],
 
-                    const SizedBox(height: 40),
+                          const SizedBox(height: 40),
 
-                    // Login Button
-                    Container(
-                      width: double.infinity,
-                      height: 64, // Slightly compact to fit card
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        gradient: !_isFormValid
-                            ? null
-                            : const LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: AppTheme.authButtonGradient,
-                              ),
-                        color: !_isFormValid
-                            ? Colors.white.withValues(alpha: 0.1)
-                            : null,
-                        boxShadow: [
-                          if (_isFormValid)
-                            BoxShadow(
-                              color: const Color(0xFF0D9488)
-                                  .withValues(alpha: 0.25),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
+                          // Login Button
+                          Container(
+                            width: double.infinity,
+                            height: 64, // Slightly compact to fit card
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              gradient: !_isFormValid
+                                  ? null
+                                  : const LinearGradient(
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      colors: AppTheme.authButtonGradient,
+                                    ),
+                              color: !_isFormValid
+                                  ? Colors.white.withValues(alpha: 0.1)
+                                  : null,
+                              boxShadow: [
+                                if (_isFormValid)
+                                  BoxShadow(
+                                    color: const Color(0xFF0D9488)
+                                        .withValues(alpha: 0.25),
+                                    blurRadius: 20,
+                                    offset: const Offset(0, 10),
+                                  ),
+                              ],
                             ),
+                            child: ElevatedButton(
+                              onPressed: !_isFormValid ? null : _onLogin,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                foregroundColor: Colors.white,
+                                shadowColor: Colors.transparent,
+                                disabledBackgroundColor: Colors.transparent,
+                                disabledForegroundColor: Colors.white24,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24)),
+                                elevation: 0,
+                              ),
+                              child: AnimatedLocalize(
+                                text: (loc) => loc.signInBtn,
+                                useFittedBox: true,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                  color: !_isFormValid
+                                      ? Colors.white24
+                                      : Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      child: ElevatedButton(
-                        onPressed: !_isFormValid ? null : _onLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
-                          shadowColor: Colors.transparent,
-                          disabledBackgroundColor: Colors.transparent,
-                          disabledForegroundColor: Colors.white24,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24)),
-                          elevation: 0,
-                        ),
-                        child: AnimatedLocalize(
-                          text: (loc) => loc.signInBtn,
-                          style: GoogleFonts.outfit(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                            color:
-                                !_isFormValid ? Colors.white24 : Colors.white,
+                    ),
+
+                    const SizedBox(height: 48),
+
+                    // Signup Link
+                    Center(
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.0, 0.05),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: GestureDetector(
+                          key: ValueKey(
+                              AppLocalizations.of(context).locale.languageCode),
+                          onTap: () => context.go(AppRoutes.signup),
+                          child: RichText(
+                            text: TextSpan(
+                              text: AppLocalizations.of(context)
+                                  .dontHaveAccountMsg,
+                              style: GoogleFonts.inter(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppTheme.authBody
+                                    : AppTheme.authBodyLight,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: AppLocalizations.of(context).signup,
+                                  style: GoogleFonts.inter(
+                                    color: const Color(
+                                        0xFF2DD4BF), // Brighter teal for contrast
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
-
-              const SizedBox(height: 48),
-
-              // Signup Link
-              Center(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (child, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0.0, 0.05),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: GestureDetector(
-                    key: ValueKey(
-                        AppLocalizations.of(context).locale.languageCode),
-                    onTap: () => context.go(AppRoutes.signup),
-                    child: RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.of(context).dontHaveAccountMsg,
-                        style: GoogleFonts.inter(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppTheme.authBody
-                              : AppTheme.authBodyLight,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: AppLocalizations.of(context).signup,
-                            style: GoogleFonts.inter(
-                              color: const Color(
-                                  0xFF2DD4BF), // Brighter teal for contrast
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
             ],
           ),
         ),

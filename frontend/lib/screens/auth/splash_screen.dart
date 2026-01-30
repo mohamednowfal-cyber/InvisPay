@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:invispay/routes/app_routes.dart';
 import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invispay/providers/locale_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -18,30 +19,85 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late VideoPlayerController _controller;
+  late AnimationController _fadeController;
+  late AnimationController _zoomController;
   late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
+  late Animation<double> _zoomAnimation;
+  bool _initialized = false;
+  bool _isNavigating = false;
+  bool _isVideoReady = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Setup animations
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
+    // Setup fade transition for seamless screen exit
+    _fadeController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 400));
+    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
     );
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    // Setup cinematic entrance zoom (gently push-in)
+    _zoomController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 4000));
+    _zoomAnimation = Tween<double>(begin: 1.15, end: 1.25).animate(
+      CurvedAnimation(parent: _zoomController, curve: Curves.linear),
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.96, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    // Parallel initialization: Video and App Engine
+    _initializeVideo();
+    _initializeFirebase();
+  }
+
+  Future<void> _initializeFirebase() async {
+    try {
+      await Firebase.initializeApp();
+    } catch (e) {
+      debugPrint('Firebase background init warning: $e');
+    }
+  }
+
+  Future<void> _initializeVideo() async {
+    _controller = VideoPlayerController.asset(
+      'assets/animations/splash_animation.mp4',
     );
 
-    // Start animation and navigation check
-    _controller.forward();
+    try {
+      await _controller.initialize();
+      if (mounted) {
+        setState(() {
+          _initialized = true;
+          _isVideoReady = true;
+        });
+        _controller.play();
+        _controller.addListener(_videoListener);
+        _zoomController.forward();
+      }
+    } catch (e) {
+      debugPrint('Error initializing splash video: $e');
+      _navigateToNextScreen();
+    }
+  }
+
+  void _videoListener() {
+    if (!mounted || _isNavigating) return;
+
+    final position = _controller.value.position;
+    final duration = _controller.value.duration;
+
+    if (position >= duration - const Duration(milliseconds: 300)) {
+      _controller.removeListener(_videoListener);
+      _fadeOutAndNavigate();
+    }
+  }
+
+  Future<void> _fadeOutAndNavigate() async {
+    if (_isNavigating) return;
+    _isNavigating = true;
+
+    await _fadeController.forward();
     _navigateToNextScreen();
   }
 
@@ -49,12 +105,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final auth = AuthService();
     final db = DatabaseService();
 
-    // Minimum splash display time (1.2 seconds)
-    await Future.delayed(const Duration(milliseconds: 1200));
-
     if (!mounted) return;
 
-    // Check if user has selected language (First Launch)
     final hasSelectedLanguage =
         await ref.read(localeProvider.notifier).hasUserSelectedLanguage();
 
@@ -65,18 +117,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     final user = auth.currentUser;
 
-    // Not authenticated -> Login
     if (user == null) {
       if (mounted) context.go(AppRoutes.login);
       return;
     }
 
-    // Authenticated -> Check KYC status
     try {
       final userDoc = await db.getUserStream(user.uid).first;
 
       if (!userDoc.exists) {
-        // No profile, go to login
         if (mounted) context.go(AppRoutes.login);
         return;
       }
@@ -92,19 +141,28 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         }
       }
     } catch (e) {
-      // Error or demo mode -> go to login
       if (mounted) context.go(AppRoutes.login);
     }
   }
 
   @override
   void dispose() {
+    _controller.removeListener(_videoListener);
     _controller.dispose();
+    _fadeController.dispose();
+    _zoomController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Color(0xFF091a35),
+      systemNavigationBarIconBrightness: Brightness.light,
+    ));
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -112,105 +170,33 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         SystemNavigator.pop();
       },
       child: Scaffold(
+        backgroundColor: const Color(0xFF041633),
         body: Container(
-          width: double.infinity,
-          height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
-                Color(0xFF0F172A), // Slate-900
-                Color(0xFF1E293B), // Slate-800
+                Color(0xFF041633),
+                Color(0xFF091a35),
               ],
             ),
           ),
-          child: Stack(
-            children: [
-              // Abstract Shapes
-              Positioned(
-                top: -100,
-                right: -100,
-                child: _buildAbstractShape(
-                    300, const Color(0xFF10B981).withValues(alpha: 0.05)),
-              ),
-              Positioned(
-                bottom: -150,
-                left: -50,
-                child: _buildAbstractShape(
-                    400, const Color(0xFF0D9488).withValues(alpha: 0.03)),
-              ),
-
-              Center(
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: ScaleTransition(
-                    scale: _scaleAnimation,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Logo with Glow
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF10B981)
-                                    .withValues(alpha: 0.2),
-                                blurRadius: 40,
-                                spreadRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            'assets/images/invispay_logo.png',
-                            height: 100,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-
-                        // App Name
-                        Text(
-                          'InvisPay',
-                          style: GoogleFonts.outfit(
-                            fontSize: 42,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: -1,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-
-                        // Tagline
-                        Text(
-                          'The Future of Invisible Payments',
-                          style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.4),
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Center(
+              child: _initialized && _isVideoReady
+                  ? ScaleTransition(
+                      scale: _zoomAnimation,
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildAbstractShape(double size, Color color) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
       ),
     );
   }

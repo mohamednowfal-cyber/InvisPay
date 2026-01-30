@@ -1,10 +1,10 @@
 ﻿import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:invispay/core/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:invispay/core/theme/app_theme.dart';
 import 'package:invispay/services/auth_service.dart';
 import 'package:invispay/services/database_service.dart';
 import 'package:invispay/widgets/common/base_screen.dart';
+import 'package:invispay/widgets/common/animated_localize.dart';
 import 'package:intl/intl.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -45,9 +45,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             ),
             child: Row(
               children: [
-                _buildTab(l10n.all, 'All'),
-                _buildTab(l10n.sent, 'Sent'),
-                _buildTab(l10n.received, 'Received'),
+                _buildTab((loc) => loc.all, 'All'),
+                _buildTab((loc) => loc.sent, 'Sent'),
+                _buildTab((loc) => loc.received, 'Received'),
               ],
             ),
           ),
@@ -80,7 +80,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     );
   }
 
-  Widget _buildTab(String label, String value) {
+  Widget _buildTab(
+      String Function(AppLocalizations) labelBuilder, String value) {
     final isSelected = _filter == value;
     return Expanded(
       child: GestureDetector(
@@ -88,13 +89,15 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
           decoration: BoxDecoration(
             color: isSelected ? AppTheme.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Text(
-            label,
+          child: AnimatedLocalize(
+            text: labelBuilder,
+            useFittedBox: true,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: isSelected ? Colors.white : Colors.grey,
               fontWeight: FontWeight.bold,
@@ -202,6 +205,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         title: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
@@ -257,8 +262,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           Icon(Icons.history_rounded,
               size: 64, color: Colors.white.withValues(alpha: 0.1)),
           const SizedBox(height: 16),
-          Text(
-            'No transactions found',
+          AnimatedLocalize(
+            text: (loc) => loc.noTransactions,
             style: TextStyle(color: Colors.white.withValues(alpha: 0.3)),
           ),
         ],

@@ -16,6 +16,7 @@ class InvisPayApp extends ConsumerWidget {
 
     // Dark Mode is now the only theme - hardcoded for consistency
     return MaterialApp.router(
+      key: ValueKey(locale.languageCode),
       title: 'InvisPay',
       theme: AppTheme.darkTheme, // Use dark theme as default
       darkTheme: AppTheme.darkTheme,
@@ -23,26 +24,6 @@ class InvisPayApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: AppRoutes.router,
       locale: locale,
-      builder: (context, child) {
-        return Directionality(
-          textDirection: (locale.languageCode == 'ur')
-              ? TextDirection.rtl
-              : TextDirection.ltr,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 220),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-            child: KeyedSubtree(
-              key: ValueKey(locale.languageCode),
-              child: child!,
-            ),
-          ),
-        );
-      },
       supportedLocales:
           supportedLanguages.map((lang) => Locale(lang.code)).toList(),
       localizationsDelegates: const [

@@ -327,10 +327,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        AnimatedLocalize(
-          text: label,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        SizedBox(
+          width: 80,
+          child: AnimatedLocalize(
+            text: label,
+            textAlign: TextAlign.center,
+            useFittedBox: true,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          ),
         ),
       ],
     );
@@ -351,8 +355,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             size: 20,
           ),
         ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Text('Today, 10:24 AM', style: const TextStyle(fontSize: 12)),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(
+          DateFormat('MMM d, h:mm a').format(date),
+          style: const TextStyle(fontSize: 12),
+        ),
         trailing: Text(
           amount,
           style: TextStyle(
@@ -386,6 +398,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       AnimatedLocalize(
                         text: (loc) => loc.welcome,
+                        useFittedBox: true,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 4),
@@ -443,35 +456,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     // Status configuration
     final Color statusColor;
     final IconData statusIcon;
-    final String statusText;
+    final String Function(AppLocalizations) statusTextBuilder;
     final bool isTappable;
 
     switch (normalizedStatus) {
       case 'verified':
-        statusColor = const Color(0xFF10B981); // Emerald green
+        statusColor = const Color(0xFF10B981);
         statusIcon = Icons.check_circle_rounded;
-        statusText = 'KYC Verified';
+        statusTextBuilder = (loc) => loc.kycStatusVerified;
         isTappable = false;
         break;
       case 'pending':
-        statusColor = const Color(0xFFF59E0B); // Amber
+        statusColor = const Color(0xFFF59E0B);
         statusIcon = Icons.access_time_rounded;
-        statusText = 'KYC Verification Pending';
+        statusTextBuilder = (loc) => loc.kycStatusPending;
         isTappable = true;
         break;
       case 'failed':
       case 'not_verified':
-        statusColor = const Color(0xFFEF4444); // Red
+        statusColor = const Color(0xFFEF4444);
         statusIcon = Icons.error_rounded;
-        statusText = 'KYC Not Verified';
+        statusTextBuilder = (loc) => loc.kycStatusFailed;
         isTappable = true;
         break;
       case 'demo':
       case 'not_started':
       default:
-        statusColor = const Color(0xFF64748B); // Slate gray
+        statusColor = const Color(0xFF64748B);
         statusIcon = Icons.shield_outlined;
-        statusText = 'KYC Not Started';
+        statusTextBuilder = (loc) => loc.kycVerification;
         isTappable = true;
         break;
     }
@@ -495,8 +508,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             size: 16,
           ),
           const SizedBox(width: 6),
-          Text(
-            statusText,
+          AnimatedLocalize(
+            text: statusTextBuilder,
+            useFittedBox: true,
             style: TextStyle(
               color: statusColor,
               fontSize: 11,
@@ -536,11 +550,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   AnimatedLocalize(
                     text: (loc) => loc.welcome,
+                    useFittedBox: true,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 4),
                   AnimatedLocalize(
                     text: (loc) => loc.translate('demo_user'),
+                    useFittedBox: true,
                     style: Theme.of(context).textTheme.headlineMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

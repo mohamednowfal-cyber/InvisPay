@@ -56,8 +56,11 @@ class LanguageSelectorScreen extends ConsumerWidget {
   Widget _buildLanguageCard(BuildContext context, WidgetRef ref,
       AppLanguage language, bool isSelected) {
     return GestureDetector(
-      onTap: () {
-        ref.read(localeProvider.notifier).setLocale(language.code);
+      onTap: () async {
+        await ref.read(localeProvider.notifier).setLocale(language.code);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

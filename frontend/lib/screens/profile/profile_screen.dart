@@ -99,8 +99,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   _buildMenuItem(
                     context: context,
                     icon: Icons.shield_outlined,
-                    title: (loc) => 'KYC Status',
-                    subtitle: (loc) => _getKycStatusSubtitle(currentKycStatus),
+                    title: (loc) => loc.kycVerification,
+                    subtitle: _getKycStatusSubtitle(currentKycStatus),
                     onTap: () => context
                         .push(AppRoutes.kyc, extra: {'fromProfile': true}),
                   ),
@@ -156,17 +156,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  String _getKycStatusSubtitle(String status) {
+  String Function(AppLocalizations) _getKycStatusSubtitle(String status) {
     switch (status.toLowerCase()) {
       case 'verified':
-        return 'KYC Verified';
+        return (loc) => loc.kycStatusVerified;
       case 'pending':
-        return 'KYC Pending';
+        return (loc) => loc.kycStatusPending;
       case 'failed':
-        return 'KYC Verification Failed';
+        return (loc) => loc.kycStatusFailed;
       case 'not_started':
       default:
-        return 'KYC Not Started';
+        return (loc) => loc.kycVerification;
     }
   }
 

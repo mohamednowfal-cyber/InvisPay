@@ -11,6 +11,8 @@ class AnimatedLocalize extends StatelessWidget {
   final int? maxLines;
   final TextOverflow? overflow;
   final bool animate;
+  final bool useFittedBox;
+  final bool? softWrap;
 
   const AnimatedLocalize({
     super.key,
@@ -20,6 +22,8 @@ class AnimatedLocalize extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.animate = true,
+    this.useFittedBox = false,
+    this.softWrap,
   });
 
   @override
@@ -29,14 +33,26 @@ class AnimatedLocalize extends StatelessWidget {
     // Check for system "Reduce Motion" setting
     final bool reduceMotion = MediaQuery.of(context).disableAnimations;
 
+    final textWidget = Text(
+      localizedString,
+      key: ValueKey<String>(localizedString),
+      style: style,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      softWrap: softWrap ?? (useFittedBox ? false : null),
+    );
+
+    final finalWidget = useFittedBox
+        ? FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: _getAlignment(textAlign),
+            child: textWidget,
+          )
+        : textWidget;
+
     if (!animate || reduceMotion) {
-      return Text(
-        localizedString,
-        style: style,
-        textAlign: textAlign,
-        maxLines: maxLines,
-        overflow: overflow,
-      );
+      return finalWidget;
     }
 
     return AnimatedSize(
@@ -74,14 +90,7 @@ class AnimatedLocalize extends StatelessWidget {
             ],
           );
         },
-        child: Text(
-          localizedString,
-          key: ValueKey<String>(localizedString),
-          style: style,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          overflow: overflow,
-        ),
+        child: finalWidget,
       ),
     );
   }
